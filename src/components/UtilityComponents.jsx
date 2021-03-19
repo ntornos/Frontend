@@ -5,3 +5,7 @@ export const Container = styled.div`
   align-items: ${({ align }) => align};
   justify-content: ${({ justify }) => justify};
 `;
+
+// export const Divider = styled.div`
+
+// `
