@@ -6,34 +6,28 @@ import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
 
-const SignInForm = ({ children }) => {
+const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = async () => {
+  const signUp = async () => {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/account/login`,
+      `${process.env.REACT_APP_SERVER_URL}/account/register`,
       {
         email,
         password,
       },
       { withCredentials: true }
     );
-
+    console.log(data);
     if (data.status) {
-      // setEmail('');
-      // setPassword('');
-      window.location.href = '/account';
+      window.location.href = '/login';
     }
   };
 
   return (
     <>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          // return signIn();
-        }}>
+      <form onSubmit={e => e.preventDefault()}>
         <FormInput
           label='Email Address'
           handleChange={e => setEmail(e.target.value)}
@@ -52,16 +46,16 @@ const SignInForm = ({ children }) => {
         />
 
         <Container justify='space-between' align='center'>
-          <FormButton onClick={signIn} width='30%'>
+          <FormButton onClick={signUp} width='30%'>
             Continue
           </FormButton>
-          <span>
-            No account? <Link to='/register'>Create one</Link>{' '}
-          </span>
+          <p>
+            Have an account? <Link to='/login'>Log in</Link>{' '}
+          </p>
         </Container>
       </form>
     </>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
