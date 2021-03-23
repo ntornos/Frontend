@@ -20,9 +20,9 @@ const SignUpForm = () => {
       { withCredentials: true }
     );
     console.log(data);
-    if (data.status) {
-      window.location.href = '/login';
-    }
+    // if (data.status) {
+    //   window.location.href = '/login';
+    // }
   };
 
   return (

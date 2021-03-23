@@ -5,11 +5,12 @@ import SignInForm from '../../sign-in/SignInForm';
 import SignUpForm from '../../sign-up/SignUpForm';
 import { Container } from '../../UtilityComponents';
 import { LeftSideContainer, RightSideContainer, EmptySpace } from './SignInSignUpPage.styles';
+import Divider from '../../divider/Divider';
 import googleLogo from '../../../assets/googleLogo.png';
 
 const SignInSignUpPage = ({ location }) => {
   const googleLogin = () => {
-    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`);
+    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
   };
 
   return (
@@ -21,7 +22,7 @@ const SignInSignUpPage = ({ location }) => {
             <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
               Sign in with Google
             </FormButton>
-
+            <Divider children='or' />
             <SignInForm />
           </LeftSideContainer>
           <EmptySpace background='#555' width='65%' />
@@ -35,6 +36,7 @@ const SignInSignUpPage = ({ location }) => {
             <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
               Sign up with Google
             </FormButton>
+            <Divider children='or' />
             <SignUpForm />
           </RightSideContainer>
         </>
