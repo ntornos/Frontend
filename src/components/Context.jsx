@@ -6,6 +6,8 @@ export const myContext = createContext({});
 const Context = ({ children }) => {
   const [user, setUser] = useState();
 
+  const x;
+
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await axios.get(
