@@ -30,6 +30,6 @@ export const CardArrow = styled.div`
     border-right-width: 0px;
     transform: rotate(45deg);
     bottom: -5px;
-    left: 175px;
+    left: 126px;
   }
 `;
