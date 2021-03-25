@@ -13,7 +13,6 @@ const Context = ({ children }) => {
       });
 
       if (data.status) setUser(data.data);
-      return;
     };
     fetchUser();
   }, []);

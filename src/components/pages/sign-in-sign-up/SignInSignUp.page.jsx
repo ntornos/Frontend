@@ -4,7 +4,7 @@ import FormButton from '../../form-button/FormButton';
 import SignInForm from '../../sign-in/SignInForm';
 import SignUpForm from '../../sign-up/SignUpForm';
 import { Container } from '../../UtilityComponents';
-import { LeftSideContainer, RightSideContainer, EmptySpace } from './SignInSignUpPage.styles';
+import { LeftSideContainer, RightSideContainer, EmptySpace } from './SignInSignUp.styles';
 import Divider from '../../divider/Divider';
 import googleLogo from '../../../assets/googleLogo.png';
 

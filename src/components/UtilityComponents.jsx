@@ -6,6 +6,6 @@ export const Container = styled.div`
   justify-content: ${({ justify }) => justify};
 `;
 
-// export const Divider = styled.div`
-
-// `
+export const Text = styled.span`
+  font-size: 12px;
+`;
