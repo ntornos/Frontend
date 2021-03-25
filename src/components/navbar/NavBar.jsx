@@ -43,7 +43,7 @@ const NavBar = ({ themeToggler, theme }) => {
             {/* generating user from email. Using image better. */}
             {/* {currUser.email.split('@')[0]} */}
 
-            <UserIcon toggleDropdown={setToggleDropdown} dropdownHidden={toggleDropdown} />
+            <UserIcon toggleDropdown={setToggleDropdown} dropdownHidden={toggleDropdown}></UserIcon>
 
             {toggleDropdown && <Dropdown />}
           </>

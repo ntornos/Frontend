@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const Header = styled(Container)`
   flex-direction: row;
   height: 70px;
-  width: 100%;
+  width: 100vw;
 `;
 
 export const Option = styled(Link)`
@@ -18,7 +18,7 @@ export const Option = styled(Link)`
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
-  padding: 10px 25px;
+  padding: 0px 25px;
   text-decoration: none;
 `;
 

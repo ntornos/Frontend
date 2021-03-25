@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Card from '../card/Card';
 
 import { DropdownContainer, MenuItem, DropdownDivider } from './Dropdown.styles';
+import useResize from '../../hooks/dimensions.hook';
 
 const Dropdown = () => {
+  // const componentRef = useRef(null);
+  // const { width, height } = useResize();
+
   return (
     <Card>
       <DropdownContainer>
