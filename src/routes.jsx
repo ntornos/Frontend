@@ -6,7 +6,8 @@ import SignInSignUpPage from './components/pages/sign-in-sign-up/SignInSignUp.pa
 import UserHome from './components/pages/user-home/UserHome.page';
 import Home from './components/pages/home/Home.page';
 import Dashboard from './components/pages/dashboard/Dashboard.page';
-import MyAccount from './components/pages/my-account/MyAccount.page';
+import Account from './components/pages/account/Account.page';
+import CreateListing from './components/create-listing/CreateListing';
 
 const Routes = () => {
   const currUser = useContext(myContext);
@@ -19,9 +20,11 @@ const Routes = () => {
       {/* login routes below, we have a current user! */}
       {currUser && (
         <>
-          <Route exact path='/user-home' component={UserHome} />
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/my-account' component={MyAccount} />
+          <Route exact path='myntornos/user-home' component={UserHome} />
+          <Route path='/myntornos/dashboard' component={Dashboard} />
+          <Route path='/myntornos/account' component={Account} />
+          <Route path='/myntornos/create-listing' component={CreateListing} />
+          {/* <Route path='/myntornos/my-listings' component={CreateNewListing} /> */}
         </>
       )}
     </Switch>

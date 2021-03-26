@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, CardArrow } from './Card.styles';
+import { Container } from './Card.styles';
 import useResize from '../../hooks/dimensions.hook';
 
 const Card = ({ children }) => {

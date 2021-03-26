@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Container } from '../UtilityComponents';
 import { Link } from 'react-router-dom';
+import UserIcon from '../user-icon/UserIcon';
 
 export const Header = styled(Container)`
   flex-direction: row;
@@ -9,7 +10,7 @@ export const Header = styled(Container)`
 `;
 
 export const Option = styled(Link)`
-  padding: 10px 10px;
+  padding: 15px;
   cursor: pointer;
   color: ${({ theme }) => theme.fontColor};
   text-decoration: none;
@@ -24,7 +25,7 @@ export const LogoContainer = styled(Link)`
 
 export const OptionsContainer = styled.div`
   height: 100%;
-  width: 50%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: flex-end;

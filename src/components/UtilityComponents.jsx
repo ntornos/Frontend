@@ -7,5 +7,10 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.span`
-  font-size: 12px;
+  font-size: ${({ fontSize }) => fontSize};
+  color: ${({ fontColor }) => fontColor};
+
+  &:hover {
+    color: ${({ fontHoverColor }) => fontHoverColor};
+  }
 `;

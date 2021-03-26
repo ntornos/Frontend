@@ -1,33 +1,47 @@
 import styled from 'styled-components';
+import { Option } from '../navbar/NavBar.styles';
 
 export const DropdownContainer = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
+  display: flex;
+  flex-direction: column;
 `;
 
-export const MenuItem = styled.ul`
-  font-weight: bold;
+export const MenuItem = styled(Option)`
+  color: #757575;
   font-size: 15px;
-  padding: 2px 10%;
+  margin: 0;
+  padding: 5% 10%;
   cursor: pointer;
+  z-index: 20;
+
+  &:hover {
+    color: black;
+  }
+
+  &:nth-child(6) {
+    margin-bottom: 10px;
+  }
+`;
+
+export const DropdownUserIconContainer = styled.div`
+  display: flex;
+  padding: 16px 15px 6px 8px;
+  align-items: center;
+  justify-items: center;
 `;
 
 export const DropdownDivider = styled.div`
-  margin-bottom: 30px;
+  margin: 10px 0;
   position: relative;
-  text-align: center;
   width: 100%;
   z-index: 1;
 
   &::before {
-    display: inline-block;
+    background: white;
     border-top: 1px solid rgb(184, 196, 194);
     content: '';
-    margin: 0px auto;
     position: absolute;
-    height: 0px;
     inset: 50% 0px 0px;
-    z-index: -1;
     transform: translateY(-50%);
   }
 `;

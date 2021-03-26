@@ -11,7 +11,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
 
   const signUp = async () => {
-    const { data } = await axios.post(
+    await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/account/register`,
       {
         email,
@@ -19,10 +19,7 @@ const SignUpForm = () => {
       },
       { withCredentials: true }
     );
-    console.log(data);
-    // if (data.status) {
-    //   window.location.href = '/login';
-    // }
+    window.location.href = '/';
   };
 
   return (

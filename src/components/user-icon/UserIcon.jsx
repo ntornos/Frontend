@@ -2,16 +2,15 @@ import React, { useContext } from 'react';
 
 import { myContext } from '../Context';
 import { Image, UserIconContainer } from './UserIcon.styles';
-import { CardArrow } from './UserIcon.styles';
+import { UserIconArrow } from './UserIcon.styles';
 
-const UserIcon = ({ toggleDropdown, dropdownHidden }) => {
+const UserIcon = ({ dropdownHidden }) => {
   const currUser = useContext(myContext);
 
   return (
-    <UserIconContainer onClick={() => toggleDropdown(!dropdownHidden)}>
+    <UserIconContainer>
       <Image alt='default user' src={currUser.profilePicture} />
-
-      {dropdownHidden && <CardArrow />}
+      {dropdownHidden && <UserIconArrow />}
     </UserIconContainer>
   );
 };

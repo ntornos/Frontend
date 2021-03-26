@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 
 import { myContext } from '../Context';
@@ -9,15 +8,7 @@ import Dropdown from '../dropdown-menu/Dropdown';
 
 const NavBar = ({ themeToggler, theme }) => {
   const currUser = useContext(myContext);
-  const [toggleDropdown, setToggleDropdown] = useState(false);
-
-  const logout = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/account/logout`, {
-      withCredentials: true,
-    });
-    console.log(`data`, data);
-    if (data.status) window.location.href = '/';
-  };
+  const [dropdownHidden, setDropdownHidden] = useState(false);
 
   return (
     <Header justify='space-between'>
@@ -30,22 +21,17 @@ const NavBar = ({ themeToggler, theme }) => {
         {currUser ? (
           <>
             {/* logged in routes */}
-            <Option as='div' onClick={logout}>
-              Log out
-            </Option>
             {currUser.role === 'ADMIN' && (
               <>
                 {/* admin menu */}
                 <Option to='/dashboard'>Dashboard</Option>
               </>
             )}
+            <div onMouseEnter={() => setDropdownHidden(true)}>
+              <UserIcon dropdownHidden={dropdownHidden} />
+            </div>
 
-            {/* generating user from email. Using image better. */}
-            {/* {currUser.email.split('@')[0]} */}
-
-            <UserIcon toggleDropdown={setToggleDropdown} dropdownHidden={toggleDropdown}></UserIcon>
-
-            {toggleDropdown && <Dropdown />}
+            {dropdownHidden && <Dropdown closeDropdown={setDropdownHidden} />}
           </>
         ) : (
           <>
