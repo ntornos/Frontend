@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const UserIconContainer = styled.div`
-  width: 45px;
-  height: 45px;
-  position: relative;
+  padding: 0px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,21 +9,22 @@ export const UserIconContainer = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
+  border: 2px solid rgba(230, 230, 230, 1);
+  border-radius: 20px;
 `;
 
-export const CardArrow = styled.div`
+export const UserIconArrow = styled.div`
   position: absolute;
-  box-shadow: rgb(117 117 117) -1px -1px 1px -1px;
-  transform: translate3d(-6px, 18px, 0px);
-  z-index: 5;
+  transform: translate3d(-8px, 26px, 0px);
+  clip: rect(-3px, 19px, 9px, -5px);
+  z-index: 6;
 
   ::after {
-    background: rgb(255, 255, 255);
-    height: 12px;
-    width: 12px;
-    /* z-index: 4; */
+    height: 14px;
+    width: 14px;
+    background: white;
     position: absolute;
     content: '';
     display: block;

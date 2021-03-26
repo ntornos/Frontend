@@ -21,7 +21,7 @@ const SignInForm = () => {
     );
 
     if (data.status) {
-      window.location.href = '/account';
+      window.location.href = '/myntornos/user-home';
     }
   };
 

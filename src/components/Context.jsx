@@ -8,16 +8,13 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/account/me`,
-        {
-          withCredentials: true,
-        }
-      );
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/account/me`, {
+        withCredentials: true,
+      });
       if (data.status) setUser(data.data);
     };
     fetchUser();
-  }, [user]);
+  }, []);
 
   return <myContext.Provider value={user}>{children}</myContext.Provider>;
 };

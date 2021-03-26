@@ -1,21 +1,51 @@
-import React, { useRef } from 'react';
+import React, { useContext } from 'react';
 import Card from '../card/Card';
+import axios from 'axios';
 
-import { DropdownContainer, MenuItem, DropdownDivider } from './Dropdown.styles';
-import useResize from '../../hooks/dimensions.hook';
+import { myContext } from '../Context';
+import {
+  DropdownContainer,
+  MenuItem,
+  DropdownDivider,
+  DropdownUserIconContainer,
+} from './Dropdown.styles';
+import UserIcon from '../user-icon/UserIcon';
+import { Text } from '../UtilityComponents';
 
-const Dropdown = () => {
-  // const componentRef = useRef(null);
-  // const { width, height } = useResize();
+const Dropdown = ({ closeDropdown }) => {
+  const currUser = useContext(myContext);
+
+  const logout = () => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/account/logout`, {
+      withCredentials: true,
+    });
+    window.location.href = '/';
+  };
 
   return (
     <Card>
-      <DropdownContainer>
-        <MenuItem>Upload</MenuItem>
-        <MenuItem>Saved Homes</MenuItem>
-        <MenuItem>Account Settings</MenuItem>
+      <DropdownContainer onMouseLeave={() => closeDropdown(false)}>
+        <DropdownUserIconContainer>
+          <UserIcon />
+          <DropdownContainer>
+            <Text fontColor='#292929'>{currUser.username}</Text>
+            <Text fontSize='14px' fontColor='#757575'>
+              @{currUser.email.split('@')[0]}
+            </Text>
+          </DropdownContainer>
+        </DropdownUserIconContainer>
         <DropdownDivider />
-        <MenuItem>Sign out</MenuItem>
+        <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/create-listing'>
+          Upload
+        </MenuItem>
+        {/* <MenuItem>Saved Homes</MenuItem> */}
+        <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/account'>
+          Account Settings
+        </MenuItem>
+        <DropdownDivider />
+        <MenuItem to='/' onClick={logout}>
+          Sign out
+        </MenuItem>
       </DropdownContainer>
     </Card>
   );
