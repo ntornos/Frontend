@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Container } from '../UtilityComponents';
 import { Link } from 'react-router-dom';
-import UserIcon from '../user-icon/UserIcon';
 
 export const Header = styled(Container)`
   flex-direction: row;

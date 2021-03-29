@@ -38,6 +38,7 @@ const Dropdown = ({ closeDropdown }) => {
         <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/create-listing'>
           Upload
         </MenuItem>
+        {/* to be added later: */}
         {/* <MenuItem>Saved Homes</MenuItem> */}
         <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/account'>
           Account Settings

@@ -3,10 +3,15 @@ import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import Context from './components/Context';
+import { Provider } from 'react-redux';
+
+import store from './redux/store';
 
 render(
-  <Context>
-    <App />
-  </Context>,
+  <Provider store={store}>
+    <Context>
+      <App />
+    </Context>
+  </Provider>,
   document.getElementById('root')
 );
