@@ -18,15 +18,16 @@ const NavBar = ({ themeToggler, theme }) => {
       <OptionsContainer>
         <Option to='/'>Home</Option>
 
+        {/* logged in routes */}
         {currUser ? (
           <>
-            {/* logged in routes */}
+            {/* admin routes */}
             {currUser.role === 'ADMIN' && (
               <>
-                {/* admin menu */}
                 <Option to='/dashboard'>Dashboard</Option>
               </>
             )}
+            {/* user routes */}
             <div onMouseEnter={() => setDropdownHidden(true)}>
               <UserIcon dropdownHidden={dropdownHidden} />
             </div>
