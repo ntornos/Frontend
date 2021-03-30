@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
+import { signInSignUp } from '../../authFuncs';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const signIn = async () => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/account/login`,
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    );
-
-    if (data.status) {
-      window.location.href = '/myntornos/user-home';
-    }
-  };
 
   return (
     <>
@@ -46,7 +31,7 @@ const SignInForm = () => {
         />
 
         <Container justify='space-between' align='center'>
-          <FormButton onClick={signIn} width='30%'>
+          <FormButton onClick={() => signInSignUp(email, password, 'login')} width='30%'>
             Continue
           </FormButton>
           <p>

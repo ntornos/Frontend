@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Card from '../card/Card';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 import { myContext } from '../Context';
 import {
@@ -11,20 +11,20 @@ import {
 } from './Dropdown.styles';
 import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
+import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
+import { UserIconArrow } from './Dropdown.styles';
+import { logout } from '../../authFuncs';
 
-const Dropdown = ({ closeDropdown }) => {
+const Dropdown = () => {
   const currUser = useContext(myContext);
+  const dispatch = useDispatch();
 
-  const logout = () => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/account/logout`, {
-      withCredentials: true,
-    });
-    window.location.href = '/';
-  };
+  const toggleMenuHandler = () => dispatch(toggleMenu());
 
   return (
     <Card>
-      <DropdownContainer onMouseLeave={() => closeDropdown(false)}>
+      <DropdownContainer onMouseLeave={toggleMenuHandler}>
+        <UserIconArrow />
         <DropdownUserIconContainer>
           <UserIcon />
           <DropdownContainer>
@@ -35,14 +35,10 @@ const Dropdown = ({ closeDropdown }) => {
           </DropdownContainer>
         </DropdownUserIconContainer>
         <DropdownDivider />
-        <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/create-listing'>
-          Upload
-        </MenuItem>
+        <MenuItem to='/myntornos/create-listing'>Upload</MenuItem>
         {/* to be added later: */}
         {/* <MenuItem>Saved Homes</MenuItem> */}
-        <MenuItem onClick={() => closeDropdown(false)} to='/myntornos/account'>
-          Account Settings
-        </MenuItem>
+        <MenuItem to='/myntornos/account'>Account Settings</MenuItem>
         <DropdownDivider />
         <MenuItem to='/' onClick={logout}>
           Sign out
