@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
+import { signInSignUp } from '../../authFuncs';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const signUp = async () => {
-    await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/account/register`,
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    );
-    window.location.href = '/';
-  };
 
   return (
     <>
@@ -43,7 +31,7 @@ const SignUpForm = () => {
         />
 
         <Container justify='space-between' align='center'>
-          <FormButton onClick={signUp} width='30%'>
+          <FormButton onClick={() => signInSignUp(email, password, 'register')} width='30%'>
             Continue
           </FormButton>
           <p>

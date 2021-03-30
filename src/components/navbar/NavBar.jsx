@@ -29,7 +29,7 @@ const NavBar = ({ themeToggler, theme }) => {
               </>
             )}
             {/* user routes */}
-            <UserIcon hasEvent={true} dropdownHidden={dropdownHidden} />
+            <UserIcon hasEvent={true} />
 
             {!dropdownHidden && <Dropdown />}
           </>
