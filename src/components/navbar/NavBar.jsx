@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { myContext } from '../Context';
 import { Header, Option, LogoContainer, OptionsContainer } from './NavBar.styles';
 import { MdBrightness4 as Dark, MdBrightness7 as Light } from 'react-icons/md';
-import UserIcon from '../user-icon/UserIcon';
 import Dropdown from '../dropdown-menu/Dropdown';
 import GuestMenu from '../guest-menu/GuestMenu';
 import CustomerMenu from '../customer-menu/CustomerMenu';
@@ -16,10 +15,8 @@ const NavBar = ({ themeToggler, theme }) => {
 
   let Menu = <GuestMenu />;
 
-  if (currUser) {
-    if (currUser.role === 'ADMIN') Menu = <AdminMenu />;
-    if (currUser.role === 'CUSTOMER') Menu = <CustomerMenu />;
-  }
+  if (currUser && currUser.role === 'ADMIN') Menu = <AdminMenu />;
+  if (currUser && currUser.role === 'CUSTOMER') Menu = <CustomerMenu />;
 
   return (
     <Header justify='space-between'>
