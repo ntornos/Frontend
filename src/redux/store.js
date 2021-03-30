@@ -5,10 +5,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // allows fetching in redux.
-import reduxThunk from 'react-redux';
+import reduxThunk from 'redux-thunk';
 
 // global reducer, manages all the reducers.
-import { rootReducer } from './reducers/rootReducer';
+import { rootReducer } from './rootReducer';
 
 // All middleware goes here.
 const middleWares = [reduxThunk];

@@ -9,7 +9,7 @@ export const Header = styled(Container)`
 `;
 
 export const Option = styled(Link)`
-  padding: 15px;
+  margin: 15px;
   cursor: pointer;
   color: ${({ theme }) => theme.fontColor};
   text-decoration: none;

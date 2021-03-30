@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import { myContext } from '../Context';
 import { Header, Option, LogoContainer, OptionsContainer } from './NavBar.styles';
@@ -8,7 +9,7 @@ import Dropdown from '../dropdown-menu/Dropdown';
 
 const NavBar = ({ themeToggler, theme }) => {
   const currUser = useContext(myContext);
-  const [dropdownHidden, setDropdownHidden] = useState(false);
+  const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
 
   return (
     <Header justify='space-between'>
@@ -28,11 +29,9 @@ const NavBar = ({ themeToggler, theme }) => {
               </>
             )}
             {/* user routes */}
-            <div onMouseEnter={() => setDropdownHidden(true)}>
-              <UserIcon dropdownHidden={dropdownHidden} />
-            </div>
+            <UserIcon hasEvent={true} dropdownHidden={dropdownHidden} />
 
-            {dropdownHidden && <Dropdown closeDropdown={setDropdownHidden} />}
+            {!dropdownHidden && <Dropdown />}
           </>
         ) : (
           <>
