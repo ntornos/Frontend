@@ -6,10 +6,20 @@ import { Header, Option, LogoContainer, OptionsContainer } from './NavBar.styles
 import { MdBrightness4 as Dark, MdBrightness7 as Light } from 'react-icons/md';
 import UserIcon from '../user-icon/UserIcon';
 import Dropdown from '../dropdown-menu/Dropdown';
+import GuestMenu from '../guest-menu/GuestMenu';
+import CustomerMenu from '../customer-menu/CustomerMenu';
+import AdminMenu from '../admin-menu/AdminMenu';
 
 const NavBar = ({ themeToggler, theme }) => {
   const currUser = useContext(myContext);
   const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
+
+  let Menu = <GuestMenu />;
+
+  if (currUser) {
+    if (currUser.role === 'ADMIN') Menu = <AdminMenu />;
+    if (currUser.role === 'CUSTOMER') Menu = <CustomerMenu />;
+  }
 
   return (
     <Header justify='space-between'>
@@ -19,26 +29,9 @@ const NavBar = ({ themeToggler, theme }) => {
       <OptionsContainer>
         <Option to='/'>Home</Option>
 
-        {/* logged in routes */}
-        {currUser ? (
-          <>
-            {/* admin routes */}
-            {currUser.role === 'ADMIN' && (
-              <>
-                <Option to='/dashboard'>Dashboard</Option>
-              </>
-            )}
-            {/* user routes */}
-            <UserIcon hasEvent={true} />
+        {Menu}
+        {!dropdownHidden && <Dropdown />}
 
-            {!dropdownHidden && <Dropdown />}
-          </>
-        ) : (
-          <>
-            <Option to='/login'>Sign in</Option>
-            <Option to='/register'>Sign up</Option>
-          </>
-        )}
         <Option as='div' onClick={() => themeToggler()}>
           {theme === 'light' ? <Light size={22} /> : <Dark size={22} />}
         </Option>
