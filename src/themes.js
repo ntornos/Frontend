@@ -16,4 +16,15 @@ export const GlobalStyles = createGlobalStyle`
     color: ${props => props.theme.fontColor};
     font-family: 'Open Sans', sans-serif
   }
+
+
+  body {
+    height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  #root {
+    height: 100%
+  }
 `;

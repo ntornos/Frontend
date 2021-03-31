@@ -19,7 +19,7 @@ const NavBar = ({ themeToggler, theme }) => {
   if (currUser && currUser.role === 'CUSTOMER') Menu = <CustomerMenu />;
 
   return (
-    <Header justify='space-between'>
+    <Header direction='row' height='70px' width='100vw' display='flex' justify='space-between'>
       <LogoContainer to='/'>
         <h2>Ntornos</h2>
       </LogoContainer>
