@@ -12,17 +12,19 @@ import {
 import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
 import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
-import { UserIconArrow } from './Dropdown.styles';
+import { UserIconArrow, DropdownCard } from './Dropdown.styles';
 import { logout } from '../../authFuncs';
+import useResize from '../../hooks/dimensions.hook';
 
 const Dropdown = () => {
   const currUser = useContext(myContext);
   const dispatch = useDispatch();
 
   const toggleMenuHandler = () => dispatch(toggleMenu());
+  const { width } = useResize();
 
   return (
-    <Card>
+    <DropdownCard width={width}>
       <DropdownContainer onMouseLeave={toggleMenuHandler}>
         <UserIconArrow />
         <DropdownUserIconContainer>
@@ -37,14 +39,14 @@ const Dropdown = () => {
         <DropdownDivider />
         <MenuItem to='/myntornos/create-listing'>Upload</MenuItem>
         {/* to be added later: */}
-        {/* <MenuItem>Saved Homes</MenuItem> */}
+        <MenuItem to='/myntornos/saved-homes'>Saved Homes</MenuItem>
         <MenuItem to='/myntornos/account'>Account Settings</MenuItem>
         <DropdownDivider />
         <MenuItem to='/' onClick={logout}>
           Sign out
         </MenuItem>
       </DropdownContainer>
-    </Card>
+    </DropdownCard>
   );
 };
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../../UtilityComponents';
+import { Container } from '../../components/UtilityComponents';
 
 export const LeftSideContainer = styled(Container)`
   width: 35%;

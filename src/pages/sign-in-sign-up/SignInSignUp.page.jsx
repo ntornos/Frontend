@@ -1,12 +1,12 @@
 import React from 'react';
-import FormButton from '../../form-button/FormButton';
 
-import SignInForm from '../../sign-in/SignInForm';
-import SignUpForm from '../../sign-up/SignUpForm';
-import { Container } from '../../UtilityComponents';
+import FormButton from '../../components/form-button/FormButton';
+import SignInForm from '../../components/sign-in/SignInForm';
+import SignUpForm from '../../components/sign-up/SignUpForm';
+import { Container } from '../../components/UtilityComponents';
 import { LeftSideContainer, RightSideContainer, EmptySpace } from './SignInSignUp.styles';
-import Divider from '../../divider/Divider';
-import googleLogo from '../../../assets/googleLogo.png';
+import Divider from '../../components/divider/Divider';
+import googleLogo from '../../assets/googleLogo.png';
 
 const SignInSignUpPage = ({ location }) => {
   const googleLogin = () => {

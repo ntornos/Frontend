@@ -1,12 +1,12 @@
-import React from 'react';
-import { useContext } from 'react';
-import { myContext } from './components/Context';
+import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SignInSignUpPage from './components/pages/sign-in-sign-up/SignInSignUp.page';
-import UserHome from './components/pages/user-home/UserHome.page';
-import Home from './components/pages/home/Home.page';
-import Dashboard from './components/pages/dashboard/Dashboard.page';
-import Account from './components/pages/account/Account.page';
+
+import { myContext } from './components/Context';
+import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUp.page';
+import UserHome from './pages/user-home/UserHome.page';
+import Home from './pages/home/Home.page';
+import Dashboard from './pages/dashboard/Dashboard.page';
+import Account from './pages/account/Account.page';
 import CreateListing from './components/create-listing/CreateListing';
 
 const Routes = () => {

@@ -1,16 +1,16 @@
 import React from 'react';
+import Card from '../card/Card';
+
+import FormInput from '../form-input/FormInput';
 
 const CreateListing = () => {
   return (
-    <div>
-      create listing form
-      <input type='text' />
-      <input type='text' />
-      <input type='text' />
-      <input type='text' />
-      <input type='text' />
-      <input type='text' />
-    </div>
+    <Card>
+      <FormInput />
+      <FormInput />
+      <FormInput />
+      <FormInput />
+    </Card>
   );
 };
 

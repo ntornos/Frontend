@@ -1,5 +1,15 @@
 import styled from 'styled-components';
+import Card from '../card/Card';
 import { Option } from '../navbar/NavBar.styles';
+
+export const DropdownCard = styled(Card)`
+  width: 240px;
+  min-width: 230px;
+  max-width: 240px;
+  inset: 7px auto auto 0px;
+  transform: translate3d(calc(${({ width }) => `${width}px`} - 250px), 61px, 0px);
+  position: absolute;
+`;
 
 export const DropdownContainer = styled.div`
   display: flex;
@@ -17,8 +27,7 @@ export const MenuItem = styled(Option)`
   &:hover {
     color: black;
   }
-
-  &:nth-child(7) {
+  &:last-child {
     margin-bottom: 10px;
   }
 `;
