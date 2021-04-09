@@ -3,28 +3,38 @@ import styled from 'styled-components';
 const subColor = 'grey';
 
 export const FormInputGroup = styled.fieldset`
-  margin: 20px 0;
-  z-index: 20;
+  padding: 0;
+  border: none;
 `;
 
-export const FormInputIconContainer = styled.input`
+export const FormInputIconsRadio = styled.input`
   position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+  overflow: visible;
 
-  /* clip: rect(0, 0, 0, 0); */
-  /* pointer-events: none; */
-  /* overflow: visible; */
-
-  /* &.checked {
+  &:checked ~ label {
     background: red;
-  } */
+  }
 `;
 
 export const FormInputIconLabel = styled.label`
-  color: ${props => props.theme.fontColor};
-  font-size: 14px;
-  font-weight: bold;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  /* color: ${props => props.theme.fontColor}; */
+  width: 180px;
+  height: 100px;
+  padding: 15px;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 0.0625rem solid #bfbfbf;
+  user-select: none;
 
-  width: 150px;
-  height: 150px;
+  &.checked {
+    color: #427b01;
+    border-color: #74b71b;
+    background-color: #f2f9e9;
+  }
 `;

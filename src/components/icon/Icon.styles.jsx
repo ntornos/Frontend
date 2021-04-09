@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
 export const IconContainer = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 30%;
+  /* height: 100%; */
 `;

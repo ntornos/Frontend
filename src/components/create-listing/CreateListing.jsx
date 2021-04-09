@@ -6,7 +6,6 @@ import FormInputIcons from '../form-input-icons/FormInputIcons';
 
 const CreateListing = () => {
   const [listingStatus, setListingStatus] = useState('RENT');
-  const [checked, setChecked] = useState(false);
   console.log(`listingStatus`, listingStatus);
   return (
     <CreateListingCard>
@@ -24,24 +23,22 @@ const CreateListing = () => {
         </Text>
       </Container>
 
-      <Container display='flex' direction='column'>
-        <form>
-          <FormInputIcons
-            value='RENT'
-            handleChange={e => setListingStatus(e.target.value)}
-            name='listingStatusSelection'
-            iconName='forRent'
-            checked={listingStatus === 'RENT' && true}
-          />
-          <FormInputIcons
-            value='SALE'
-            handleChange={e => setListingStatus(e.target.value)}
-            name='listingStatusSelection'
-            iconName='forSale'
-            checked={listingStatus === 'SALE' && true}
-          />
-        </form>
-      </Container>
+      <form>
+        <FormInputIcons
+          value='RENT'
+          handleChange={e => setListingStatus(e.target.value)}
+          iconName='forRent'
+          name='listingStatusConnector'
+          checked={listingStatus === 'RENT'}
+        />
+        <FormInputIcons
+          value='SALE'
+          handleChange={e => setListingStatus(e.target.value)}
+          iconName='forSale'
+          name='listingStatusConnector'
+          checked={listingStatus === 'SALE'}
+        />
+      </form>
     </CreateListingCard>
   );
 };

@@ -12,7 +12,7 @@ export const lightTheme = {
 
 export const GlobalStyles = createGlobalStyle`
   * {
-    background-color: ${props => props.theme.body};
+    /* background-color: ${props => props.theme.body}; */
     color: ${props => props.theme.fontColor};
     font-family: 'Open Sans', sans-serif
   }
