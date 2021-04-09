@@ -5,7 +5,8 @@ import { CreateListingCard } from './CreateListing.styles';
 import FormInputIcons from '../form-input-icons/FormInputIcons';
 
 const CreateListing = () => {
-  const [listingStatus, setListingStatus] = useState();
+  const [listingStatus, setListingStatus] = useState('RENT');
+  const [checked, setChecked] = useState(false);
   console.log(`listingStatus`, listingStatus);
   return (
     <CreateListingCard>
@@ -28,15 +29,16 @@ const CreateListing = () => {
           <FormInputIcons
             value='RENT'
             handleChange={e => setListingStatus(e.target.value)}
-            name='listingStatus'
+            name='listingStatusSelection'
             iconName='forRent'
-            // checked={true}
+            checked={listingStatus === 'RENT' && true}
           />
           <FormInputIcons
             value='SALE'
             handleChange={e => setListingStatus(e.target.value)}
-            name='listingStatus'
+            name='listingStatusSelection'
             iconName='forSale'
+            checked={listingStatus === 'SALE' && true}
           />
         </form>
       </Container>

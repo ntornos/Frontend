@@ -5,7 +5,7 @@ import { IconContainer } from './Icon.styles';
 const Icon = ({ iconName }) => {
   const theIcon = iconsLib[iconName];
 
-  return <IconContainer>{theIcon}</IconContainer>;
+  return theIcon;
 };
 
 export default Icon;

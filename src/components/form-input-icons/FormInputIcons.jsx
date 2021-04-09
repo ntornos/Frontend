@@ -12,8 +12,8 @@ const FormInputIcons = ({ handleChange, iconName, ...otherProps }) => {
     // create a form input component that's for icon selection.
     // maybe defaulting it to radio.
     <FormInputGroup>
+      <FormInputIconContainer type='radio' onChange={handleChange} form {...otherProps} />
       <FormInputIconLabel>
-        <FormInputIconContainer type='radio' onChange={handleChange} {...otherProps} />
         <Icon iconName={iconName} />
       </FormInputIconLabel>
     </FormInputGroup>

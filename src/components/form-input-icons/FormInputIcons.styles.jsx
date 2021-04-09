@@ -2,24 +2,21 @@ import styled from 'styled-components';
 
 const subColor = 'grey';
 
-export const FormInputGroup = styled.div`
+export const FormInputGroup = styled.fieldset`
   margin: 20px 0;
+  z-index: 20;
 `;
 
 export const FormInputIconContainer = styled.input`
   position: absolute;
 
-  clip: rect(0, 0, 0, 0);
-  pointer-events: none;
-  overflow: visible;
+  /* clip: rect(0, 0, 0, 0); */
+  /* pointer-events: none; */
+  /* overflow: visible; */
 
-  &:focus {
-    outline: none;
-  }
-
-  &.checked {
+  /* &.checked {
     background: red;
-  }
+  } */
 `;
 
 export const FormInputIconLabel = styled.label`
@@ -27,4 +24,7 @@ export const FormInputIconLabel = styled.label`
   font-size: 14px;
   font-weight: bold;
   pointer-events: none;
+
+  width: 150px;
+  height: 150px;
 `;
