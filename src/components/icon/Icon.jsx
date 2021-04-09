@@ -7,7 +7,7 @@ const Icon = ({ iconName }) => {
 
   return (
     <IconContainer>
-      <svg viewBox='-1 0 512 512' fill='red'>
+      <svg viewBox='-1 0 512 512' fill='currentColor'>
         {theIcon}
       </svg>
     </IconContainer>

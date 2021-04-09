@@ -16,6 +16,7 @@ export const LogoContainer = styled(Link)`
   width: 70px;
   padding: 0px 25px;
   text-decoration: none;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 export const OptionsContainer = styled.div`

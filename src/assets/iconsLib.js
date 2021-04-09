@@ -10,7 +10,7 @@ export const iconsLib = {
     </svg>
   ),
   forSale: (
-    <svg viewBox='0 0 512 512'>
+    <svg viewBox='0 0 512.002 512.002'>
       <g>
         <g>
           <path

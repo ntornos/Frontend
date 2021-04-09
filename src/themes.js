@@ -13,7 +13,7 @@ export const lightTheme = {
 export const GlobalStyles = createGlobalStyle`
   * {
     /* background-color: ${props => props.theme.body}; */
-    color: ${props => props.theme.fontColor};
+    /* color: ${props => props.theme.fontColor}; */
     font-family: 'Open Sans', sans-serif
   }
 
@@ -25,6 +25,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   #root {
+    color: ${props => props.theme.fontColor};
     height: 100%
   }
 `;

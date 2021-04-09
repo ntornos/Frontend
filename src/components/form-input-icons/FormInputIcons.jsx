@@ -3,7 +3,7 @@ import Icon from '../icon/Icon';
 
 import { FormInputIconsRadio, FormInputIconLabel, FormInputGroup } from './FormInputIcons.styles';
 
-const FormInputIcons = ({ handleChange, iconName, ...otherProps }) => {
+const FormInputIcons = ({ handleChange, iconName, label, ...otherProps }) => {
   return (
     // create a form input component that's for icon selection.
     // maybe defaulting it to radio.
@@ -11,7 +11,7 @@ const FormInputIcons = ({ handleChange, iconName, ...otherProps }) => {
       <FormInputIconLabel className={otherProps.checked && 'checked'}>
         <FormInputIconsRadio type='radio' onChange={handleChange} {...otherProps} />
         <Icon iconName={iconName} />
-        {otherProps.value === 'RENT' ? 'Rent' : 'Sale'}
+        {label}
       </FormInputIconLabel>
     </FormInputGroup>
   );
