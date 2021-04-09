@@ -1,0 +1,11 @@
+import { iconsLib } from '../../assets/iconsLib';
+
+import { IconContainer } from './Icon.styles';
+
+const Icon = ({ iconName }) => {
+  const theIcon = iconsLib[iconName];
+
+  return <IconContainer>{theIcon}</IconContainer>;
+};
+
+export default Icon;

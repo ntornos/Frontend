@@ -25,9 +25,9 @@ const UserIcon = ({ hasEvent }) => {
       <Image
         alt='default user'
         src={currUser.profilePicture}
-        width='30px'
-        height='30px'
-        border='2px solid rgba(230, 230, 230, 1)'
+        width='35px'
+        height='35px'
+        border='2px solid #bababa'
         borderRadius='30px'
       />
     </UserIconContainer>

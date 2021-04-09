@@ -28,7 +28,6 @@ export const Image = styled.img`
   height: ${({ height }) => height};
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
-  padding: 5px;
 
   &.selected {
     ${selector}
