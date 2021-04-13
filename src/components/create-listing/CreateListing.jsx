@@ -7,7 +7,7 @@ import RentForm from '../rent-form/RentForm';
 import SaleForm from '../sale-form/SaleForm';
 
 const CreateListing = () => {
-  const [listingStatus, setListingStatus] = useState('RENT');
+  const [listingStatus, setListingStatus] = useState('');
   console.log(`listingStatus`, listingStatus);
   return (
     <CreateListingCard>

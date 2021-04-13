@@ -9,6 +9,7 @@ export const DropdownCard = styled(Card)`
   inset: 7px auto auto 0px;
   transform: translate3d(calc(${({ width }) => `${width}px`} - 250px), 61px, 0px);
   position: absolute;
+  background: white;
 `;
 
 export const DropdownContainer = styled.div`
