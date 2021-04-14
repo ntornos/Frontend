@@ -5,10 +5,13 @@ import { CreateListingCard } from './CreateListing.styles';
 import FormInputIcons from '../form-input-icons/FormInputIcons';
 import RentForm from '../rent-form/RentForm';
 import SaleForm from '../sale-form/SaleForm';
+import FormInput from '../form-input/FormInput';
 
 const CreateListing = () => {
   const [listingStatus, setListingStatus] = useState('');
-  console.log(`listingStatus`, listingStatus);
+  const [address, setAddress] = useState('');
+  console.log(address);
+
   return (
     <CreateListingCard>
       <Container
@@ -26,29 +29,38 @@ const CreateListing = () => {
       </Container>
 
       <form>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex' }}>
-            <FormInputIcons
-              value='RENT'
-              handleChange={e => setListingStatus(e.target.value)}
-              iconName='forRent'
-              name='listingStatusConnector'
-              label='Rent'
-              iconColor=''
-              checked={listingStatus === 'RENT'}
-            />
-            <FormInputIcons
-              value='SALE'
-              handleChange={e => setListingStatus(e.target.value)}
-              iconName='forSale'
-              name='listingStatusConnector'
-              label='Sale'
-              checked={listingStatus === 'SALE'}
-            />
-          </div>
+        {/* <div> */}
+        <Container display='flex'>
+          <FormInputIcons
+            value='RENT'
+            handleChange={e => setListingStatus(e.target.value)}
+            iconName='forRent'
+            name='listingStatusConnector'
+            label='Rent'
+            iconColor=''
+            checked={listingStatus === 'RENT'}
+          />
+          <FormInputIcons
+            value='SALE'
+            handleChange={e => setListingStatus(e.target.value)}
+            iconName='forSale'
+            name='listingStatusConnector'
+            label='Sale'
+            checked={listingStatus === 'SALE'}
+          />
+        </Container>
 
-          {listingStatus === 'RENT' ? <RentForm /> : <SaleForm />}
-        </div>
+        <Container>
+          <FormInput
+            label='Address'
+            handleChange={e => setAddress(e.target.value)}
+            required
+            name='address'
+          />
+        </Container>
+
+        {/* {listingStatus === 'RENT' ? <RentForm /> : <SaleForm />} */}
+        {/* </div> */}
       </form>
     </CreateListingCard>
   );
