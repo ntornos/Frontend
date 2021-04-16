@@ -11,12 +11,16 @@ export const Container = styled.div`
   flex-direction: ${({ direction }) => direction};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
 `;
 
 export const Text = styled.span`
   font-size: ${({ fontSize }) => fontSize};
   color: ${({ fontColor }) => fontColor};
   padding: ${({ padding }) => padding};
+  margin: ${({ margin }) => margin};
+  line-height: ${({ lineHeight }) => lineHeight};
 
   &:hover {
     color: ${({ fontHoverColor }) => fontHoverColor};

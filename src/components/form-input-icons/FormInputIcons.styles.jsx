@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-
-const subColor = 'grey';
+import { Field } from 'formik';
 
 export const FormInputGroup = styled.fieldset`
   padding: 0;
   border: none;
+  &:checked {
+    color: #c77a06;
+    border-color: #c77a06;
+    background-color: #f2f9e9;
+  }
 `;
 
-export const FormInputIconsRadio = styled.input`
+export const FormInputIconsRadio = styled(Field)`
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -18,8 +22,8 @@ export const FormInputIconLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 180px;
-  height: 80px;
+  width: 185px;
+  height: 70px;
   padding: 15px;
   text-decoration: none;
   box-sizing: border-box;
