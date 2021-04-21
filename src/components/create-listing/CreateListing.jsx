@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import GooglePlacesAutoComplete, { geocodeByPlaceId } from 'react-google-places-autocomplete';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -9,25 +10,35 @@ import { Text, Container } from '../UtilityComponents';
 import FormInputIcons from '../form-input-icons/FormInputIcons';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
+import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
+import { addNewListingThunk } from '../../redux/listings/listings.actions';
 
-const CreateListing = () => {
-  const [address, setAddress] = useState('');
-
+const CreateListing = props => {
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
-    numOfBedrooms: 0, // added for our select
-    numOfBathrooms: 0,
     listingStatus: '',
+    listingType: '',
+    address: '',
   };
 
+  const dispatch = useDispatch();
+
   const onSubmit = (values, helpers) => {
-    console.log({ values, helpers });
+    // create a new listing, redirect to that listing.
+    dispatch(addNewListingThunk(values));
     setTimeout(() => helpers.setSubmitting(false), 2000);
+  };
+
+  const handleChangeAndGeoCode = async (e, action, setFieldValue) => {
+    const placeId = e.value.place_id;
+    const geoCoded = await geocodeByPlaceId(placeId);
+    const formattedAddress = geoCoded[0].formatted_address;
+    setFieldValue('address', formattedAddress);
   };
 
   return (
     <CreateListingCard>
-      <Container display='flex' direction='column' margin='3em 0px' align='center'>
+      <Container display='flex' direction='column' align='center'>
         <Text fontSize='28px' padding='10px 0px'>
           Add Your Property
         </Text>
@@ -38,23 +49,24 @@ const CreateListing = () => {
 
       <Formik
         initialValues={formInitialValues}
+        validate={values => {
+          const errors = {};
+
+          if (!values.address) errors.address = 'Required';
+          if (!values.listingStatus) errors.listingStatus = 'Required';
+          return errors;
+        }}
         validationSchema={Yup.object({
           acceptedTerms: Yup.boolean()
             .required('Required')
             .oneOf([true], 'You must accept the terms and conditions.'),
 
-          numOfBedrooms: Yup.string()
-            .oneOf(['1.0', '2.0', '3.0', '4.0'], 'Required')
+          listingType: Yup.string()
+            .oneOf(['building', 'house', 'warehouse'], 'Required')
             .required('Required'),
-
-          numOfBathrooms: Yup.string()
-            .oneOf(['0.5', '1.0', '1.5', '2.0'], 'Required')
-            .required('Required'),
-
-          listingStatus: Yup.string().oneOf(['RENT', 'SALE'], 'Required').required('Required'),
         })}
         onSubmit={onSubmit}>
-        {({ values }) => (
+        {({ values, errors, touched, setFieldValue }) => (
           <CreateListingForm>
             <Container display='flex' justify='space-between'>
               <FormInputIcons
@@ -72,13 +84,19 @@ const CreateListing = () => {
                 checked={values.listingStatus === 'SALE'}
               />
             </Container>
+            {errors.listingStatus && touched.listingStatus && (
+              <StyledErrorMessage>Required</StyledErrorMessage>
+            )}
 
             <Container margin='1.5em 0px'>
               <Text lineHeight='1.8em'>Address</Text>
               <GooglePlacesAutoComplete
-                selectProps={{ value: address, onChange: setAddress }}
+                key='address'
+                selectProps={{
+                  name: 'address',
+                  onChange: (e, action) => handleChangeAndGeoCode(e, action, setFieldValue),
+                }}
                 apiKey='AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk'
-                name='address'
                 apiOptions={{
                   language: 'en',
                   region: 'do',
@@ -89,38 +107,27 @@ const CreateListing = () => {
                     { lat: 100, lng: 100 },
                   ],
                   componentRestrictions: {
-                    country: ['DO'],
+                    country: ['do'],
                   },
                 }}
               />
+              {touched.address && errors.address && (
+                <StyledErrorMessage>Please input a correct address or sector</StyledErrorMessage>
+              )}
             </Container>
 
             <Container display='flex' justify='space-between' margin='1.5em 0px'>
-              <SelectOption label='Bedrooms' name='numOfBedrooms' width={'40%'}>
-                <option value=''>Select</option>
-                <option value='1.0'>1.0</option>
-                <option value='2.0'>2.0</option>
-                <option value='3.0'>3.0</option>
-                <option value='4.0'>4</option>
-              </SelectOption>
-              <SelectOption label='Bathrooms' name='numOfBathrooms' width={'40%'}>
-                <option value=''>Select</option>
-                <option value='0.5'>0.5</option>
-                <option value='1.0'>1.0</option>
-                <option value='1.5'>1.5</option>
-                <option value='2.0'>2.0</option>
+              <SelectOption label='Listing type' name='listingType' width='100%'>
+                <option value=''>Select...</option>
+                <option value='house'>House</option>
+                <option value='building'>Building</option>
+                <option value='warehouse'>Warehouse</option>
               </SelectOption>
             </Container>
 
-            <Container
-              display='flex'
-              direction='column'
-              align='center'
-              justify='space-evenly'
-              height='5em'>
-              <Checkbox name='acceptedTerms'>I accept the terms and conditions</Checkbox>
-              <button type='submit'>Submit</button>
-            </Container>
+            <Checkbox name='acceptedTerms'>I accept the terms and conditions</Checkbox>
+
+            <button type='submit'>Submit</button>
           </CreateListingForm>
         )}
       </Formik>

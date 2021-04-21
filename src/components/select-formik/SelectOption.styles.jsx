@@ -7,10 +7,6 @@ export const StyledSelect = styled.select`
   border-style: solid;
   border-width: 1px;
   cursor: pointer;
-  /* align-items: center; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
   min-height: 38px;
   outline: 0 !important;
   position: relative;
