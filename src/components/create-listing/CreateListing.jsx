@@ -13,8 +13,16 @@ import Checkbox from '../checkbox-formik/Checkbox';
 const CreateListing = () => {
   const [address, setAddress] = useState('');
 
-  const handleSubmit = values => {
-    console.log(values);
+  const formInitialValues = {
+    acceptedTerms: false, // added for our checkbox
+    numOfBedrooms: 0, // added for our select
+    numOfBathrooms: 0,
+    listingStatus: '',
+  };
+
+  const onSubmit = (values, helpers) => {
+    console.log({ values, helpers });
+    setTimeout(() => helpers.setSubmitting(false), 2000);
   };
 
   return (
@@ -29,32 +37,25 @@ const CreateListing = () => {
       </Container>
 
       <Formik
-        initialValues={{
-          acceptedTerms: false, // added for our checkbox
-          numOfBedrooms: 0, // added for our select
-          numOfBathrooms: 0,
-          listingStatus: '',
-        }}
+        initialValues={formInitialValues}
         validationSchema={Yup.object({
           acceptedTerms: Yup.boolean()
             .required('Required')
             .oneOf([true], 'You must accept the terms and conditions.'),
-          numOfBedrooms: Yup.number()
-            // specify the set of valid values for job type
-            // @see http://bit.ly/yup-mixed-oneOf
-            .oneOf([1.0, 2.0, 3.0, 4.0], 'Required')
-            .required('Required'),
-          numOfBathrooms: Yup.number()
 
-            .oneOf([0.5, 1.0, 1.5, 2.0], 'Required')
+          numOfBedrooms: Yup.string()
+            .oneOf(['1.0', '2.0', '3.0', '4.0'], 'Required')
             .required('Required'),
 
-          SaleOrRent: Yup.string().oneOf(['RENT', 'SALE'], 'Required').required('Required'),
+          numOfBathrooms: Yup.string()
+            .oneOf(['0.5', '1.0', '1.5', '2.0'], 'Required')
+            .required('Required'),
+
+          listingStatus: Yup.string().oneOf(['RENT', 'SALE'], 'Required').required('Required'),
         })}
-        onSubmit={handleSubmit}>
+        onSubmit={onSubmit}>
         {({ values }) => (
           <CreateListingForm>
-            {/* {console.log(values)} */}
             <Container display='flex' justify='space-between'>
               <FormInputIcons
                 value='RENT'
@@ -71,12 +72,13 @@ const CreateListing = () => {
                 checked={values.listingStatus === 'SALE'}
               />
             </Container>
-            {/*
+
             <Container margin='1.5em 0px'>
               <Text lineHeight='1.8em'>Address</Text>
               <GooglePlacesAutoComplete
                 selectProps={{ value: address, onChange: setAddress }}
                 apiKey='AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk'
+                name='address'
                 apiOptions={{
                   language: 'en',
                   region: 'do',
@@ -91,22 +93,22 @@ const CreateListing = () => {
                   },
                 }}
               />
-            </Container> */}
+            </Container>
 
             <Container display='flex' justify='space-between' margin='1.5em 0px'>
               <SelectOption label='Bedrooms' name='numOfBedrooms' width={'40%'}>
                 <option value=''>Select</option>
-                <option value={1.0}>1.0</option>
-                <option value={2.0}>2.0</option>
-                <option value={3.0}>3.0</option>
-                <option value={4.0}>4</option>
+                <option value='1.0'>1.0</option>
+                <option value='2.0'>2.0</option>
+                <option value='3.0'>3.0</option>
+                <option value='4.0'>4</option>
               </SelectOption>
               <SelectOption label='Bathrooms' name='numOfBathrooms' width={'40%'}>
                 <option value=''>Select</option>
-                <option value={0.5}>0.5</option>
-                <option value={1.0}>1.0</option>
-                <option value={1.5}>1.5</option>
-                <option value={2.0}>2.0</option>
+                <option value='0.5'>0.5</option>
+                <option value='1.0'>1.0</option>
+                <option value='1.5'>1.5</option>
+                <option value='2.0'>2.0</option>
               </SelectOption>
             </Container>
 
