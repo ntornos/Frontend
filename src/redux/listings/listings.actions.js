@@ -6,19 +6,21 @@ export const addNewListing = data => ({
   data,
 });
 
+export const fetchUserListings = () => ({
+  type: listingsTypes.FETCH_USER_LISTINGS,
+});
+
 export const addNewListingThunk = listingDetails => async dispatch => {
   try {
     const {
-      data: { data },
+      data,
     } = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/user-actions/create-listing`,
       listingDetails,
       { withCredentials: true }
     );
 
-    console.log(data);
-
-    dispatch(addNewListing(data));
+    dispatch(addNewListing(data.data));
   } catch (err) {
     console.error('Error at addNewListing:', err);
   }

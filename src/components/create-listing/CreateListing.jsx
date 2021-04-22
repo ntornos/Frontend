@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import GooglePlacesAutoComplete, { geocodeByPlaceId } from 'react-google-places-autocomplete';
+import GooglePlacesAutoComplete, {
+  getLatLng,
+  geocodeByAddress,
+} from 'react-google-places-autocomplete';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,33 +15,50 @@ import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 import { addNewListingThunk } from '../../redux/listings/listings.actions';
+import Map from '../map/Map';
+import { Link, Redirect } from 'react-router-dom';
 
 const CreateListing = props => {
+  const [showMap, setShopMap] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
     listingStatus: '',
     listingType: '',
     address: '',
+    latLng: null,
   };
 
   const dispatch = useDispatch();
 
   const onSubmit = (values, helpers) => {
-    // create a new listing, redirect to that listing.
-    dispatch(addNewListingThunk(values));
-    setTimeout(() => helpers.setSubmitting(false), 2000);
+    setTimeout(() => {
+      helpers.setSubmitting(false);
+      setFormSubmitted(true);
+      dispatch(addNewListingThunk(values));
+    }, 400);
   };
 
-  const handleChangeAndGeoCode = async (e, action, setFieldValue) => {
-    const placeId = e.value.place_id;
-    const geoCoded = await geocodeByPlaceId(placeId);
-    const formattedAddress = geoCoded[0].formatted_address;
-    setFieldValue('address', formattedAddress);
+  const handleAddress = async address => {
+    const location = await geocodeByAddress(address);
+    const latLng = await getLatLng(location[0]);
+    return latLng;
   };
+
+  const handleChange = async (e, action, setFieldValue) => {
+    setShopMap(true);
+    const latLng = await handleAddress(e.label);
+
+    // Since we need latLng to marker the map, we're setting the field latLng to current selected address coordinates.
+    setFieldValue('address', e.label);
+    setFieldValue('latLng', latLng);
+  };
+
+  if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
 
   return (
     <CreateListingCard>
-      <Container display='flex' direction='column' align='center'>
+      <Container display='flex' direction='column' align='center' margin='0 0 1em 0'>
         <Text fontSize='28px' padding='10px 0px'>
           Add Your Property
         </Text>
@@ -94,18 +114,14 @@ const CreateListing = props => {
                 key='address'
                 selectProps={{
                   name: 'address',
-                  onChange: (e, action) => handleChangeAndGeoCode(e, action, setFieldValue),
+                  onChange: (e, action) => handleChange(e, action, setFieldValue),
+                  onFocus: () => setShopMap(false),
                 }}
                 apiKey='AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk'
                 apiOptions={{
                   language: 'en',
-                  region: 'do',
                 }}
                 autocompletionRequest={{
-                  bounds: [
-                    { lat: 50, lng: 50 },
-                    { lat: 100, lng: 100 },
-                  ],
                   componentRestrictions: {
                     country: ['do'],
                   },
@@ -114,6 +130,8 @@ const CreateListing = props => {
               {touched.address && errors.address && (
                 <StyledErrorMessage>Please input a correct address or sector</StyledErrorMessage>
               )}
+
+              {values.latLng && showMap && <Map latLng={values.latLng} />}
             </Container>
 
             <Container display='flex' justify='space-between' margin='1.5em 0px'>

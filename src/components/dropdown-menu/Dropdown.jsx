@@ -44,6 +44,9 @@ const Dropdown = () => {
         <MenuItem to='/myntornos/saved-homes' onClick={toggleMenuHandler}>
           Saved Homes
         </MenuItem>
+        <MenuItem to='/myntornos/listings-manager' onClick={toggleMenuHandler}>
+          Listings Manager
+        </MenuItem>
         <MenuItem to='/myntornos/account' onClick={toggleMenuHandler}>
           Account Settings
         </MenuItem>
