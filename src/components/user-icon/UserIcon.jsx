@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { myContext } from '../Context';
-import { Image, UserIconContainer } from './UserIcon.styles';
+import { UserIconContainer } from './UserIcon.styles';
+import { Image } from '../UtilityComponents';
 
 import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
 
@@ -21,7 +22,14 @@ const UserIcon = ({ hasEvent }) => {
 
   return (
     <UserIconContainer onMouseEnter={hasEventHandler}>
-      <Image alt='default user' src={currUser.profilePicture} />
+      <Image
+        alt='default user'
+        src={currUser.profilePicture}
+        width='35px'
+        height='35px'
+        border='2px solid #bababa'
+        borderRadius='30px'
+      />
     </UserIconContainer>
   );
 };

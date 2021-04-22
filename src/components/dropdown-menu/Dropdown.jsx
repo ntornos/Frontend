@@ -37,10 +37,19 @@ const Dropdown = () => {
           </DropdownContainer>
         </DropdownUserIconContainer>
         <DropdownDivider />
-        <MenuItem to='/myntornos/create-listing'>Upload</MenuItem>
+        <MenuItem to='/myntornos/create-listing' onClick={toggleMenuHandler}>
+          Upload
+        </MenuItem>
         {/* to be added later: */}
-        <MenuItem to='/myntornos/saved-homes'>Saved Homes</MenuItem>
-        <MenuItem to='/myntornos/account'>Account Settings</MenuItem>
+        <MenuItem to='/myntornos/saved-homes' onClick={toggleMenuHandler}>
+          Saved Homes
+        </MenuItem>
+        <MenuItem to='/myntornos/listings-manager' onClick={toggleMenuHandler}>
+          Listings Manager
+        </MenuItem>
+        <MenuItem to='/myntornos/account' onClick={toggleMenuHandler}>
+          Account Settings
+        </MenuItem>
         <DropdownDivider />
         <MenuItem to='/' onClick={logout}>
           Sign out

@@ -7,10 +7,3 @@ export const UserIconContainer = styled.div`
   justify-content: center;
   cursor: pointer;
 `;
-
-export const Image = styled.img`
-  width: 35px;
-  height: 35px;
-  border: 2px solid rgba(230, 230, 230, 1);
-  border-radius: 20px;
-`;

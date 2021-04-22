@@ -12,8 +12,20 @@ export const lightTheme = {
 
 export const GlobalStyles = createGlobalStyle`
   * {
-    background-color: ${props => props.theme.body};
-    color: ${props => props.theme.fontColor};
+    /* background-color: ${props => props.theme.body}; */
+    /* color: ${props => props.theme.fontColor}; */
     font-family: 'Open Sans', sans-serif
+  }
+
+
+  body {
+    height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  #root {
+    color: ${props => props.theme.fontColor};
+    height: 100%
   }
 `;

@@ -8,6 +8,7 @@ import Home from './pages/home/Home.page';
 import Dashboard from './pages/dashboard/Dashboard.page';
 import Account from './pages/account/Account.page';
 import CreateListing from './components/create-listing/CreateListing';
+import ListingsManager from './pages/listings-manager/ListingsManager';
 
 const Routes = () => {
   const currUser = useContext(myContext);
@@ -24,7 +25,7 @@ const Routes = () => {
           <Route path='/myntornos/dashboard' component={Dashboard} />
           <Route path='/myntornos/account' component={Account} />
           <Route path='/myntornos/create-listing' component={CreateListing} />
-          {/* <Route path='/myntornos/my-listings' component={CreateNewListing} /> */}
+          <Route path='/myntornos/listings-manager' component={ListingsManager} />
         </>
       )}
     </Switch>
