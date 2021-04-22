@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { myContext } from '../Context';
 import { Header, Option, LogoContainer, OptionsContainer } from './NavBar.styles';
@@ -11,7 +10,7 @@ import AdminMenu from '../admin-menu/AdminMenu';
 
 const NavBar = ({ themeToggler, theme }) => {
   const currUser = useContext(myContext);
-  // const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
+
   const [showMenu, setShowMenu] = useState(false);
 
   let Menu = <GuestMenu />;

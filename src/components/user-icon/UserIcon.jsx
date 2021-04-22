@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { myContext } from '../Context';
 import { UserIconContainer } from './UserIcon.styles';
