@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-import Card from '../card/Card';
-import { useDispatch } from 'react-redux';
 
 import { myContext } from '../Context';
 import {
@@ -11,16 +9,14 @@ import {
 } from './Dropdown.styles';
 import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
-import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
 import { UserIconArrow, DropdownCard } from './Dropdown.styles';
 import { logout } from '../../authFuncs';
 import useResize from '../../hooks/dimensions.hook';
 
-const Dropdown = () => {
+const Dropdown = ({ toggleDropdown }) => {
   const currUser = useContext(myContext);
-  const dispatch = useDispatch();
 
-  const toggleMenuHandler = () => dispatch(toggleMenu());
+  const toggleMenuHandler = () => toggleDropdown();
   const { width } = useResize();
 
   return (

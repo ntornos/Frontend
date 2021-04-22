@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { myContext } from '../Context';
@@ -11,12 +11,14 @@ import AdminMenu from '../admin-menu/AdminMenu';
 
 const NavBar = ({ themeToggler, theme }) => {
   const currUser = useContext(myContext);
-  const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
+  // const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
+  const [showMenu, setShowMenu] = useState(false);
 
   let Menu = <GuestMenu />;
 
-  if (currUser && currUser.role === 'ADMIN') Menu = <AdminMenu />;
-  if (currUser && currUser.role === 'CUSTOMER') Menu = <CustomerMenu />;
+  if (currUser && currUser.role === 'ADMIN') Menu = <AdminMenu toggleDropdown={setShowMenu} />;
+  if (currUser && currUser.role === 'CUSTOMER')
+    Menu = <CustomerMenu toggleDropdown={setShowMenu} />;
 
   return (
     <Header direction='row' height='70px' width='100vw' display='flex' justify='space-between'>
@@ -27,7 +29,7 @@ const NavBar = ({ themeToggler, theme }) => {
         <Option to='/'>Home</Option>
 
         {Menu}
-        {!dropdownHidden && <Dropdown />}
+        {showMenu && <Dropdown toggleDropdown={setShowMenu} />}
 
         <Option as='div' onClick={() => themeToggler()}>
           {theme === 'light' ? <Light size={22} /> : <Dark size={22} />}

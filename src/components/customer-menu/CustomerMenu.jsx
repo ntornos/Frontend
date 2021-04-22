@@ -2,8 +2,8 @@ import React from 'react';
 
 import UserIcon from '../user-icon/UserIcon';
 
-const CustomerMenu = () => {
-  return <UserIcon hasEvent={true} />;
+const CustomerMenu = ({ toggleDropdown }) => {
+  return <UserIcon hasEvent={true} toggleDropdown={toggleDropdown} />;
 };
 
 export default CustomerMenu;

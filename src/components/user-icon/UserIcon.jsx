@@ -5,23 +5,11 @@ import { myContext } from '../Context';
 import { UserIconContainer } from './UserIcon.styles';
 import { Image } from '../UtilityComponents';
 
-import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
-
-const UserIcon = ({ hasEvent }) => {
+const UserIcon = ({ toggleDropdown }) => {
   const currUser = useContext(myContext);
-  const dispatch = useDispatch();
-
-  const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
-
-  const toggleMenuHandler = () => dispatch(toggleMenu());
-
-  const hasEventHandler = () => {
-    if (hasEvent && dropdownHidden) toggleMenuHandler();
-    return () => {};
-  };
 
   return (
-    <UserIconContainer onMouseEnter={hasEventHandler}>
+    <UserIconContainer onMouseEnter={toggleDropdown}>
       <Image
         alt='default user'
         src={currUser.profilePicture}

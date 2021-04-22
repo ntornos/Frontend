@@ -14,9 +14,9 @@ import FormInputIcons from '../form-input-icons/FormInputIcons';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
-import { addNewListingThunk } from '../../redux/listings/listings.actions';
+import { addNewListingThunk } from '../../redux/listing/listing.actions';
 import Map from '../map/Map';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const CreateListing = props => {
   const [showMap, setShopMap] = useState(false);
