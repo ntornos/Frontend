@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const subColor = 'grey';
 
 export const Group = styled.div`
-  margin: 20px 0;
+  margin-top: 20px;
   min-width: 280px;
 
   input[type='password'] {

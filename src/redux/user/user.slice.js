@@ -14,18 +14,26 @@ export const signinUser = createAsyncThunk('user/login', async ({ email, passwor
   return data;
 });
 
-export const signupUser = createAsyncThunk('user/register', async ({ email, password }) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}/account/register`,
-    {
-      email,
-      password,
-    },
-    { withCredentials: true }
-  );
+export const signupUser = createAsyncThunk(
+  'user/register',
+  async ({ email, password }, thunkAPI) => {
+    const { data, status, statusText } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/account/register`,
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
 
-  return data;
-});
+    // if response status is 200 the request was succesful
+    // data.status is true when user is created
+    // data.status is false when user already exists
+    if (status === 200) return data.status;
+    // any other response code will be rejected
+    else return thunkAPI.rejectWithValue(statusText);
+  }
+);
 
 export const signoutUser = createAsyncThunk('user/logout', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/account/logout`, {
@@ -45,7 +53,8 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
 
 const initialState = {
   user: null,
-  status: 'idle',
+  status: 'idle', // idle | fetching | rejected | success | error
+  errorMessage: '',
 };
 
 const userSlice = createSlice({
@@ -53,10 +62,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     // add edit user settings actions here.
+    clearState: (state, action) => {
+      state.status = 'idle';
+      state.errorMessage = '';
+      return state;
+    },
   },
   extraReducers: builder => {
     builder
-
+      // Fetch user
       .addCase(fetchUser.fulfilled, (state, action) => {
         if (action.payload) {
           state.status = 'fetch success';
@@ -67,6 +81,8 @@ const userSlice = createSlice({
         state.user = {};
         return state;
       })
+
+      // Sign in
       // .addCase(signinUser.pending, (state, action) => {
       //   state.status = 'loading';
       // })
@@ -77,20 +93,30 @@ const userSlice = createSlice({
         state.status = 'signin success';
         return state;
       })
-      // .addCase(signupUser.pending, (state, action) => {
-      //   state.status = 'loading';
-      // })
+
+      // Sign up
+      .addCase(signupUser.pending, (state, action) => {
+        state.status = 'fetching';
+      })
       .addCase(signupUser.rejected, (state, action) => {
-        state.status = 'signup rejected';
+        state.status = 'rejected';
+        state.errorMessage = action.payload;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.status = 'signup success';
+        if (!action.payload) {
+          state.status = 'error';
+          state.errorMessage = 'User already exists.';
+        } else {
+          state.status = 'success';
+          state.errorMessage = '';
+        }
         return state;
       })
       // .addCase(signoutUser.pending, (state, action) => {
       //   state.status = 'loading';
       // })
 
+      // Sign out
       .addCase(signoutUser.fulfilled, (state, action) => {
         state.user = {};
         state.status = 'signout success';
@@ -101,7 +127,8 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const selectUser = state => state.user;
+export const { clearState } = userSlice.actions;
 
+export const selectUser = state => state.user;
 export const selectCurrentUser = createSelector(selectUser, state => state.user);
 export const selectUserStatus = createSelector(selectUser, state => state.status);

@@ -19,7 +19,7 @@ import Map from '../map/Map';
 import { Redirect } from 'react-router-dom';
 
 const CreateListing = props => {
-  const [showMap, setShopMap] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const formInitialValues = {
@@ -47,7 +47,7 @@ const CreateListing = props => {
   };
 
   const handleChange = async (e, action, setFieldValue) => {
-    setShopMap(true);
+    setShowMap(true);
     const latLng = await handleAddress(e.label);
 
     // Since we need latLng to marker the map, we're setting the field latLng to current selected address coordinates.
@@ -116,7 +116,7 @@ const CreateListing = props => {
                 selectProps={{
                   name: 'address',
                   onChange: (e, action) => handleChange(e, action, setFieldValue),
-                  onFocus: () => setShopMap(false),
+                  onFocus: () => setShowMap(false),
                 }}
                 apiKey='AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk'
                 apiOptions={{

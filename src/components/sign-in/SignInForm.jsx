@@ -14,7 +14,8 @@ const SignInForm = () => {
   const dispatch = useDispatch();
   const userStatus = useSelector(selectUserStatus);
 
-  const onSubmit = () => {
+  const onSubmit = e => {
+    e.preventDefault();
     dispatch(signinUser({ email, password }));
   };
 
@@ -22,7 +23,7 @@ const SignInForm = () => {
 
   return (
     <>
-      <form onSubmit={e => e.preventDefault()}>
+      <form onSubmit={onSubmit}>
         <FormInput
           label='Email Address'
           handleChange={e => setEmail(e.target.value)}
@@ -41,9 +42,7 @@ const SignInForm = () => {
         />
 
         <Container justify='space-between' align='center'>
-          <FormButton onClick={onSubmit} width='30%'>
-            Continue
-          </FormButton>
+          <FormButton width='30%'>Continue</FormButton>
           <p>
             No account? <Link to='/register'>Create one</Link>{' '}
           </p>
