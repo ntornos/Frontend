@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
-import { signInSignUp } from '../../authFuncs';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserStatus, signupUser } from '../../redux/user/user.slice';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const userStatus = useSelector(selectUserStatus);
+
+  const onSubmit = () => {
+    dispatch(signupUser({ email, password }));
+  };
+
+  if (userStatus === 'signup success') window.location.href = '/login';
 
   return (
     <>
@@ -31,7 +41,7 @@ const SignUpForm = () => {
         />
 
         <Container justify='space-between' align='center'>
-          <FormButton onClick={() => signInSignUp(email, password, 'register')} width='30%'>
+          <FormButton onClick={onSubmit} width='30%'>
             Continue
           </FormButton>
           <p>

@@ -14,6 +14,19 @@ export const signinUser = createAsyncThunk('user/login', async ({ email, passwor
   return data;
 });
 
+export const signupUser = createAsyncThunk('user/register', async ({ email, password }) => {
+  const { data } = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/account/register`,
+    {
+      email,
+      password,
+    },
+    { withCredentials: true }
+  );
+
+  return data;
+});
+
 export const signoutUser = createAsyncThunk('user/logout', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/account/logout`, {
     withCredentials: true,
@@ -46,7 +59,7 @@ const userSlice = createSlice({
 
       .addCase(fetchUser.fulfilled, (state, action) => {
         if (action.payload) {
-          state.status = 'succeeded';
+          state.status = 'fetch success';
           state.user = action.payload;
           return state;
         }
@@ -54,23 +67,33 @@ const userSlice = createSlice({
         state.user = {};
         return state;
       })
-      .addCase(signinUser.pending, (state, action) => {
-        state.status = 'loading';
-      })
+      // .addCase(signinUser.pending, (state, action) => {
+      //   state.status = 'loading';
+      // })
       .addCase(signinUser.rejected, (state, action) => {
-        state.status = 'rejected';
+        state.status = 'signin rejected';
       })
       .addCase(signinUser.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = 'signin success';
         return state;
       })
-      .addCase(signoutUser.pending, (state, action) => {
-        state.status = 'loading';
+      // .addCase(signupUser.pending, (state, action) => {
+      //   state.status = 'loading';
+      // })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.status = 'signup rejected';
       })
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.status = 'signup success';
+        return state;
+      })
+      // .addCase(signoutUser.pending, (state, action) => {
+      //   state.status = 'loading';
+      // })
 
       .addCase(signoutUser.fulfilled, (state, action) => {
         state.user = {};
-        state.status = 'succeeded';
+        state.status = 'signout success';
         return state;
       });
   },

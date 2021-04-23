@@ -18,7 +18,7 @@ const SignInForm = () => {
     dispatch(signinUser({ email, password }));
   };
 
-  if (userStatus === 'succeeded') window.location.href = '/myntornos/user-home';
+  if (userStatus === 'signin success') window.location.href = '/myntornos/user-home';
 
   return (
     <>
