@@ -1,27 +1,35 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { myContext } from '../Context';
 import {
   DropdownContainer,
   MenuItem,
   DropdownDivider,
   DropdownUserIconContainer,
 } from './Dropdown.styles';
+
 import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
 import { UserIconArrow, DropdownCard } from './Dropdown.styles';
-import { logout } from '../../authFuncs';
 import useResize from '../../hooks/dimensions.hook';
+import { selectCurrentUser, signoutUser, selectUserStatus } from '../../redux/user/user.slice';
 
 const Dropdown = ({ toggleDropdown }) => {
-  const currUser = useContext(myContext);
-
-  const toggleMenuHandler = () => toggleDropdown();
   const { width } = useResize();
+  const currUser = useSelector(selectCurrentUser);
+
+  const dispatch = useDispatch();
+  const userStatus = useSelector(selectUserStatus);
+
+  const handleLogout = () => {
+    toggleDropdown();
+    dispatch(signoutUser());
+    if (userStatus === 'succeeded') window.location.href = '/';
+  };
 
   return (
     <DropdownCard width={width}>
-      <DropdownContainer onMouseLeave={toggleMenuHandler}>
+      <DropdownContainer onMouseLeave={toggleDropdown}>
         <UserIconArrow />
         <DropdownUserIconContainer>
           <UserIcon />
@@ -33,21 +41,21 @@ const Dropdown = ({ toggleDropdown }) => {
           </DropdownContainer>
         </DropdownUserIconContainer>
         <DropdownDivider />
-        <MenuItem to='/myntornos/create-listing' onClick={toggleMenuHandler}>
+        <MenuItem to='/myntornos/create-listing' onClick={toggleDropdown}>
           Upload
         </MenuItem>
         {/* to be added later: */}
-        <MenuItem to='/myntornos/saved-homes' onClick={toggleMenuHandler}>
+        <MenuItem to='/myntornos/saved-homes' onClick={toggleDropdown}>
           Saved Homes
         </MenuItem>
-        <MenuItem to='/myntornos/listings-manager' onClick={toggleMenuHandler}>
+        <MenuItem to='/myntornos/listings-manager' onClick={toggleDropdown}>
           Listings Manager
         </MenuItem>
-        <MenuItem to='/myntornos/account' onClick={toggleMenuHandler}>
+        <MenuItem to='/myntornos/account' onClick={toggleDropdown}>
           Account Settings
         </MenuItem>
         <DropdownDivider />
-        <MenuItem to='/' onClick={logout}>
+        <MenuItem to='/' onClick={handleLogout}>
           Sign out
         </MenuItem>
       </DropdownContainer>

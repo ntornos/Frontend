@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { myContext } from '../Context';
 import { UserIconContainer } from './UserIcon.styles';
 import { Image } from '../UtilityComponents';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../redux/user/user.slice';
 
 const UserIcon = ({ toggleDropdown }) => {
-  const currUser = useContext(myContext);
+  const currUser = useSelector(selectCurrentUser);
 
   return (
     <UserIconContainer onMouseEnter={toggleDropdown}>

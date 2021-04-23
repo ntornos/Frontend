@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import GooglePlacesAutoComplete, {
   getLatLng,
   geocodeByAddress,
@@ -14,13 +14,14 @@ import FormInputIcons from '../form-input-icons/FormInputIcons';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
-import { addNewListingThunk } from '../../redux/listing/listing.actions';
+// import { addNewListingThunk } from '../../redux/listing/listing.actions';
 import Map from '../map/Map';
 import { Redirect } from 'react-router-dom';
 
 const CreateListing = props => {
   const [showMap, setShopMap] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
     listingStatus: '',
@@ -29,14 +30,14 @@ const CreateListing = props => {
     latLng: null,
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onSubmit = (values, helpers) => {
-    setTimeout(() => {
-      helpers.setSubmitting(false);
-      setFormSubmitted(true);
-      dispatch(addNewListingThunk(values));
-    }, 400);
+    // setTimeout(() => {
+    //   helpers.setSubmitting(false);
+    //   setFormSubmitted(true);
+    //   dispatch(addNewListingThunk(values));
+    // }, 400);
   };
 
   const handleAddress = async address => {
