@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 export const signinUser = createAsyncThunk('user/login', async ({ email, password }) => {
-  const { data } = await axios.post(
+  const data = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/account/login`,
     {
       email,
@@ -11,7 +11,7 @@ export const signinUser = createAsyncThunk('user/login', async ({ email, passwor
     { withCredentials: true }
   );
 
-  return data;
+  return data.data;
 });
 
 export const signupUser = createAsyncThunk(
@@ -54,6 +54,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
 const initialState = {
   user: null,
   status: 'idle', // idle | fetching | rejected | success | error
+  operation: '', // signin | signout | fetchuser | signup
   errorMessage: '',
 };
 
@@ -65,15 +66,21 @@ const userSlice = createSlice({
     clearState: (state, action) => {
       state.status = 'idle';
       state.errorMessage = '';
+      state.operation = '';
       return state;
     },
   },
   extraReducers: builder => {
     builder
       // Fetch user
+      .addCase(fetchUser.pending, (state, action) => {
+        state.status = 'fetching';
+        state.operation = 'fetchuser';
+        return state;
+      })
       .addCase(fetchUser.fulfilled, (state, action) => {
         if (action.payload) {
-          state.status = 'fetch success';
+          state.status = 'success';
           state.user = action.payload;
           return state;
         }
@@ -83,20 +90,24 @@ const userSlice = createSlice({
       })
 
       // Sign in
-      // .addCase(signinUser.pending, (state, action) => {
-      //   state.status = 'loading';
-      // })
+      .addCase(signinUser.pending, (state, action) => {
+        state.status = 'fetching';
+        state.errorMessage = '';
+        state.operation = 'signin';
+      })
       .addCase(signinUser.rejected, (state, action) => {
-        state.status = 'signin rejected';
+        state.status = 'error';
+        state.errorMessage = 'Invalid Credentials';
       })
       .addCase(signinUser.fulfilled, (state, action) => {
-        state.status = 'signin success';
+        state.status = 'success';
         return state;
       })
 
       // Sign up
       .addCase(signupUser.pending, (state, action) => {
         state.status = 'fetching';
+        state.operation = 'signup';
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -119,7 +130,7 @@ const userSlice = createSlice({
       // Sign out
       .addCase(signoutUser.fulfilled, (state, action) => {
         state.user = {};
-        state.status = 'signout success';
+        state.status = 'success';
         return state;
       });
   },

@@ -11,24 +11,21 @@ import { signupUser, clearState, selectUser } from '../../redux/user/user.slice'
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 
 const SignUpForm = () => {
-  const { status, errorMessage } = useSelector(selectUser);
-  const [error, setError] = useState(null);
-  console.log(error);
   const dispatch = useDispatch();
-  // dispatch(clearState());
-  // const signupError = useSelector(selectError);
+  const [error, setError] = useState(null);
+  const { status, errorMessage, operation } = useSelector(selectUser);
 
   useEffect(() => {
-    if (status === 'success') {
+    if (status === 'success' && operation === 'signup') {
       window.location.href = '/login';
       dispatch(clearState());
     }
 
-    if (status === 'error') {
+    if (status === 'error' && operation === 'signup') {
       setError(errorMessage);
       dispatch(clearState());
     }
-  }, [status, errorMessage, dispatch]);
+  }, [status, errorMessage, dispatch, operation]);
 
   const formInitialValues = {
     email: '',
