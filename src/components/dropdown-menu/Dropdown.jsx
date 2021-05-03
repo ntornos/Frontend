@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -12,19 +12,25 @@ import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
 import { UserIconArrow, DropdownCard } from './Dropdown.styles';
 import useResize from '../../hooks/dimensions.hook';
-import { selectCurrentUser, signoutUser, selectUserStatus } from '../../redux/user/user.slice';
+import {
+  selectCurrentUser,
+  signoutUser,
+  selectUserStatus,
+  selectUser,
+  clearState,
+} from '../../redux/user/user.slice';
+import { Redirect } from 'react-router';
 
 const Dropdown = ({ toggleDropdown }) => {
   const { width } = useResize();
+  const { status, operation } = useSelector(selectUser);
   const currUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
-  const userStatus = useSelector(selectUserStatus);
 
   const handleLogout = () => {
     toggleDropdown();
     dispatch(signoutUser());
-    if (userStatus === 'succeeded') window.location.href = '/';
   };
 
   return (

@@ -7,10 +7,14 @@ import { Container } from '../../components/UtilityComponents';
 import { EmptySpace } from './SignInSignUp.styles';
 import Divider from '../../components/divider/Divider';
 import googleLogo from '../../assets/googleLogo.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { googleSignIn, googleSign } from '../../redux/user/user.slice';
 
 const SignInSignUpPage = ({ location }) => {
+  const dispatch = useDispatch();
+
   const googleLogin = () => {
-    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
+    dispatch(googleSign());
   };
 
   return (
@@ -27,6 +31,7 @@ const SignInSignUpPage = ({ location }) => {
             <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
               Sign in with Google
             </FormButton>
+
             <Divider children='or' />
             <SignInForm />
           </Container>
@@ -43,7 +48,7 @@ const SignInSignUpPage = ({ location }) => {
             height='calc(100vh - 70px)'
             direction='column'>
             <h2>Create your account</h2>
-            <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
+            <FormButton imageUrl={googleLogo} name='Google' onClick={() => {}}>
               Sign up with Google
             </FormButton>
             <Divider children='or' />

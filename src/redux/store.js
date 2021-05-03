@@ -25,6 +25,7 @@ const store = configureStore({
         ignoredActions: ['persist/PERSIST'],
       },
     }).concat(logger);
+    // .concat(logger);
   },
 });
 

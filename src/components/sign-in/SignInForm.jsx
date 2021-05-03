@@ -7,7 +7,7 @@ import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser, selectUser, clearState } from '../../redux/user/user.slice';
+import { signinUser, selectUser, clearState, operations } from '../../redux/user/user.slice';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 
 const SignInForm = () => {
@@ -23,7 +23,7 @@ const SignInForm = () => {
     }
   }, [errorMessage, dispatch, status, operation]);
 
-  if (status === 'success' && operation === 'signin') return <Redirect to='/' />;
+  if (status === 'success' && operation === operations.SIGN_IN) return <Redirect to='/' />;
 
   const formInitialValues = {
     email: '',

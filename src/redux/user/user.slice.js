@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export const googleSignIn = createAsyncThunk('user/googleLogin', () => {
+  window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
+});
+
 export const signinUser = createAsyncThunk('user/login', async ({ email, password }) => {
   const data = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/account/login`,
@@ -51,10 +55,18 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
   return data.data;
 });
 
+export const operations = {
+  GOOGLE_SIGN_IN: 'GOOGLE_SIGN_IN',
+  SIGN_OUT: 'SIGN_OUT',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_UP: 'SIGN_UP',
+  FETCH_USER: 'FETCH_USER',
+};
+
 const initialState = {
   user: null,
   status: 'idle', // idle | fetching | rejected | success | error
-  operation: '', // signin | signout | fetchuser | signup
+  operation: '', // google-sign-in sign-in | sign-out | fetch-user | sign-up
   errorMessage: '',
 };
 
@@ -69,13 +81,26 @@ const userSlice = createSlice({
       state.operation = '';
       return state;
     },
+    googleSign: (state, action) => {
+      window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
+    },
   },
   extraReducers: builder => {
     builder
+      .addCase(googleSignIn.pending, (state, action) => {
+        state.status = 'fetching';
+        state.operation = operations.GOOGLE_SIGN_IN;
+        return state;
+      })
+      .addCase(googleSignIn.fulfilled, (state, action) => {
+        state.status = 'success';
+        return state;
+      })
+
       // Fetch user
       .addCase(fetchUser.pending, (state, action) => {
         state.status = 'fetching';
-        state.operation = 'fetchuser';
+        state.operation = operations.FETCH_USER;
         return state;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
@@ -92,12 +117,13 @@ const userSlice = createSlice({
       // Sign in
       .addCase(signinUser.pending, (state, action) => {
         state.status = 'fetching';
-        state.errorMessage = '';
-        state.operation = 'signin';
+        state.operation = operations.SIGN_IN;
+        return state;
       })
       .addCase(signinUser.rejected, (state, action) => {
         state.status = 'error';
         state.errorMessage = 'Invalid Credentials';
+        return state;
       })
       .addCase(signinUser.fulfilled, (state, action) => {
         state.status = 'success';
@@ -107,7 +133,7 @@ const userSlice = createSlice({
       // Sign up
       .addCase(signupUser.pending, (state, action) => {
         state.status = 'fetching';
-        state.operation = 'signup';
+        state.operation = operations.SIGN_UP;
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -123,11 +149,13 @@ const userSlice = createSlice({
         }
         return state;
       })
-      // .addCase(signoutUser.pending, (state, action) => {
-      //   state.status = 'loading';
-      // })
 
       // Sign out
+      .addCase(signoutUser.pending, (state, action) => {
+        state.status = 'fetching';
+        state.operation = operations.SIGN_OUT;
+        // state.user = {};
+      })
       .addCase(signoutUser.fulfilled, (state, action) => {
         state.user = {};
         state.status = 'success';
@@ -138,7 +166,7 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { clearState } = userSlice.actions;
+export const { clearState, googleSign } = userSlice.actions;
 
 export const selectUser = state => state.user;
 export const selectCurrentUser = createSelector(selectUser, state => state.user);
