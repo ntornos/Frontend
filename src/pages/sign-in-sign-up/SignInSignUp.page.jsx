@@ -7,14 +7,10 @@ import { Container } from '../../components/UtilityComponents';
 import { EmptySpace } from './SignInSignUp.styles';
 import Divider from '../../components/divider/Divider';
 import googleLogo from '../../assets/googleLogo.png';
-import { useDispatch, useSelector } from 'react-redux';
-import { googleSignIn, googleSign } from '../../redux/user/user.slice';
 
 const SignInSignUpPage = ({ location }) => {
-  const dispatch = useDispatch();
-
   const googleLogin = () => {
-    dispatch(googleSign());
+    window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
   };
 
   return (

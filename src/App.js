@@ -7,26 +7,22 @@ import NavBar from './components/navbar/NavBar';
 import Routes from './routes';
 import { lightTheme, darkTheme, GlobalStyles } from './themes';
 
-import { fetchUser, clearState, selectUser, operations } from './redux/user/user.slice';
+import { fetchUser, clearState, selectCurrentUser } from './redux/user/user.slice';
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const { status, operation } = useSelector(selectUser);
 
+  const currUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchUser());
+  const memoizedFetchUser = useCallback(async () => {
+    await dispatch(fetchUser());
+    dispatch(clearState());
   }, [dispatch]);
 
   useEffect(() => {
-    if (operation === operations.SIGN_IN && status === 'success') dispatch(fetchUser());
-  }, [status, operation, dispatch]);
-
-  // local Auth working, but google OAuth not working due to a missing refetch from the useEffect below.
-  useEffect(() => {
-    if (status === 'success' && operation) dispatch(clearState());
-  }, [status, dispatch, operation]);
+    if (!currUser) memoizedFetchUser();
+  }, [memoizedFetchUser, currUser]);
 
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');

@@ -17,13 +17,13 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === 'error' && operation === 'signin') {
+    if (status === 'error' && operation === operations.SIGN_IN) {
       setError(errorMessage);
       dispatch(clearState());
     }
   }, [errorMessage, dispatch, status, operation]);
 
-  if (status === 'success' && operation === operations.SIGN_IN) return <Redirect to='/' />;
+  if (status === 'success' && operation === operations.SIGN_IN) window.location.href = '/';
 
   const formInitialValues = {
     email: '',

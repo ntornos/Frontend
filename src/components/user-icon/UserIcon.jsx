@@ -7,7 +7,6 @@ import { selectCurrentUser } from '../../redux/user/user.slice';
 
 const UserIcon = ({ toggleDropdown }) => {
   const currUser = useSelector(selectCurrentUser);
-
   return (
     <UserIconContainer onMouseEnter={toggleDropdown}>
       <Image

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import FormInput from '../form-input/FormInput';
 import FormButton from '../form-button/FormButton';
 import { Container } from '../UtilityComponents';
-import { signupUser, clearState, selectUser } from '../../redux/user/user.slice';
+import { signupUser, clearState, selectUser, operations } from '../../redux/user/user.slice';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 
 const SignUpForm = () => {
@@ -16,16 +16,13 @@ const SignUpForm = () => {
   const { status, errorMessage, operation } = useSelector(selectUser);
 
   useEffect(() => {
-    if (status === 'success' && operation === 'signup') {
-      window.location.href = '/login';
-      dispatch(clearState());
-    }
-
-    if (status === 'error' && operation === 'signup') {
+    if (errorMessage) {
       setError(errorMessage);
       dispatch(clearState());
     }
-  }, [status, errorMessage, dispatch, operation]);
+  }, [errorMessage, dispatch]);
+
+  if (status === 'success' && operation === operations.SIGN_UP) return <Redirect to='/login' />;
 
   const formInitialValues = {
     email: '',

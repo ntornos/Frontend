@@ -1,12 +1,8 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const googleSignIn = createAsyncThunk('user/googleLogin', () => {
-  window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
-});
-
 export const signinUser = createAsyncThunk('user/login', async ({ email, password }) => {
-  const data = await axios.post(
+  const { data } = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/account/login`,
     {
       email,
@@ -15,13 +11,13 @@ export const signinUser = createAsyncThunk('user/login', async ({ email, passwor
     { withCredentials: true }
   );
 
-  return data.data;
+  return data.status;
 });
 
 export const signupUser = createAsyncThunk(
   'user/register',
   async ({ email, password }, thunkAPI) => {
-    const { data, status, statusText } = await axios.post(
+    const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/account/register`,
       {
         email,
@@ -30,12 +26,9 @@ export const signupUser = createAsyncThunk(
       { withCredentials: true }
     );
 
-    // if response status is 200 the request was succesful
     // data.status is true when user is created
     // data.status is false when user already exists
-    if (status === 200) return data.status;
-    // any other response code will be rejected
-    else return thunkAPI.rejectWithValue(statusText);
+    return data.status;
   }
 );
 
@@ -56,7 +49,6 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
 });
 
 export const operations = {
-  GOOGLE_SIGN_IN: 'GOOGLE_SIGN_IN',
   SIGN_OUT: 'SIGN_OUT',
   SIGN_IN: 'SIGN_IN',
   SIGN_UP: 'SIGN_UP',
@@ -65,8 +57,8 @@ export const operations = {
 
 const initialState = {
   user: null,
-  status: 'idle', // idle | fetching | rejected | success | error
-  operation: '', // google-sign-in sign-in | sign-out | fetch-user | sign-up
+  status: 'idle', // idle | fetching | success | error
+  operation: '', // | sign-out | fetch-user | sign-up
   errorMessage: '',
 };
 
@@ -79,23 +71,12 @@ const userSlice = createSlice({
       state.status = 'idle';
       state.errorMessage = '';
       state.operation = '';
+      // state.user = null;
       return state;
-    },
-    googleSign: (state, action) => {
-      window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_self');
     },
   },
   extraReducers: builder => {
     builder
-      .addCase(googleSignIn.pending, (state, action) => {
-        state.status = 'fetching';
-        state.operation = operations.GOOGLE_SIGN_IN;
-        return state;
-      })
-      .addCase(googleSignIn.fulfilled, (state, action) => {
-        state.status = 'success';
-        return state;
-      })
 
       // Fetch user
       .addCase(fetchUser.pending, (state, action) => {
@@ -109,8 +90,6 @@ const userSlice = createSlice({
           state.user = action.payload;
           return state;
         }
-        state.status = 'idle';
-        state.user = {};
         return state;
       })
 
@@ -136,17 +115,11 @@ const userSlice = createSlice({
         state.operation = operations.SIGN_UP;
       })
       .addCase(signupUser.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.errorMessage = action.payload;
+        state.status = 'error';
+        state.errorMessage = 'An user associated with this email already exists.';
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        if (!action.payload) {
-          state.status = 'error';
-          state.errorMessage = 'User already exists.';
-        } else {
-          state.status = 'success';
-          state.errorMessage = '';
-        }
+        state.status = 'success';
         return state;
       })
 
@@ -157,7 +130,7 @@ const userSlice = createSlice({
         // state.user = {};
       })
       .addCase(signoutUser.fulfilled, (state, action) => {
-        state.user = {};
+        state.user = null;
         state.status = 'success';
         return state;
       });
@@ -166,7 +139,7 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { clearState, googleSign } = userSlice.actions;
+export const { clearState } = userSlice.actions;
 
 export const selectUser = state => state.user;
 export const selectCurrentUser = createSelector(selectUser, state => state.user);
