@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -12,18 +12,10 @@ import UserIcon from '../user-icon/UserIcon';
 import { Text } from '../UtilityComponents';
 import { UserIconArrow, DropdownCard } from './Dropdown.styles';
 import useResize from '../../hooks/dimensions.hook';
-import {
-  selectCurrentUser,
-  signoutUser,
-  selectUserStatus,
-  selectUser,
-  clearState,
-} from '../../redux/user/user.slice';
-import { Redirect } from 'react-router';
+import { selectCurrentUser, signoutUser } from '../../redux/user/user.slice';
 
 const Dropdown = ({ toggleDropdown }) => {
   const { width } = useResize();
-  const { status, operation } = useSelector(selectUser);
   const currUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();

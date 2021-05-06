@@ -17,11 +17,11 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === 'error' && operation === operations.SIGN_IN) {
+    if (errorMessage) {
       setError(errorMessage);
       dispatch(clearState());
     }
-  }, [errorMessage, dispatch, status, operation]);
+  }, [errorMessage, dispatch]);
 
   if (status === 'success' && operation === operations.SIGN_IN) window.location.href = '/';
 
