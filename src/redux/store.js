@@ -1,23 +1,34 @@
-// redux inicialization functions. start store, activate middlewares.
-import { createStore, applyMiddleware } from 'redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from './user/user.slice';
+import logger from 'redux-logger';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
-// devtooling in browser.
-import { composeWithDevTools } from 'redux-devtools-extension';
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+};
 
-import { createLogger } from 'redux-logger';
+const reducers = combineReducers({
+  user: userReducer,
+});
 
-// allows fetching in redux.
-import reduxThunk from 'redux-thunk';
+const persistedReducer = persistReducer(persistConfig, reducers);
 
-// global reducer, manages all the reducers.
-import { rootReducer } from './rootReducer';
+const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: getDefaultMiddleware => {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    }).concat(logger);
+    // .concat(logger);
+  },
+});
 
-// All middleware goes here.
-let middleWares = [reduxThunk];
+export const persistor = persistStore(store);
 
-if (process.browser) {
-  middleWares = [...middleWares, createLogger({ collapsed: true })];
-}
-
-// Store gets created, passing all the activated middlewares to our devtooling system.
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleWares)));
+export default store;

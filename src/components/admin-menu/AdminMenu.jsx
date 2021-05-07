@@ -2,11 +2,13 @@ import React from 'react';
 import { Option } from '../navbar/NavBar.styles';
 import UserIcon from '../user-icon/UserIcon';
 
-const AdminMenu = () => {
+const AdminMenu = ({ dropDownShow }) => {
   return (
     <>
-      <Option to='/dashboard'>Dashboard</Option>
-      <UserIcon hasEvent={true} />
+      {/* <Option to='/dashboard' onClick={toggleDropdown}>
+        Dashboard
+      </Option> */}
+      <UserIcon hasEvent={true} toggleDropdown={dropDownShow} />
     </>
   );
 };

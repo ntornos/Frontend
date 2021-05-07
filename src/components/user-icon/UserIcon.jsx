@@ -1,27 +1,14 @@
-import React, { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
-import { myContext } from '../Context';
 import { UserIconContainer } from './UserIcon.styles';
 import { Image } from '../UtilityComponents';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../redux/user/user.slice';
 
-import { toggleMenu } from '../../redux/user-interface/userInterface.actions';
-
-const UserIcon = ({ hasEvent }) => {
-  const currUser = useContext(myContext);
-  const dispatch = useDispatch();
-
-  const dropdownHidden = useSelector(state => state.userInterface.dropdownHidden);
-
-  const toggleMenuHandler = () => dispatch(toggleMenu());
-
-  const hasEventHandler = () => {
-    if (hasEvent && dropdownHidden) toggleMenuHandler();
-    return () => {};
-  };
-
+const UserIcon = ({ toggleDropdown }) => {
+  const currUser = useSelector(selectCurrentUser);
   return (
-    <UserIconContainer onMouseEnter={hasEventHandler}>
+    <UserIconContainer onMouseEnter={toggleDropdown}>
       <Image
         alt='default user'
         src={currUser.profilePicture}

@@ -1,4 +1,0 @@
-export const listingsTypes = {
-  ADD_NEW_LISTING: 'ADD_NEW_LISTING',
-  FETCH_USER_LISTINGS: 'FETCH_USER_LISTINGS',
-};

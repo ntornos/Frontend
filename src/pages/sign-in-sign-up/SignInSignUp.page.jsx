@@ -27,6 +27,7 @@ const SignInSignUpPage = ({ location }) => {
             <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
               Sign in with Google
             </FormButton>
+
             <Divider children='or' />
             <SignInForm />
           </Container>
@@ -43,7 +44,7 @@ const SignInSignUpPage = ({ location }) => {
             height='calc(100vh - 70px)'
             direction='column'>
             <h2>Create your account</h2>
-            <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
+            <FormButton imageUrl={googleLogo} name='Google' onClick={() => {}}>
               Sign up with Google
             </FormButton>
             <Divider children='or' />
