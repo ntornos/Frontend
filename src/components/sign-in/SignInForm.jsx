@@ -17,6 +17,7 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('useEffect signInForm');
     if (errorMessage) {
       setError(errorMessage);
       dispatch(clearState());

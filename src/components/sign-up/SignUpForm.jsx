@@ -16,6 +16,7 @@ const SignUpForm = () => {
   const { status, errorMessage, operation } = useSelector(selectUser);
 
   useEffect(() => {
+    console.log('useEffect signUpForm');
     if (errorMessage) {
       setError(errorMessage);
       dispatch(clearState());
@@ -34,7 +35,7 @@ const SignUpForm = () => {
       <Formik
         initialValues={formInitialValues}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Invalid email').required('Required'),
+          email: Yup.string().email('Invalid email').required('Email is required'),
           password: Yup.string()
             .required('Password is required')
             .min(6, 'Password too short - should be 6 characters minimum'),
@@ -43,7 +44,7 @@ const SignUpForm = () => {
           dispatch(signupUser({ email, password }));
           helpers.setSubmitting(false);
         }}>
-        {({ values, errors, touched, handleChange, setErrors }) => (
+        {({ errors, touched, handleChange }) => (
           <Form>
             <FormInput
               label='Email Address'
