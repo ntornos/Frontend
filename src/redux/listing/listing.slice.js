@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = {
   allListings: {},
+  // just have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing
   userListings: {},
 };
 
