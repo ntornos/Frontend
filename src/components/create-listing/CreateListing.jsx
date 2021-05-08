@@ -20,7 +20,7 @@ import { Redirect } from 'react-router-dom';
 
 const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  // const [formSubmitted, setFormSubmitted] = useState(false);
 
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
@@ -33,11 +33,11 @@ const CreateListing = props => {
   // const dispatch = useDispatch();
 
   const onSubmit = (values, helpers) => {
-    // setTimeout(() => {
-    //   helpers.setSubmitting(false);
-    //   setFormSubmitted(true);
-    //   dispatch(addNewListingThunk(values));
-    // }, 400);
+    // set Submitting to false to finish the cycle.
+    helpers.setSubmitting(false);
+
+    // instead of having local state locate if the form is submitted, maybe formik provides that value.
+    // if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
   };
 
   const handleAddress = async address => {
@@ -54,8 +54,6 @@ const CreateListing = props => {
     setFieldValue('address', e.label);
     setFieldValue('latLng', latLng);
   };
-
-  if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
 
   return (
     <CreateListingCard>
