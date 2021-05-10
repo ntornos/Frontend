@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userReducer from './user/user.slice';
 import logger from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+
+import userReducer from './user/user.slice';
+import userListingsReducer from './listing/userListing.slice';
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +14,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   user: userReducer,
+  userListings: userListingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
