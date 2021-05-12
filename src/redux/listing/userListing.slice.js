@@ -38,7 +38,13 @@ const userListingSlice = createSlice({
   reducers: {
     cleanState: (state, action) => {
       state.status = 'idle';
-      // state.userListings = {};
+      return state;
+    },
+    signOutClearListingState: (state, action) => {
+      state.userListings = {};
+      state.userListings = {};
+      state.count = 0;
+      state.status = 'idle';
       return state;
     },
   },
@@ -76,7 +82,7 @@ const userListingSlice = createSlice({
 
 export default userListingSlice.reducer;
 
-export const { cleanState } = userListingSlice.actions;
+export const { cleanState, signOutClearListingState } = userListingSlice.actions;
 
 export const selectUserListings = state => state.userListing;
 export const selectCurrentUserListings = createSelector(
