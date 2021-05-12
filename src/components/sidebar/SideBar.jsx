@@ -1,29 +1,19 @@
 import React, { useState } from 'react';
-import { Container } from '../UtilityComponents';
-import { SideBarButton, SideBarAside } from './SideBar.styles';
 
-const SideBar = () => {
-  // have state describe which are is being clicked to toggle.
-  const [sectionOpen, setSectionOpen] = useState('listings');
+import { SideBarData } from './Sidebar.data';
+import { SidebarNav, SidebarWrap } from './Sidebar.styles';
+import SidebarSubMenu from './Sidebar.subMenu';
 
-  // have state to check if active or hidden
-  const [toggleOpenClose, setToggleOpenClose] = useState(true);
-
+const Sidebar = () => {
   return (
-    <SideBarAside>
-      <section>
-        <SideBarButton onClick={() => {}} className={`${toggleOpenClose} `}>
-          Listings
-        </SideBarButton>
-        <Container>
-          <ul>
-            <li>Listings</li>
-            <li>Reviews</li>
-          </ul>
-        </Container>
-      </section>
-    </SideBarAside>
+    <SidebarNav>
+      <SidebarWrap>
+        {SideBarData.map((item, idx) => {
+          return <SidebarSubMenu menuItem={item} key={idx} />;
+        })}
+      </SidebarWrap>
+    </SidebarNav>
   );
 };
 
-export default SideBar;
+export default Sidebar;
