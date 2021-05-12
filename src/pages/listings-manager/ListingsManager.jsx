@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import SideBar from '../../components/sidebar/SideBar';
 import { cleanState, fetchUserListings } from '../../redux/listing/userListing.slice';
 
 const ListingsManager = () => {
@@ -16,7 +17,11 @@ const ListingsManager = () => {
   }, [memoizedFetchUserListings]);
 
   // render them
-  return <div>Listings manager page</div>;
+  return (
+    <div>
+      <SideBar />
+    </div>
+  );
 };
 
 export default ListingsManager;

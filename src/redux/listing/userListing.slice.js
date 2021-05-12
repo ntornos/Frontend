@@ -5,7 +5,7 @@ export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
     withCredentials: true,
   });
-  console.log('fetchUserListings data:', data);
+  // console.log('fetchUserListings data:', data);
   return data;
 });
 
@@ -19,7 +19,7 @@ export const createListing = createAsyncThunk('userListing/createListing', async
       withCredentials: true,
     }
   );
-  console.log('createListing data:', data);
+  // console.log('createListing data:', data);
 
   return data;
 });
@@ -27,6 +27,7 @@ export const createListing = createAsyncThunk('userListing/createListing', async
 // just have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
 const initialState = {
   userListings: {},
+  userListingUploading: {},
   count: 0,
   status: 'idle', // idle | fetching | success | error
 };
@@ -52,7 +53,7 @@ const userListingSlice = createSlice({
         const objectifiedListings = {};
 
         // we need to add sorting.
-        listings.forEach(listing => (objectifiedListings[listing._id] = listing));
+        if (listings) listings.forEach(listing => (objectifiedListings[listing._id] = listing));
 
         state.userListings = objectifiedListings;
         state.count = payload.count;
@@ -64,10 +65,10 @@ const userListingSlice = createSlice({
         return state;
       })
       .addCase(createListing.fulfilled, (state, { payload }) => {
-        // state.userListings = payload.data;
-        // state.count = payload.count;
-        // state.status = 'success';
-        console.log(payload, 'payload at createListing');
+        state.userListingUploading = payload.data;
+
+        state.status = 'success';
+
         return state;
       });
   },
