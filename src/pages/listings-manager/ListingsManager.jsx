@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import SideBar from '../../components/sidebar/SideBar';
+import Sidebar from '../../components/sidebar/Sidebar';
 import { cleanState, fetchUserListings } from '../../redux/listing/userListing.slice';
 
 const ListingsManager = () => {
@@ -19,7 +19,7 @@ const ListingsManager = () => {
   // render them
   return (
     <div>
-      <SideBar />
+      <Sidebar />
     </div>
   );
 };
