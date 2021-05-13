@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const SideBarButton = styled.button`
-  border: none;
-  background: #f4f4f4;
-  padding: 0;
-  width: 100%;
-  text-align: left;
-  padding: 10px 7px 0 7px;
-  font-family: 'CostarBrownRegular', sans-serif;
-  color: #4c4c4c;
-  font-size: 1rem;
-  letter-spacing: 0;
-  line-height: 34px;
-`;
-
 export const SidebarNav = styled.nav`
   background: #15171c;
   width: 250px;
