@@ -13,7 +13,7 @@ export const SideBarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
-        title: 'Listings',
+        title: 'Listings/Properties',
         path: '/myntornos/listings-manager',
         // icon: <BiIcons.BiBuildingHouse />,
       },
@@ -33,12 +33,12 @@ export const SideBarData = [
     subNav: [
       {
         title: 'Yeah',
-        // path: '/myntornos/listings-manager',
+        path: '/myntornos/',
         // icon: <BiIcons.BiBuildingHouse />,
       },
       {
         title: 'Hello',
-        // path: '/myntornos/listings-manager',
+        path: '/myntornos/',
         // icon: <BiIcons.BiBuildingHouse />,
       },
     ],

@@ -71,7 +71,7 @@ export const SubMenuLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 18px;
+  /* font-size: 16px; */
 
   &.active {
     border-left: 4px solid #6d6b6b;

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { SidebarLabel, SidebarLink, SidebarWrap, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
+import { SidebarLabel, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
 
-const SidebarSubMenu = ({ menuItem }) => {
+const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index }) => {
   const [toggleSubNav, setToggleSubNav] = useState(false);
+
   const pathname = window.location.pathname;
-  console.log(pathname);
-  const subNavToggler = () => setToggleSubNav(!toggleSubNav);
+  const subNavToggler = () => openDropDown(index);
+  // setToggleSubNav(!toggleSubNav);
+
+  // only one opens at a time, but it won't close when the one that's open is clicked.
 
   return (
     <>
@@ -16,15 +19,16 @@ const SidebarSubMenu = ({ menuItem }) => {
           {/* <SidebarLink to={menuItem.path} /> */}
         </div>
         <div>
-          {menuItem.subNav && toggleSubNav
+          {menuItem.subNav && isOpen
             ? menuItem.iconOpened
             : menuItem.subNav
             ? menuItem.iconClosed
             : null}
         </div>
       </SubMenuWrap>
-      {toggleSubNav &&
+      {isOpen &&
         menuItem.subNav.map((subMenuItem, idx) => {
+          // if (pathname === subMenuItem.path) subNavToggler();
           return (
             <SubMenuLink
               to={subMenuItem.path}
