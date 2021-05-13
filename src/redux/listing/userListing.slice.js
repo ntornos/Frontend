@@ -26,7 +26,7 @@ export const createListing = createAsyncThunk('userListing/createListing', async
 
 // just have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
 const initialState = {
-  userListings: {},
+  userListings: null,
   userListingUploading: {},
   count: 0,
   status: 'idle', // idle | fetching | success | error
@@ -41,8 +41,8 @@ const userListingSlice = createSlice({
       return state;
     },
     signOutClearListingState: (state, action) => {
-      state.userListings = {};
-      state.userListings = {};
+      state.userListings = null;
+      state.userListingUploading = {};
       state.count = 0;
       state.status = 'idle';
       return state;
@@ -56,10 +56,15 @@ const userListingSlice = createSlice({
       })
       .addCase(fetchUserListings.fulfilled, (state, { payload }) => {
         const listings = payload.data;
-        const objectifiedListings = {};
+        let objectifiedListings;
 
         // we need to add sorting.
-        if (listings) listings.forEach(listing => (objectifiedListings[listing._id] = listing));
+        // if (listings) listings.forEach(listing => (objectifiedListings[listing._id] = listing));
+        if (listings)
+          objectifiedListings = listings.reduce((prevVal, currVal) => {
+            prevVal[currVal._id] = currVal;
+            return prevVal;
+          }, {});
 
         state.userListings = objectifiedListings;
         state.count = payload.count;
@@ -72,9 +77,7 @@ const userListingSlice = createSlice({
       })
       .addCase(createListing.fulfilled, (state, { payload }) => {
         state.userListingUploading = payload.data;
-
         state.status = 'success';
-
         return state;
       });
   },
@@ -84,11 +87,18 @@ export default userListingSlice.reducer;
 
 export const { cleanState, signOutClearListingState } = userListingSlice.actions;
 
-export const selectUserListings = state => state.userListing;
+export const selectUserListings = state => state.userListings;
+
 export const selectCurrentUserListings = createSelector(
   selectUserListings,
   state => state.userListings
 );
+
+export const selectCurrentUserListingsArr = createSelector(selectUserListings, ({ userListings }) =>
+  userListings ? Object.keys(userListings).map(key => userListings[key]) : []
+);
+
+export const selectListingCount = createSelector(selectUserListings, ({ count }) => count);
 
 // santoDomingo: {
 //   bellaVista: {

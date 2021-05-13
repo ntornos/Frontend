@@ -1,8 +1,22 @@
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { cleanState, fetchUserListings } from '../../redux/listing/userListing.slice';
-import { MainContent, MainContentHeader, Button } from './ListingsManager.styles';
+import {
+  cleanState,
+  fetchUserListings,
+  selectCurrentUserListings,
+  selectUserListings,
+  selectCurrentUserListingsArr,
+  selectListingCount,
+} from '../../redux/listing/userListing.slice';
+import {
+  MainContent,
+  MainContentHeader,
+  Button,
+  MainContentSubHeader,
+  FilterContainer,
+  ListingSectionTitle,
+} from './ListingsManager.styles';
 import { Container, Text } from '../../components/UtilityComponents';
 
 const ListingsManager = () => {
@@ -18,6 +32,9 @@ const ListingsManager = () => {
     memoizedFetchUserListings();
   }, [memoizedFetchUserListings]);
 
+  const userListings = useSelector(selectCurrentUserListingsArr);
+  console.log(userListings);
+  const totalUserListings = useSelector(selectListingCount);
   // render them
   return (
     <Container justify='flex-end' display='flex'>
@@ -29,10 +46,28 @@ const ListingsManager = () => {
           <Text fontWeight='200' fontSize='30px'>
             Listings Manager
           </Text>
-          <Button width='15%'>Add Property</Button>
+          <Button to='/myntornos/create-listing' width='15%'>
+            Add Property
+          </Button>
         </MainContentHeader>
 
+        <MainContentSubHeader>
+          <FilterContainer>Filters here</FilterContainer>
+        </MainContentSubHeader>
+
+        <ListingSectionTitle>
+          <Text>Showing {totalUserListings} Listings</Text>
+        </ListingSectionTitle>
         {/* map for each user listing */}
+
+        {!!userListings.length &&
+          userListings.map(listing => {
+            return (
+              <div key={listing._id}>
+                <p>{listing.title}</p>
+              </div>
+            );
+          })}
       </MainContent>
     </Container>
   );
