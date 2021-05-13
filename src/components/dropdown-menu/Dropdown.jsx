@@ -48,11 +48,7 @@ const Dropdown = ({ toggleDropdown }) => {
         <MenuItem to='/myntornos/saved-homes' onClick={toggleDropdown}>
           Saved Homes
         </MenuItem>
-        <MenuItem
-          to='/myntornos/listings-manager'
-          onClick={() => {
-            toggleDropdown();
-          }}>
+        <MenuItem to='/myntornos/listings-manager' onClick={toggleDropdown}>
           Listings Manager
         </MenuItem>
         <MenuItem to='/myntornos/account' onClick={toggleDropdown}>

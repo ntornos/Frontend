@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import { SidebarLabel, SubMenuWrap, SubMenuLink, Div } from './Sidebar.styles';
+import React from 'react';
+import { SidebarLabel, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
 
 const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
-  const [toggleSubNav, setToggleSubNav] = useState(true);
-
   const pathname = window.location.pathname;
 
   const subNavToggler = () => {
     openDropDown(index);
     onClose(!isOpen);
   };
-
-  // only one opens at a time, but it won't close when the one that's open is clicked.
 
   return (
     <>
@@ -30,20 +26,18 @@ const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
         </div>
       </SubMenuWrap>
 
-      <Div>
-        {isOpen &&
-          menuItem.subNav.map((subMenuItem, idx) => {
-            return (
-              <SubMenuLink
-                to={subMenuItem.path}
-                className={pathname === subMenuItem.path && 'active'}
-                key={idx}>
-                {subMenuItem.icon}
-                <SidebarLabel>{subMenuItem.title}</SidebarLabel>
-              </SubMenuLink>
-            );
-          })}
-      </Div>
+      {isOpen &&
+        menuItem.subNav.map((subMenuItem, idx) => {
+          return (
+            <SubMenuLink
+              to={subMenuItem.path}
+              className={pathname === subMenuItem.path && 'active'}
+              key={idx}>
+              {subMenuItem.icon}
+              <SidebarLabel>{subMenuItem.title}</SidebarLabel>
+            </SubMenuLink>
+          );
+        })}
     </>
   );
 };
