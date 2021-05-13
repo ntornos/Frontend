@@ -71,7 +71,6 @@ const userSlice = createSlice({
       state.status = 'idle';
       state.errorMessage = '';
       state.operation = '';
-      // state.user = null;
       return state;
     },
   },
@@ -127,7 +126,7 @@ const userSlice = createSlice({
       .addCase(signoutUser.pending, (state, action) => {
         state.status = 'fetching';
         state.operation = operations.SIGN_OUT;
-        // state.user = {};
+        return state;
       })
       .addCase(signoutUser.fulfilled, (state, action) => {
         state.user = null;

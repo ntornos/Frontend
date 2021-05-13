@@ -17,6 +17,8 @@ import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 // import { addNewListingThunk } from '../../redux/listing/listing.actions';
 import Map from '../map/Map';
 import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createListing } from '../../redux/listing/userListing.slice';
 
 const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);
@@ -30,15 +32,19 @@ const CreateListing = props => {
     latLng: null,
   };
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const onSubmit = (values, helpers) => {
-    // setTimeout(() => {
-    //   helpers.setSubmitting(false);
-    //   setFormSubmitted(true);
-    //   dispatch(addNewListingThunk(values));
-    // }, 400);
+  const onSubmit = async (values, helpers) => {
+    await dispatch(createListing(values));
+
+    // set Submitting to false to finish the cycle.
+    helpers.setSubmitting(false);
+
+    // instead of having local state locate if the form is submitted, maybe formik provides that value.
+    setFormSubmitted(true);
   };
+
+  if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
 
   const handleAddress = async address => {
     const location = await geocodeByAddress(address);
@@ -54,8 +60,6 @@ const CreateListing = props => {
     setFieldValue('address', e.label);
     setFieldValue('latLng', latLng);
   };
-
-  if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
 
   return (
     <CreateListingCard>

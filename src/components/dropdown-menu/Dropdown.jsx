@@ -13,6 +13,7 @@ import { Text } from '../UtilityComponents';
 import { UserIconArrow, DropdownCard } from './Dropdown.styles';
 import useResize from '../../hooks/dimensions.hook';
 import { selectCurrentUser, signoutUser } from '../../redux/user/user.slice';
+import { signOutClearListingState } from '../../redux/listing/userListing.slice';
 
 const Dropdown = ({ toggleDropdown }) => {
   const { width } = useResize();
@@ -20,9 +21,10 @@ const Dropdown = ({ toggleDropdown }) => {
 
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     toggleDropdown();
-    dispatch(signoutUser());
+    await dispatch(signoutUser());
+    dispatch(signOutClearListingState());
   };
 
   return (

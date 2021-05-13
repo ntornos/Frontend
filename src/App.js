@@ -21,7 +21,6 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('useEffect App.js');
     if (!currUser) memoizedFetchUser();
   }, [memoizedFetchUser, currUser]);
 
