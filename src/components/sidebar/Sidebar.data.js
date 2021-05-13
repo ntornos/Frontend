@@ -16,8 +16,8 @@ export const SideBarData = [
         // icon: <BiIcons.BiBuildingHouse />,
       },
       {
-        title: 'Upload Listing',
-        path: '/myntornos/create-listing',
+        title: 'Reviews',
+        path: '/myntornos/listings-manager/reviews',
         // icon: <BiIcons.BiBuildingHouse />,
       },
     ],

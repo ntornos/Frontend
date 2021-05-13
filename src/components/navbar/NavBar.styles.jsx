@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { Container } from '../UtilityComponents';
 import { Link } from 'react-router-dom';
 
-export const Header = styled(Container)``;
+export const Header = styled(Container)`
+  /* border-bottom: 1px solid #cacaca; */
+`;
 
 export const Option = styled(Link)`
   margin: 15px;

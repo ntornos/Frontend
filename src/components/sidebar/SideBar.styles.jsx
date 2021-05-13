@@ -6,7 +6,7 @@ export const SidebarNav = styled.nav`
   width: 250px;
   /* background: #f4f4f4; */
   height: calc(100vh - 70px);
-  border-right: 1px solid #ccc;
+  /* border-right: 1px solid #ccc; */
   display: flex;
   justify-content: center;
   position: fixed;

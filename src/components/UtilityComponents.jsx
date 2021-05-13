@@ -21,6 +21,7 @@ export const Text = styled.span`
   padding: ${({ padding }) => padding};
   margin: ${({ margin }) => margin};
   line-height: ${({ lineHeight }) => lineHeight};
+  font-weight: ${({ fontWeight }) => fontWeight};
 
   &:hover {
     color: ${({ fontHoverColor }) => fontHoverColor};
