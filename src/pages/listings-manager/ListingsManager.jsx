@@ -20,9 +20,9 @@ import {
 import { Container, Text } from '../../components/UtilityComponents';
 
 const ListingsManager = () => {
-  // fetch for all user listings, add them to global state.
   const dispatch = useDispatch();
 
+  // fetch for all user listings, add them to global state.
   const memoizedFetchUserListings = useCallback(async () => {
     await dispatch(fetchUserListings());
     dispatch(cleanState());
@@ -33,15 +33,14 @@ const ListingsManager = () => {
   }, [memoizedFetchUserListings]);
 
   const userListings = useSelector(selectCurrentUserListingsArr);
-  console.log(userListings);
   const totalUserListings = useSelector(selectListingCount);
-  // render them
+
   return (
     <Container justify='flex-end' display='flex'>
       <Sidebar />
 
       <MainContent>
-        {/* Main Content Header containing name of page, add property button, filtering */}
+        {/* Main Content Header containing name of page, add property button */}
         <MainContentHeader>
           <Text fontWeight='200' fontSize='30px'>
             Listings Manager
@@ -51,15 +50,17 @@ const ListingsManager = () => {
           </Button>
         </MainContentHeader>
 
+        {/* filtering section */}
         <MainContentSubHeader>
           <FilterContainer>Filters here</FilterContainer>
         </MainContentSubHeader>
 
+        {/* Listings sub title, displays amount of listings displayed */}
         <ListingSectionTitle>
           <Text>Showing {totalUserListings} Listings</Text>
         </ListingSectionTitle>
-        {/* map for each user listing */}
 
+        {/* map for each user listing */}
         {!!userListings.length &&
           userListings.map(listing => {
             return (
