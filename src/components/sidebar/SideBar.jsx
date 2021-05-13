@@ -6,6 +6,7 @@ import SidebarSubMenu from './Sidebar.subMenu';
 
 const Sidebar = () => {
   const [dropDownOpened, setDropDownOpened] = useState(0);
+  const [toggleDropDown, setToggleDropDown] = useState(!dropDownOpened && true);
 
   return (
     <SidebarNav>
@@ -13,7 +14,8 @@ const Sidebar = () => {
         {SideBarData.map((item, idx) => {
           return (
             <SidebarSubMenu
-              isOpen={idx === dropDownOpened}
+              isOpen={idx === dropDownOpened && toggleDropDown}
+              onClose={setToggleDropDown}
               openDropDown={setDropDownOpened}
               menuItem={item}
               index={idx}

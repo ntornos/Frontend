@@ -25,6 +25,7 @@ export const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   left: 0;
+  transition: all 1s ease;
 
   // if we wanted to make it a toggled sidebar
   /* top: 0; */ // We use top: 0 to go over the header
@@ -36,6 +37,9 @@ export const SidebarNav = styled.nav`
 export const SidebarWrap = styled.div`
   width: 100%;
   color: #e1e9fc;
+
+  overflow: hidden;
+  transition: all 1s ease;
 `;
 
 export const SidebarLink = styled(Link)`
@@ -56,11 +60,20 @@ export const SubMenuWrap = styled.div`
   color: #e1e9fc;
   text-decoration: none;
 
+  overflow: hidden;
+  transition: all 1s ease;
+
   &:hover {
     background: #252831;
     /* border-left: 4px solid #6d6b6b; */
     cursor: pointer;
   }
+`;
+
+export const Div = styled.div`
+  /* transition: 0.875s all ease-in-out; */
+  overflow: hidden;
+  transition: all 0.5s ease;
 `;
 
 export const SubMenuLink = styled(Link)`
@@ -72,6 +85,9 @@ export const SubMenuLink = styled(Link)`
   text-decoration: none;
   color: #f5f5f5;
   /* font-size: 16px; */
+  /* transition: 0.875s all ease-in-out; */
+  overflow: hidden;
+  transition: all 1s ease;
 
   &.active {
     border-left: 4px solid #6d6b6b;
