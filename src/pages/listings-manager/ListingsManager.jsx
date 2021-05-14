@@ -18,6 +18,7 @@ import {
   ListingSectionTitle,
 } from './ListingsManager.styles';
 import { Container, Text } from '../../components/UtilityComponents';
+import UserListingPreview from '../../components/user-listing-preview/UserListingPreview';
 
 const ListingsManager = () => {
   const dispatch = useDispatch();
@@ -63,11 +64,7 @@ const ListingsManager = () => {
         {/* map for each user listing */}
         {!!userListings.length &&
           userListings.map(listing => {
-            return (
-              <div key={listing._id}>
-                <p>{listing.title}</p>
-              </div>
-            );
+            return <UserListingPreview key={listing._id} listing={listing} />;
           })}
       </MainContent>
     </Container>

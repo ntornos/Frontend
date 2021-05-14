@@ -122,7 +122,7 @@ const CreateListing = props => {
                   onChange: (e, action) => handleChange(e, action, setFieldValue),
                   onFocus: () => setShowMap(false),
                 }}
-                apiKey='AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk'
+                apiKey={process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY}
                 apiOptions={{
                   language: 'en',
                 }}
