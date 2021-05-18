@@ -70,6 +70,15 @@ export const ListingSectionTitle = styled.div`
 `;
 
 export const ListingSectionContainer = styled.div`
+  width: 100%;
+  /* margin-right: 35px; */
+  /* margin-bottom: 35px; */
+
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem; */
+  transition: 0.5s all ease-in-out;
+
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

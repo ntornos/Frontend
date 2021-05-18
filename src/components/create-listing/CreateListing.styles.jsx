@@ -5,7 +5,6 @@ import { Form } from 'formik';
 export const CreateListingCard = styled(Card)`
   width: 95%;
   background: #fff;
-  /* min-height: 460px; */
   padding: 4rem 0;
   margin: 2rem auto;
   display: flex;
