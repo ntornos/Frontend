@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Sidebar from '../../components/sidebar/Sidebar';
 import {
   cleanState,
   fetchUserListings,
-  selectCurrentUserListings,
-  selectUserListings,
   selectCurrentUserListingsArr,
   selectListingCount,
 } from '../../redux/listing/userListing.slice';
@@ -16,8 +15,10 @@ import {
   MainContentSubHeader,
   FilterContainer,
   ListingSectionTitle,
+  ListingsManagerHeader,
+  ListingSectionContainer,
 } from './ListingsManager.styles';
-import { Container, Text } from '../../components/UtilityComponents';
+import { Text, GlobalWrapper } from '../../components/UtilityComponents';
 import UserListingPreview from '../../components/user-listing-preview/UserListingPreview';
 
 const ListingsManager = () => {
@@ -37,7 +38,8 @@ const ListingsManager = () => {
   const totalUserListings = useSelector(selectListingCount);
 
   return (
-    <Container justify='flex-end' display='flex'>
+    <GlobalWrapper>
+      <ListingsManagerHeader />
       <Sidebar />
 
       <MainContent>
@@ -62,12 +64,14 @@ const ListingsManager = () => {
         </ListingSectionTitle>
 
         {/* map for each user listing */}
-        {!!userListings.length &&
-          userListings.map(listing => {
-            return <UserListingPreview key={listing._id} listing={listing} />;
-          })}
+        <ListingSectionContainer>
+          {!!userListings.length &&
+            userListings.map(listing => {
+              return <UserListingPreview key={listing._id} listing={listing} />;
+            })}
+        </ListingSectionContainer>
       </MainContent>
-    </Container>
+    </GlobalWrapper>
   );
 };
 

@@ -1,14 +1,21 @@
 import React from 'react';
-import Card from '../card/Card';
+import { ListingPreviewImage, ListingPreviewCard, ImgContainer } from './UserListingPreview.styles';
 
 const UserListingPreview = ({ listing }) => {
+  console.log(listing);
   return (
-    <Card>
-      <img alt='listing location' />
-      <div key={listing._id}>
-        <p>{listing.title}</p>
+    <ListingPreviewCard>
+      <ImgContainer>
+        <ListingPreviewImage alt='listing location' src={listing.mapImg} />
+      </ImgContainer>
+
+      <div style={{ padding: '10px' }}>
+        <p>{listing.address}</p>
+        <p>{listing.price}</p>
+        <p>{listing.status}</p>
+        <p>{listing.type}</p>
       </div>
-    </Card>
+    </ListingPreviewCard>
   );
 };
 

@@ -1,19 +1,29 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import NavBar from '../../components/navbar/NavBar';
+
+export const ListingsManagerHeader = styled(NavBar)`
+  position: fixed;
+  z-index: 10;
+  /* width: 99vw; */
+`;
 
 export const MainContent = styled.div`
   background: #fff;
-  min-height: 500px;
-  /* float: left; */
-  width: calc(100% - 250px);
-  /* margin-left: 250px; */
-  /* position: relative; */
-  /* z-index: 0; */
-  border-top: #cacaca solid 1px;
+  width: calc(100% - 280px);
+  margin-left: 250px;
+  position: relative;
+
+  padding: 0 1rem;
+  min-height: calc(100vh - 457px);
+  overflow-y: auto;
+  margin-bottom: 65px;
+  z-index: 0;
+  margin-top: 70px;
 `;
 
 export const MainContentHeader = styled.div`
-  padding: 20px 20px;
+  padding: 30px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -50,12 +60,17 @@ export const MainContentSubHeader = styled.div`
   min-height: 56px;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
-  margin: 0px 20px;
   margin-bottom: 20px;
 `;
 
 export const FilterContainer = styled.div``;
 
 export const ListingSectionTitle = styled.div`
-  padding: 0px 20px;
+  margin-bottom: 20px;
+`;
+
+export const ListingSectionContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 `;

@@ -9,11 +9,10 @@ import AdminMenu from '../admin-menu/AdminMenu';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/user.slice';
 
-const NavBar = ({ themeToggler, theme }) => {
+const NavBar = ({ themeToggler, theme, className }) => {
   const currUser = useSelector(selectCurrentUser);
   const [showMenu, setShowMenu] = useState(false);
 
-  // const toggleDropdown = () => setShowMenu(!showMenu);
   const dropDownShow = () => setShowMenu(true);
   const dropDownHide = () => setShowMenu(false);
 
@@ -23,13 +22,7 @@ const NavBar = ({ themeToggler, theme }) => {
   if (currUser && currUser.role === 'CUSTOMER') Menu = <CustomerMenu dropDownShow={dropDownShow} />;
 
   return (
-    <Header
-      direction='row'
-      height='70px'
-      width='100vw'
-      display='flex'
-      justify='space-between'
-      onMouseLeave={dropDownHide}>
+    <Header className={className} onMouseLeave={dropDownHide}>
       <LogoContainer to='/' onClick={dropDownHide}>
         <h2>Ntornos</h2>
       </LogoContainer>

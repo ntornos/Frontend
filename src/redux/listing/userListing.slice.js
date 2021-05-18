@@ -5,7 +5,6 @@ export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
     withCredentials: true,
   });
-  // console.log('fetchUserListings data:', data);
   return data;
 });
 
@@ -19,15 +18,14 @@ export const createListing = createAsyncThunk('userListing/createListing', async
       withCredentials: true,
     }
   );
-  // console.log('createListing data:', data);
 
   return data;
 });
 
-// just have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
+// have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
 const initialState = {
   userListings: null,
-  userListingUploading: {},
+  listingInProcess: {},
   count: 0,
   status: 'idle', // idle | fetching | success | error
 };
@@ -42,7 +40,7 @@ const userListingSlice = createSlice({
     },
     signOutClearListingState: (state, action) => {
       state.userListings = null;
-      state.userListingUploading = {};
+      state.listingInProcess = {};
       state.count = 0;
       state.status = 'idle';
       return state;
@@ -76,7 +74,7 @@ const userListingSlice = createSlice({
         return state;
       })
       .addCase(createListing.fulfilled, (state, { payload }) => {
-        state.userListingUploading = payload.data;
+        state.listingInProcess = payload.data;
         state.status = 'success';
         return state;
       });

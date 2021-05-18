@@ -27,6 +27,6 @@ const MapContainer = props => {
   );
 };
 
-export default GoogleApiWrapper({ apiKey: 'AIzaSyA1u8vY_EHRR8d3GQk9jNsjwvhDqM8QURk' })(
+export default GoogleApiWrapper({ apiKey: process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY })(
   MapContainer
 );

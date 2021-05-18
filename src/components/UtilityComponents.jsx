@@ -38,3 +38,14 @@ export const Image = styled.img`
     ${selector}
   }
 `;
+
+export const GlobalWrapper = styled.div`
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  z-index: 0;
+`;
