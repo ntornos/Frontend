@@ -1,6 +1,15 @@
 import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export const deleteListing = createAsyncThunk('userListing/deleteListing', async id => {
+  const { data } = await axios.delete(
+    `${process.env.REACT_APP_SERVER_URL}/user-actions/delete-listing/${id}`,
+    { withCredentials: true }
+  );
+
+  return id;
+});
+
 export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
     withCredentials: true,
@@ -48,6 +57,17 @@ const userListingSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(deleteListing.pending, (state, action) => {
+        state.status = 'fetching';
+        return state;
+      })
+      .addCase(deleteListing.fulfilled, (state, { payload }) => {
+        if (state.listingInProcess._id === payload) state.listingInProcess = {};
+        delete state.userListings[payload];
+        state.count -= 1;
+        return state;
+      })
+
       .addCase(fetchUserListings.pending, (state, action) => {
         state.status = 'fetching';
         return state;

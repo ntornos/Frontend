@@ -3,6 +3,7 @@ import { SidebarLabel, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
 
 const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
   const pathname = window.location.pathname;
+  console.log(pathname);
 
   const subNavToggler = () => {
     openDropDown(index);

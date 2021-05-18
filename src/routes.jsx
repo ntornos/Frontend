@@ -9,6 +9,7 @@ import CreateListing from './components/create-listing/CreateListing';
 import ListingsManager from './pages/listings-manager/ListingsManager';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.slice';
+import ListingEdit from './pages/listing-edit/ListingEdit';
 
 const Routes = () => {
   const currUser = useSelector(selectCurrentUser);
@@ -26,6 +27,10 @@ const Routes = () => {
           <Route path='/myntornos/account' component={Account} />
           <Route path='/myntornos/create-listing' component={CreateListing} />
           <Route path='/myntornos/listings-manager' component={ListingsManager} />
+          <Route
+            path='/myntornos/listing-manager/edit-listing/:listingId'
+            component={ListingEdit}
+          />
         </>
       )}
     </Switch>
