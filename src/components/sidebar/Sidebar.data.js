@@ -12,7 +12,7 @@ export const SideBarData = [
     subNav: [
       {
         title: 'Listings/Properties',
-        path: '/myntornos/listings-manager',
+        path: '/myntornos/listings-manager/my-listings',
         // icon: <BiIcons.BiBuildingHouse />,
       },
       {
