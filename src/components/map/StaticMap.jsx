@@ -20,9 +20,9 @@ const StaticMap = ({ latLng, setMapImage }) => {
           />
         );
       }}
-      zoom={18}
+      zoom={15}
       apiKey={process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY}
-      size='500x300'
+      size='800x400'
       region='DO'>
       <Marker location={latLng} />
     </StaticGoogleMap>

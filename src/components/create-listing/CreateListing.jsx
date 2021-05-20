@@ -21,6 +21,7 @@ import Checkbox from '../checkbox-formik/Checkbox';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
 import { createListing } from '../../redux/listing/userListing.slice';
 import StaticMap from '../map/StaticMap';
+import Map from '../map/Map';
 
 const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);
@@ -47,7 +48,7 @@ const CreateListing = props => {
     setFormSubmitted(true);
   };
 
-  if (formSubmitted) return <Redirect to='/myntornos/listings-manager' />;
+  if (formSubmitted) return <Redirect to='/myntornos/listings-manager/my-listings' />;
 
   const handleAddress = async address => {
     const location = await geocodeByAddress(address);
@@ -125,15 +126,16 @@ const CreateListing = props => {
                     name: 'address',
                     onChange: (e, action) => handleChange(e, action, setFieldValue),
                     onFocus: () => setShowMap(false),
-                    // onInputChange: () => setShowMap(false),
+                    placeholder: 'Search your neighborhood...',
                   }}
                   apiKey={process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY}
                   apiOptions={{
                     language: 'en',
                   }}
                   autocompletionRequest={{
+                    types: ['locality'],
                     componentRestrictions: {
-                      country: ['do'],
+                      country: ['DO'],
                     },
                   }}
                 />
@@ -141,9 +143,10 @@ const CreateListing = props => {
                   <StyledErrorMessage>Please input a correct address or sector</StyledErrorMessage>
                 )}
 
-                {/* {values.latLng && showMap && <Map latLng={values.latLng} />} */}
+                {/* {values.latLng && showMap && } */}
                 {values.latLng && showMap && (
-                  <StaticMap latLng={values.latLng} setMapImage={setMapImgUrl} />
+                  <Map latLng={values.latLng} />
+                  // <StaticMap latLng={values.latLng} setMapImage={setMapImgUrl} />
                 )}
               </Container>
 

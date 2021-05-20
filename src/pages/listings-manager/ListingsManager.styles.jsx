@@ -15,7 +15,7 @@ export const MainContent = styled.div`
   position: relative;
 
   padding: 0 1rem;
-  min-height: calc(100vh - 457px);
+  min-height: calc(100vh);
   overflow-y: auto;
   margin-bottom: 65px;
   z-index: 0;

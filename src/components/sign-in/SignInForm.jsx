@@ -66,9 +66,6 @@ const SignInForm = () => {
             <Container justify='space-between' align='center' margin='20px 0'>
               {/* disable while not valid disabled={!(dirty && isValid)} */}
               <FormButton width='30%'>Continue</FormButton>
-              <p>
-                No account? <Link to='/register'>Create one</Link>{' '}
-              </p>
             </Container>
           </Form>
         )}

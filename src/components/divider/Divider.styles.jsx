@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Span = styled.span`
-  background: rgb(255, 255, 255);
+  background: #f2f2f2;
   padding: 0px 10px;
   font-size: 14px;
   font-weight: normal;
