@@ -27,6 +27,9 @@ export const createListing = createAsyncThunk('userListing/createListing', async
       withCredentials: true,
     }
   );
+  // in this case data.data is the actual item, because the API sends it with a key data;
+
+  if (data.status) return data.data;
 
   return data;
 });
@@ -94,7 +97,8 @@ const userListingSlice = createSlice({
         return state;
       })
       .addCase(createListing.fulfilled, (state, { payload }) => {
-        state.listingInProcess = payload.data;
+        state.listingInProcess = payload;
+        state.userListings[payload._id] = payload;
         state.status = 'success';
         return state;
       });
@@ -117,6 +121,21 @@ export const selectCurrentUserListingsArr = createSelector(selectUserListings, (
 );
 
 export const selectListingCount = createSelector(selectUserListings, ({ count }) => count);
+
+export const selectListingInProcess = createSelector(
+  selectUserListings,
+  ({ listingInProcess }) => listingInProcess
+);
+
+export const selectListingInProcessId = createSelector(
+  selectListingInProcess,
+  listing => listing._id
+);
+
+export const selectListingRequestStatus = createSelector(
+  [selectUserListings],
+  ({ status }) => status
+);
 
 // santoDomingo: {
 //   bellaVista: {

@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Sidebar from '../../components/sidebar/Sidebar';
 import {
-  cleanState,
-  fetchUserListings,
   selectCurrentUserListingsArr,
   selectListingCount,
+  selectListingRequestStatus,
 } from '../../redux/listing/userListing.slice';
 import {
   MainContent,
@@ -22,18 +21,6 @@ import { Text, GlobalWrapper } from '../../components/UtilityComponents';
 import UserListingPreview from '../../components/user-listing-preview/UserListingPreview';
 
 const ListingsManager = () => {
-  const dispatch = useDispatch();
-
-  // fetch for all user listings, add them to global state.
-  const memoizedFetchUserListings = useCallback(async () => {
-    await dispatch(fetchUserListings());
-    dispatch(cleanState());
-  }, [dispatch]);
-
-  useEffect(() => {
-    memoizedFetchUserListings();
-  }, [memoizedFetchUserListings]);
-
   const userListings = useSelector(selectCurrentUserListingsArr);
   const totalUserListings = useSelector(selectListingCount);
 

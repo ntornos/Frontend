@@ -8,7 +8,7 @@ import GooglePlacesAutoComplete, {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CreateListingCard, CreateListingForm } from './CreateListing.styles';
 
@@ -19,7 +19,7 @@ import FormInputIcons from '../form-input-icons/FormInputIcons';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
 import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
-import { createListing } from '../../redux/listing/userListing.slice';
+import { createListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
 import StaticMap from '../map/StaticMap';
 import Map from '../map/Map';
 
@@ -27,6 +27,8 @@ const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [mapImgUrl, setMapImgUrl] = useState(null);
+  const listingInProcessId = useSelector(selectListingInProcessId);
+  console.log(listingInProcessId, 'id:');
 
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
@@ -42,13 +44,19 @@ const CreateListing = props => {
     await dispatch(createListing({ ...values, mapImg: mapImgUrl }));
 
     // set Submitting to false to finish the cycle.
+    // tried redirecting directly if submitting: true, it unmounts create-listing component. So, we get an error because where setting submit to false when the component is already unmounted.
     helpers.setSubmitting(false);
 
     // instead of having local state locate if the form is submitted, maybe formik provides that value.
     setFormSubmitted(true);
   };
 
-  if (formSubmitted) return <Redirect to='/myntornos/listings-manager/my-listings' />;
+  if (formSubmitted) {
+    // return (
+    //   <Redirect to={`/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`} />
+    // );
+    return <Redirect to={`/myntornos/listings-manager/my-listings/`} />;
+  }
 
   const handleAddress = async address => {
     const location = await geocodeByAddress(address);
@@ -119,7 +127,7 @@ const CreateListing = props => {
               )}
 
               <Container margin='1.7rem 0px'>
-                <Text lineHeight='1.8em'>Address</Text>
+                <Text lineHeight='1.8em'>address</Text>
                 <GooglePlacesAutoComplete
                   key='address'
                   selectProps={{
@@ -133,14 +141,14 @@ const CreateListing = props => {
                     language: 'en',
                   }}
                   autocompletionRequest={{
-                    types: ['locality'],
+                    types: ['geocode'],
                     componentRestrictions: {
-                      country: ['DO'],
+                      country: ['do'],
                     },
                   }}
                 />
                 {touched.address && errors.address && (
-                  <StyledErrorMessage>Please input a correct address or sector</StyledErrorMessage>
+                  <StyledErrorMessage>Please input a correct address or address</StyledErrorMessage>
                 )}
 
                 {/* {values.latLng && showMap && } */}
