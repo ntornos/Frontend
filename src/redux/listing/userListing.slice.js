@@ -36,7 +36,7 @@ export const createListing = createAsyncThunk('userListing/createListing', async
 
 // have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
 const initialState = {
-  userListings: null,
+  userListings: {},
   listingInProcess: {},
   count: 0,
   status: 'idle', // idle | fetching | success | error
@@ -51,7 +51,7 @@ const userListingSlice = createSlice({
       return state;
     },
     signOutClearListingState: (state, action) => {
-      state.userListings = null;
+      state.userListings = {};
       state.listingInProcess = {};
       state.count = 0;
       state.status = 'idle';
@@ -77,6 +77,7 @@ const userListingSlice = createSlice({
       })
       .addCase(fetchUserListings.fulfilled, (state, { payload }) => {
         const listings = payload.data;
+        console.log(`listings`, listings);
         let objectifiedListings;
 
         // we need to add sorting.
@@ -99,6 +100,7 @@ const userListingSlice = createSlice({
       .addCase(createListing.fulfilled, (state, { payload }) => {
         state.listingInProcess = payload;
         state.userListings[payload._id] = payload;
+        state.count++;
         state.status = 'success';
         return state;
       });

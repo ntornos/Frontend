@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Sidebar from '../../components/sidebar/Sidebar';
 import {
   selectCurrentUserListingsArr,
   selectListingCount,
-  selectListingRequestStatus,
 } from '../../redux/listing/userListing.slice';
 import {
   MainContent,

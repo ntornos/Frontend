@@ -1,34 +1,35 @@
-import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
-
+import React, { useState } from 'react';
 import GooglePlacesAutoComplete, {
   getLatLng,
   geocodeByAddress,
 } from 'react-google-places-autocomplete';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CreateListingCard, CreateListingForm } from './CreateListing.styles';
+import { CreateListingCard, CreateListingForm, ModalWrapper } from './CreateListing.styles';
+import { GlobalWrapper } from '../../components/UtilityComponents';
+import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
+
+import { createListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
 
 import NavBar from '../../components/navbar/NavBar';
-import { GlobalWrapper } from '../../components/UtilityComponents';
 import { Text, Container } from '../UtilityComponents';
 import FormInputIcons from '../form-input-icons/FormInputIcons';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
-import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
-import { createListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
 import StaticMap from '../map/StaticMap';
 import Map from '../map/Map';
+import AlertModal from '../alert-modal/AlertModal';
 
 const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const [mapImgUrl, setMapImgUrl] = useState(null);
   const listingInProcessId = useSelector(selectListingInProcessId);
-  console.log(listingInProcessId, 'id:');
+
+  // write an modal that pops up alerting the user he's been redirected to that listing edit page, so he can fill up the rest of the listing requirements.
+  const [toggleRedirectAlert, setToggleRedirectAlert] = useState(false);
 
   const formInitialValues = {
     acceptedTerms: false, // added for our checkbox
@@ -41,22 +42,18 @@ const CreateListing = props => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values, helpers) => {
-    await dispatch(createListing({ ...values, mapImg: mapImgUrl }));
+    // await dispatch(createListing({ ...values,  mapImg: mapImgUrl }));
+    await dispatch(createListing({ ...values }));
 
+    // toggle modal;
+    setToggleRedirectAlert(true);
     // set Submitting to false to finish the cycle.
     // tried redirecting directly if submitting: true, it unmounts create-listing component. So, we get an error because where setting submit to false when the component is already unmounted.
     helpers.setSubmitting(false);
 
     // instead of having local state locate if the form is submitted, maybe formik provides that value.
-    setFormSubmitted(true);
+    // setFormSubmitted(true);
   };
-
-  if (formSubmitted) {
-    // return (
-    //   <Redirect to={`/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`} />
-    // );
-    return <Redirect to={`/myntornos/listings-manager/my-listings/`} />;
-  }
 
   const handleAddress = async address => {
     const location = await geocodeByAddress(address);
@@ -72,10 +69,38 @@ const CreateListing = props => {
     setFieldValue('latLng', latLng);
   };
 
-  return (
+  return toggleRedirectAlert ? (
+    <ModalWrapper>
+      {console.log(toggleRedirectAlert)}
+      <AlertModal
+        onSubmit={() =>
+          props.history.push(
+            `/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`
+          )
+        }
+        onCancel={() => props.history.push(`/myntornos/listings-manager/my-listings/`)}>
+        Click continue to complete this listing information.
+      </AlertModal>
+    </ModalWrapper>
+  ) : (
     <GlobalWrapper>
       <NavBar />
-      <CreateListingCard>
+
+      {/* {toggleRedirectAlert && (
+        <AlertModal
+          onSubmit={() =>
+            // <Redirect
+            //   to={`/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`}
+            // />
+            props.history.push(
+              `/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`
+            )
+          }
+          onCancel={() => setToggleRedirectAlert(false)}>
+          Would you like to editing this listing? Click Continue.
+        </AlertModal>
+      )} */}
+      <CreateListingCard className={toggleRedirectAlert && 'hideCard'}>
         <Container display='flex' direction='column' align='center' margin='0 0 2rem 0'>
           <Text fontSize='28px' padding='10px 0px'>
             Add Your Property

@@ -26,11 +26,11 @@ const Routes = () => {
           <Route path='/myntornos/dashboard' component={Dashboard} />
           <Route path='/myntornos/account' component={Account} />
           <Route path='/myntornos/create-listing' component={CreateListing} />
-          <Route path='/myntornos/listings-manager/my-listings' component={ListingsManager} />
           <Route
-            path='/myntornos/listing-manager/my-listings/edit-listing/:listingId'
+            path='/myntornos/listings-manager/my-listings/edit-listing/:listingId'
             component={ListingEdit}
           />
+          <Route exact path='/myntornos/listings-manager/my-listings' component={ListingsManager} />
           <Route path='/myntornos/listings-manager/reviews' component={ListingEdit} />
         </>
       )}
