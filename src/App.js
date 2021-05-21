@@ -19,9 +19,19 @@ function App() {
     dispatch(clearState());
   }, [dispatch]);
 
+  // fettch user listings here, maybe?
+  let useEffectCount = 0;
+  let memoizedFetchUserCount = 0;
+
   useEffect(() => {
-    if (!currUser) memoizedFetchUser();
+    console.log('useEffect runs ' + String(++useEffectCount));
+    if (!currUser) {
+      console.log(`memoizedFetchUser executed ${++memoizedFetchUserCount}`);
+      memoizedFetchUser();
+    }
   }, [memoizedFetchUser, currUser]);
+
+  console.log('currentUser value: ', currUser);
 
   // const themeToggler = () => {
   //   theme === 'light' ? setTheme('dark') : setTheme('light');
