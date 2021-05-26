@@ -57,6 +57,10 @@ const userListingSlice = createSlice({
       state.status = 'idle';
       return state;
     },
+    setListingInProcess: (state, { payload }) => {
+      const listingId = payload;
+      state.listingInProcess = state.userListings[listingId];
+    },
   },
   extraReducers: builder => {
     builder
@@ -109,7 +113,8 @@ const userListingSlice = createSlice({
 
 export default userListingSlice.reducer;
 
-export const { cleanState, signOutClearListingState } = userListingSlice.actions;
+export const { cleanState, signOutClearListingState, setListingInProcess } =
+  userListingSlice.actions;
 
 export const selectUserListings = state => state.userListings;
 

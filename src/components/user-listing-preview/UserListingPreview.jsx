@@ -41,7 +41,11 @@ const UserListingPreview = ({ listing }) => {
         <ListingPreviewImage alt='listing location' src={listing.mapImg} />
       </ImgContainer>
       <ListingPreviewDetailsContainer>
-        <ListingEditLink to={`/myntornos/listings-manager/my-listings/edit-listing/${listing._id}`}>
+        <ListingEditLink
+          to={{
+            pathname: `/myntornos/listings-manager/my-listings/edit-listing/${listing._id}`,
+            state: listing,
+          }}>
           {listing.address}
         </ListingEditLink>
 

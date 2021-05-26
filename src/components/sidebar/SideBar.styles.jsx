@@ -49,7 +49,7 @@ export const SubMenuWrap = styled.div`
   transition: all 1s ease;
 
   &:hover {
-    background: #252831;
+    background: #c15a0c;
     cursor: pointer;
   }
 `;
@@ -76,7 +76,8 @@ export const SubMenuLink = styled(Link)`
   }
 
   &:hover {
-    background: #252831;
+    /* background: #fa002a6e; */
+    background: #c15a0c;
     cursor: pointer;
   }
 `;

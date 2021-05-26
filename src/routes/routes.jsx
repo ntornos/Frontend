@@ -1,17 +1,17 @@
 import { Route, Switch } from 'react-router-dom';
 
-import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUp.page';
-import UserHome from './pages/user-home/UserHome.page';
-import Home from './pages/home/Home.page';
-import Dashboard from './pages/dashboard/Dashboard.page';
-import Account from './pages/account/Account.page';
-import CreateListing from './components/create-listing/CreateListing';
-import ListingsManager from './pages/listings-manager/ListingsManager';
+import SignInSignUpPage from '../pages/sign-in-sign-up/SignInSignUp.page';
+import UserHome from '../pages/user-home/UserHome.page';
+import Home from '../pages/home/Home.page';
+import Dashboard from '../pages/dashboard/Dashboard.page';
+import Account from '../pages/account/Account.page';
+import CreateListing from '../components/create-listing/CreateListing';
+import ListingsManager from '../pages/listings-manager/ListingsManager';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from './redux/user/user.slice';
-import ListingEdit from './pages/listing-edit/ListingEdit';
+import { selectCurrentUser } from '../redux/user/user.slice';
+import ListingEdit from '../pages/listing-edit/ListingEdit';
 
-const Routes = () => {
+const Routes = props => {
   const currUser = useSelector(selectCurrentUser);
 
   return (

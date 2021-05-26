@@ -49,7 +49,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (params, thunk
   // if (!data._id) {
   //   return thunkAPI.rejectWithValue('No user logged in');
   // }
-  thunkAPI.dispatch(clearState());
+  // thunkAPI.dispatch(clearState());
 
   return data.data;
 });

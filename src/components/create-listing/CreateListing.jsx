@@ -15,7 +15,7 @@ import { createListing, selectListingInProcessId } from '../../redux/listing/use
 
 import NavBar from '../../components/navbar/NavBar';
 import { Text, Container } from '../UtilityComponents';
-import FormInputIcons from '../form-input-icons/FormInputIcons';
+import FormInputIcons from '../form-input-icons-formik/FormInputIconsFormik';
 import SelectOption from '../select-formik/SelectOption';
 import Checkbox from '../checkbox-formik/Checkbox';
 import StaticMap from '../map/StaticMap';
@@ -71,7 +71,6 @@ const CreateListing = props => {
 
   return toggleRedirectAlert ? (
     <ModalWrapper>
-      {console.log(toggleRedirectAlert)}
       <AlertModal
         onSubmit={() =>
           props.history.push(
@@ -85,21 +84,6 @@ const CreateListing = props => {
   ) : (
     <GlobalWrapper>
       <NavBar />
-
-      {/* {toggleRedirectAlert && (
-        <AlertModal
-          onSubmit={() =>
-            // <Redirect
-            //   to={`/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`}
-            // />
-            props.history.push(
-              `/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`
-            )
-          }
-          onCancel={() => setToggleRedirectAlert(false)}>
-          Would you like to editing this listing? Click Continue.
-        </AlertModal>
-      )} */}
       <CreateListingCard className={toggleRedirectAlert && 'hideCard'}>
         <Container display='flex' direction='column' align='center' margin='0 0 2rem 0'>
           <Text fontSize='28px' padding='10px 0px'>
@@ -125,7 +109,7 @@ const CreateListing = props => {
               .oneOf([true], 'You must accept the terms and conditions.'),
 
             listingType: Yup.string()
-              .oneOf(['building', 'house', 'warehouse'], 'Required')
+              .oneOf(['Building', 'House', 'Warehouse'], 'Required')
               .required('Required'),
           })}
           onSubmit={onSubmit}>
@@ -152,7 +136,7 @@ const CreateListing = props => {
               )}
 
               <Container margin='1.7rem 0px'>
-                <Text lineHeight='1.8em'>address</Text>
+                <Text lineHeight='1.8em'>Neightborhood</Text>
                 <GooglePlacesAutoComplete
                   key='address'
                   selectProps={{
@@ -186,9 +170,9 @@ const CreateListing = props => {
               <Container display='flex' justify='space-between' margin='1.5rem 0px'>
                 <SelectOption label='Listing type' name='listingType' width='100%'>
                   <option value=''>Select...</option>
-                  <option value='house'>House</option>
-                  <option value='building'>Building</option>
-                  <option value='warehouse'>Warehouse</option>
+                  <option value='House'>House</option>
+                  <option value='Building'>Building</option>
+                  <option value='Warehouse'>Warehouse</option>
                 </SelectOption>
               </Container>
 

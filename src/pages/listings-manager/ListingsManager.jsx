@@ -1,8 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Sidebar from '../../components/sidebar/Sidebar';
 import {
+  cleanState,
+  fetchUserListings,
   selectCurrentUserListingsArr,
   selectListingCount,
 } from '../../redux/listing/userListing.slice';
@@ -22,6 +24,22 @@ import UserListingPreview from '../../components/user-listing-preview/UserListin
 const ListingsManager = () => {
   const userListings = useSelector(selectCurrentUserListingsArr);
   const totalUserListings = useSelector(selectListingCount);
+
+  const dispatch = useDispatch();
+
+  // find a way to limit the useEffect to only call once.
+  const memoizedFetchUserListings = useCallback(async () => {
+    await dispatch(fetchUserListings());
+    dispatch(cleanState());
+  }, [dispatch]);
+
+  // fettch user listings here, maybe?
+
+  useEffect(() => {
+    if (!totalUserListings) {
+      memoizedFetchUserListings();
+    }
+  }, [memoizedFetchUserListings, totalUserListings]);
 
   return (
     <GlobalWrapper>

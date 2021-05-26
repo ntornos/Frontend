@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Field } from 'formik';
 
-export const FormInputGroup = styled.div`
+export const FormInputGroup = styled.fieldset`
   padding: 0;
   border: none;
   &:checked {
@@ -10,14 +11,14 @@ export const FormInputGroup = styled.div`
   }
 `;
 
-export const FormInputIconsRadio = styled.input`
+export const FormInputIconsRadio = styled(Field)`
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
   overflow: visible;
 `;
 
-export const FormInputIconLabel = styled.div`
+export const FormInputIconLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;

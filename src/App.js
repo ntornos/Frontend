@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import Routes from './routes';
+import Routes from './routes/routes';
 import { lightTheme, darkTheme, GlobalStyles } from './themes';
 
 import { fetchUser, clearState, selectCurrentUser } from './redux/user/user.slice';
@@ -20,18 +20,12 @@ function App() {
   }, [dispatch]);
 
   // fettch user listings here, maybe?
-  let useEffectCount = 0;
-  let memoizedFetchUserCount = 0;
 
   useEffect(() => {
-    console.log('useEffect runs ' + String(++useEffectCount));
     if (!currUser) {
-      console.log(`memoizedFetchUser executed ${++memoizedFetchUserCount}`);
       memoizedFetchUser();
     }
   }, [memoizedFetchUser, currUser]);
-
-  console.log('currentUser value: ', currUser);
 
   // const themeToggler = () => {
   //   theme === 'light' ? setTheme('dark') : setTheme('light');
