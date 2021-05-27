@@ -1,6 +1,5 @@
 import React from 'react';
 import FormInputText from '../form-input-text/FormInputText';
-import FormInput from '../form-input/FormInput';
 import SelectOption from '../select-formik/SelectOption';
 import { ListingEditFormMainContainer } from './ListingEditForm.styles';
 
@@ -15,7 +14,6 @@ const ListingEditRentForm = ({ handleChange, handleOnInput, listingStatus }) => 
     leaseLength: '',
     squareFootage: '',
   };
-  console.log(`listingStatus`, listingStatus);
 
   return (
     <Formik
@@ -37,6 +35,7 @@ const ListingEditRentForm = ({ handleChange, handleOnInput, listingStatus }) => 
       })}>
       {({ values, errors, touched, handleChange }) => (
         <Form>
+          {/* {console.log(values)} */}
           <ListingEditFormMainContainer>
             <SelectOption label='Bedrooms' name='bedrooms' width='16%'>
               <option value=''>0</option>
@@ -55,12 +54,7 @@ const ListingEditRentForm = ({ handleChange, handleOnInput, listingStatus }) => 
               <option value='1+ Years'>1+ Years</option>
             </SelectOption>
 
-            <FormInputText
-              label='Sq Ft'
-              name='SquareFootage'
-              handleOnInput={handleOnInput}
-              handleChange={handleChange}
-            />
+            <FormInputText label='Sq Ft' name='squareFootage' placeholder='SF' />
           </ListingEditFormMainContainer>
         </Form>
       )}
