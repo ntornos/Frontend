@@ -35,7 +35,7 @@ const ListingEditRentForm = ({ handleChange, handleOnInput, listingStatus }) => 
       })}>
       {({ values, errors, touched, handleChange }) => (
         <Form>
-          {/* {console.log(values)} */}
+          {console.log(values)}
           <ListingEditFormMainContainer>
             <SelectOption label='Bedrooms' name='bedrooms' width='16%'>
               <option value=''>0</option>
