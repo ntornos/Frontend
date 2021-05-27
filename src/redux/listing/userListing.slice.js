@@ -10,6 +10,17 @@ export const deleteListing = createAsyncThunk('userListing/deleteListing', async
   return id;
 });
 
+export const editListing = createAsyncThunk('userLinsting/editListing', async newValues => {
+  const { id, values } = newValues;
+
+  const { data } = await axios.put(
+    `${process.env.REACT_APP_SERVER_URL}/user-actions/update-listing/${id}`,
+    { ...values },
+    { withCredentials: true }
+  );
+  return data;
+});
+
 export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
     withCredentials: true,
@@ -64,6 +75,16 @@ const userListingSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(editListing.pending, (state, action) => {
+        console.log(action);
+        state.status = 'fetching';
+        return state;
+      })
+      .addCase(editListing.fulfilled, (state, action) => {
+        state.status = 'success';
+        return state;
+      })
+
       .addCase(deleteListing.pending, (state, action) => {
         state.status = 'fetching';
         return state;

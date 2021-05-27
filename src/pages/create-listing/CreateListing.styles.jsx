@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Card from '../card/Card';
+import Card from '../../components/card/Card';
 import { Form } from 'formik';
 
 export const CreateListingCard = styled(Card)`

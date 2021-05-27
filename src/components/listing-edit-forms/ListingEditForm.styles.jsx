@@ -7,23 +7,18 @@ export const ListingEditFormMainContainer = styled.div`
   background-color: #fff;
   border: 0.0625rem solid hsla(0, 0%, 74.9%, 0.7);
   box-shadow: 0 0 0.3125rem 0 rgb(0 0 0 / 20%);
-  /* display: flex; */
+  padding: 0 0.75rem;
+  min-height: 200px;
+
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const Input = styled.input`
-  /* width: 200px;
-  height: 35px;
-  box-sizing: border-box;
-  padding-right: 5em; */
-
-  /* &:placeholder-shown {
-    color: red;
-  } */
-
-  &::placeholder {
+  /* &::placeholder {
     color: red;
     visibility: visible;
-  }
+  } */
 
   transition: all 0.2s ease-in-out;
   width: 100%;

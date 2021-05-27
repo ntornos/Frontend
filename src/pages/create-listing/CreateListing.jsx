@@ -9,18 +9,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { CreateListingCard, CreateListingForm, ModalWrapper } from './CreateListing.styles';
 import { GlobalWrapper } from '../../components/UtilityComponents';
-import { StyledErrorMessage } from '../select-formik/SelectOption.styles';
+import { StyledErrorMessage } from '../../components/select-formik/SelectOption.styles';
 
 import { createListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
 
 import NavBar from '../../components/navbar/NavBar';
-import { Text, Container } from '../UtilityComponents';
-import FormInputIcons from '../form-input-icons-formik/FormInputIconsFormik';
-import SelectOption from '../select-formik/SelectOption';
-import Checkbox from '../checkbox-formik/Checkbox';
-import StaticMap from '../map/StaticMap';
-import Map from '../map/Map';
-import AlertModal from '../alert-modal/AlertModal';
+import { Text, Container } from '../../components/UtilityComponents';
+import FormInputIcons from '../../components/form-input-icons-formik/FormInputIconsFormik';
+import SelectOption from '../../components/select-formik/SelectOption';
+import Checkbox from '../../components/checkbox-formik/Checkbox';
+import StaticMap from '../../components/map/StaticMap';
+import Map from '../../components/map/Map';
+import AlertModal from '../../components/alert-modal/AlertModal';
 
 const CreateListing = props => {
   const [showMap, setShowMap] = useState(false);

@@ -80,14 +80,18 @@ const ListingEdit = ({ match, location }) => {
               </Container>
               <ListingEditDivider />
 
-              {/* <Container> */}
-
+              <Container margin='2rem 0'>
+                <Text fontSize='1.25rem'>Basic Info</Text>
+              </Container>
               {listingStatus === 'RENT' ? (
-                <ListingEditRentForm listingStatus={listingStatus} />
+                <Container margin='2rem 0'>
+                  <ListingEditRentForm listingStatus={listingStatus} />
+                </Container>
               ) : (
-                <ListingEditSaleForm listingStatus={listingStatus} />
+                <Container margin='2rem 0'>
+                  <ListingEditSaleForm listingStatus={listingStatus} />
+                </Container>
               )}
-              {/* </Container> */}
             </>
           )}
         </ListingEditContainer>
