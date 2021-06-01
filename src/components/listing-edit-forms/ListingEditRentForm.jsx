@@ -9,15 +9,17 @@ import { ListingEditDivider } from '../../pages/listing-edit/ListingEdit.styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { editListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
 
-const ListingEditRentForm = ({ handleChange, listingStatus }) => {
+const ListingEditRentForm = ({ listing, listingStatus }) => {
+  const { bathrooms, bedrooms, depositAmount, leaseLength, rentPrice, squareFoot } = listing;
+
   const formInitialValuesRent = {
     listingStatus: listingStatus,
-    bedrooms: 0,
-    bathrooms: 0,
-    leaseLength: '',
-    squareFoot: '',
-    rentPrice: '',
-    depositAmount: '',
+    bedrooms: 0 || bedrooms,
+    bathrooms: 0 || bathrooms,
+    leaseLength: '' || leaseLength,
+    squareFoot: '' || squareFoot,
+    rentPrice: '' || rentPrice,
+    depositAmount: '' || depositAmount,
   };
 
   const transformToFormatted = (values, field, setFieldValue) => {

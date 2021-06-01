@@ -10,19 +10,22 @@ export const deleteListing = createAsyncThunk('userListing/deleteListing', async
   return id;
 });
 
-export const editListing = createAsyncThunk('userLinsting/editListing', async newValues => {
-  const { id, values } = newValues;
+export const editListing = createAsyncThunk(
+  'userLinsting/editListing',
+  async (newValues, thunkAPI) => {
+    const { id, values } = newValues;
 
-  const { data } = await axios.put(
-    `${process.env.REACT_APP_SERVER_URL}/user-actions/update-listing/${id}`,
-    { ...values },
-    { withCredentials: true }
-  );
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/user-actions/update-listing/${id}`,
+      { ...values },
+      { withCredentials: true }
+    );
 
-  console.log('data editing:', data);
+    const { dispatch } = thunkAPI;
 
-  return data;
-});
+    return data.doc;
+  }
+);
 
 export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
@@ -79,11 +82,11 @@ const userListingSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(editListing.pending, (state, action) => {
-        console.log(action);
         state.status = 'fetching';
         return state;
       })
-      .addCase(editListing.fulfilled, (state, action) => {
+      .addCase(editListing.fulfilled, (state, { payload }) => {
+        state.userListings[payload._id] = payload;
         state.status = 'success';
         return state;
       })

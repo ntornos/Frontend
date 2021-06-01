@@ -18,10 +18,11 @@ import { Container, GlobalWrapper, Text } from '../../components/UtilityComponen
 import { ListingEditDivider, ListingEditContainer } from './ListingEdit.styles';
 import { ListingsManagerHeader, MainContent } from '../listings-manager/ListingsManager.styles';
 
-const ListingEdit = ({ match, location }) => {
+const ListingEdit = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const listing = location.state;
+
   const listingInProcessId = useSelector(selectListingInProcessId);
   const [listingStatus, setListingStatus] = useState(listing.status);
 
@@ -85,7 +86,7 @@ const ListingEdit = ({ match, location }) => {
               </Container>
               {listingStatus === 'RENT' ? (
                 <Container margin='2rem 0'>
-                  <ListingEditRentForm listingStatus={listingStatus} />
+                  <ListingEditRentForm listingStatus={listingStatus} listing={listing} />
                 </Container>
               ) : (
                 <Container margin='2rem 0'>
