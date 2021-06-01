@@ -108,7 +108,6 @@ const userListingSlice = createSlice({
       })
       .addCase(fetchUserListings.fulfilled, (state, { payload }) => {
         const listings = payload.data;
-        console.log(`listings`, listings);
         let objectifiedListings;
 
         // we need to add sorting.

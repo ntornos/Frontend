@@ -68,7 +68,6 @@ const ListingEditRentForm = ({ listing, listingStatus }) => {
       })}>
       {({ values, errors, touched, setFieldValue }) => (
         <Form>
-          {/* {console.log(touched)} */}
           <ListingEditFormMainContainer>
             <SelectOption padding='1rem' label='Bedrooms' name='bedrooms' width='14%'>
               <option value=''>0</option>

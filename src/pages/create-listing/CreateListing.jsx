@@ -11,7 +11,11 @@ import { CreateListingCard, CreateListingForm, ModalWrapper } from './CreateList
 import { GlobalWrapper } from '../../components/UtilityComponents';
 import { StyledErrorMessage } from '../../components/select-formik/SelectOption.styles';
 
-import { createListing, selectListingInProcessId } from '../../redux/listing/userListing.slice';
+import {
+  createListing,
+  selectListingInProcess,
+  selectListingInProcessId,
+} from '../../redux/listing/userListing.slice';
 
 import NavBar from '../../components/navbar/NavBar';
 import { Text, Container } from '../../components/UtilityComponents';
@@ -27,6 +31,8 @@ const CreateListing = props => {
 
   const [mapImgUrl, setMapImgUrl] = useState(null);
   const listingInProcessId = useSelector(selectListingInProcessId);
+  const listingInProcess = useSelector(selectListingInProcess);
+  console.log(`listingInProcess`, listingInProcess);
 
   // write an modal that pops up alerting the user he's been redirected to that listing edit page, so he can fill up the rest of the listing requirements.
   const [toggleRedirectAlert, setToggleRedirectAlert] = useState(false);
@@ -73,9 +79,10 @@ const CreateListing = props => {
     <ModalWrapper>
       <AlertModal
         onSubmit={() =>
-          props.history.push(
-            `/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`
-          )
+          props.history.push({
+            pathname: `/myntornos/listings-manager/my-listings/edit-listing/${listingInProcessId}`,
+            state: listingInProcess,
+          })
         }
         onCancel={() => props.history.push(`/myntornos/listings-manager/my-listings/`)}>
         Click continue to complete this listing information.
