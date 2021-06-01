@@ -21,6 +21,9 @@ const ListingEditRentForm = ({ handleChange, listingStatus }) => {
   };
 
   const transformToFormatted = (values, field, setFieldValue) => {
+    // formattedValue: '1 Months'
+    // floatValue: 1
+    // value: '1'
     const { formattedValue, value, floatValue } = values;
     setFieldValue(field, value);
   };

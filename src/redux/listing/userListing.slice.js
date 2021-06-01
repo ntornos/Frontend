@@ -18,6 +18,9 @@ export const editListing = createAsyncThunk('userLinsting/editListing', async ne
     { ...values },
     { withCredentials: true }
   );
+
+  console.log('data editing:', data);
+
   return data;
 });
 
