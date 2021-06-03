@@ -38,29 +38,6 @@ const HomepageHero = () => {
         </Text>
 
         <PlacesAutocomplete />
-        {/*
-        <GooglePlacesAutoComplete
-          // key='address'
-          value
-          selectProps={{
-            styles: googlePlacesAutoCompleteStyles,
-            onChange: e => console.log(e),
-            placeholder: 'Ensanche Naco, Santo Domingo',
-          }}
-          apiKey={process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY}
-          apiOptions={{
-            language: 'en',
-          }}
-          onLoadFailed={error => console.error('Could not inject Google script', error)}
-          autocompletionRequest={{
-            types: '(cities)',
-            componentRestrictions: {
-              country: ['do'],
-            },
-          }}
-        /> */}
-
-        {/* <PlacesAutoComplete value={searchValue} onChange={neighborhood => setSearchValue(neighborhood)} /> */}
       </MainSearchContainer>
 
       <HeroBackground>

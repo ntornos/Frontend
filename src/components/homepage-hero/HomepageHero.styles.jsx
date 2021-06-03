@@ -31,7 +31,7 @@ export const MainSearchContainer = styled.div`
   z-index: 1;
   position: absolute;
   margin: 0 auto;
-  top: 12%;
+  top: 30%;
   left: 0;
   bottom: 0;
   right: 0;

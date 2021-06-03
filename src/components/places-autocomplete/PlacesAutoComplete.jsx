@@ -10,11 +10,6 @@ import {
 import { Container, Text } from '../UtilityComponents';
 
 const PlacesAutocomplete = () => {
-  const options = {
-    types: ['(regions)'],
-    // strictBounds: false,
-    // fields: ['address_components', 'geometry', 'icon', 'name'],
-  };
   const {
     ready,
     value,
@@ -24,7 +19,6 @@ const PlacesAutocomplete = () => {
   } = usePlacesAutocomplete({
     cache: false,
     requestOptions: {
-      // types: ['(regions)'],
       componentRestrictions: { country: 'do' },
     },
   });
@@ -44,19 +38,11 @@ const PlacesAutocomplete = () => {
     () => {
       // When user selects a place, we can replace the keyword without request data from API
       // by setting the second parameter to "false"
+      console.log(description);
       setValue(description, false);
       clearSuggestions();
-      console.log(description);
 
-      // Get latitude and longitude via utility functions
-      // getGeocode({ address: description })
-      //   .then(results => getLatLng(results[0]))
-      //   .then(({ lat, lng }) => {
-      //     console.log('📍 Coordinates: ', { lat, lng });
-      //   })
-      //   .catch(error => {
-      //     console.log('😱 Error: ', error);
-      //   });
+      // send the user to /search where we will have the map and listed listings for the sector passed in.
     };
 
   const renderSuggestions = () => {

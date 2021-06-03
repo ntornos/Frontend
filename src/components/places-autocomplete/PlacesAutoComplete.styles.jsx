@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const PlacesAutoCompleteContainer = styled.div`
   width: 45%;
   margin: 2rem 0;
-  /* display: flex; */
 `;
 
 export const PlacesAutoCompleteInput = styled.input`
