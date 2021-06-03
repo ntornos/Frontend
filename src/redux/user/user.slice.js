@@ -40,10 +40,16 @@ export const signoutUser = createAsyncThunk('user/logout', async () => {
   return data;
 });
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
+export const fetchUser = createAsyncThunk('user/fetchUser', async (params, thunkAPI) => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/account/me`, {
     withCredentials: true,
   });
+
+  // thunk should be rejected. Now it's not changing anything but its fulfilled when no user is logged in.
+  // if (!data._id) {
+  //   return thunkAPI.rejectWithValue('No user logged in');
+  // }
+  // thunkAPI.dispatch(clearState());
 
   return data.data;
 });
@@ -83,12 +89,18 @@ const userSlice = createSlice({
         state.operation = operations.FETCH_USER;
         return state;
       })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.status = 'error';
+        state.errorMessage = action.payload;
+        return state;
+      })
       .addCase(fetchUser.fulfilled, (state, action) => {
         if (action.payload) {
           state.status = 'success';
           state.user = action.payload;
           return state;
         }
+        state.status = 'success';
         return state;
       })
 

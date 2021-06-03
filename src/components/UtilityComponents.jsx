@@ -13,6 +13,7 @@ export const Container = styled.div`
   height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  position: ${({ position }) => position};
 `;
 
 export const Text = styled.span`
@@ -21,6 +22,7 @@ export const Text = styled.span`
   padding: ${({ padding }) => padding};
   margin: ${({ margin }) => margin};
   line-height: ${({ lineHeight }) => lineHeight};
+  font-weight: ${({ fontWeight }) => fontWeight};
 
   &:hover {
     color: ${({ fontHoverColor }) => fontHoverColor};
@@ -36,4 +38,15 @@ export const Image = styled.img`
   &.selected {
     ${selector}
   }
+`;
+
+export const GlobalWrapper = styled.div`
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  z-index: 0;
 `;

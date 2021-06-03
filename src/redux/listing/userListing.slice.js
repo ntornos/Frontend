@@ -1,11 +1,36 @@
 import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export const deleteListing = createAsyncThunk('userListing/deleteListing', async id => {
+  const { data } = await axios.delete(
+    `${process.env.REACT_APP_SERVER_URL}/user-actions/delete-listing/${id}`,
+    { withCredentials: true }
+  );
+
+  return id;
+});
+
+export const editListing = createAsyncThunk(
+  'userLinsting/editListing',
+  async (newValues, thunkAPI) => {
+    const { id, values } = newValues;
+
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/user-actions/update-listing/${id}`,
+      { ...values },
+      { withCredentials: true }
+    );
+
+    const { dispatch } = thunkAPI;
+
+    return data.doc;
+  }
+);
+
 export const fetchUserListings = createAsyncThunk('userListing/fetchUserListings', async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user-actions/find-all`, {
     withCredentials: true,
   });
-  // console.log('fetchUserListings data:', data);
   return data;
 });
 
@@ -19,15 +44,17 @@ export const createListing = createAsyncThunk('userListing/createListing', async
       withCredentials: true,
     }
   );
-  // console.log('createListing data:', data);
+  // in this case data.data is the actual item, because the API sends it with a key data;
+
+  if (data.status) return data.data;
 
   return data;
 });
 
-// just have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
+// have user listings and add a new one adds it to the end and we display all user listings including the new one in the redirect after createListing. This would only work if we use an array.
 const initialState = {
   userListings: {},
-  userListingUploading: {},
+  listingInProcess: {},
   count: 0,
   status: 'idle', // idle | fetching | success | error
 };
@@ -42,24 +69,54 @@ const userListingSlice = createSlice({
     },
     signOutClearListingState: (state, action) => {
       state.userListings = {};
-      state.userListings = {};
+      state.listingInProcess = {};
       state.count = 0;
       state.status = 'idle';
       return state;
     },
+    setListingInProcess: (state, { payload }) => {
+      const listingId = payload;
+      state.listingInProcess = state.userListings[listingId];
+    },
   },
   extraReducers: builder => {
     builder
+      .addCase(editListing.pending, (state, action) => {
+        state.status = 'fetching';
+        return state;
+      })
+      .addCase(editListing.fulfilled, (state, { payload }) => {
+        state.userListings[payload._id] = payload;
+        state.status = 'success';
+        return state;
+      })
+
+      .addCase(deleteListing.pending, (state, action) => {
+        state.status = 'fetching';
+        return state;
+      })
+      .addCase(deleteListing.fulfilled, (state, { payload }) => {
+        if (state.listingInProcess._id === payload) state.listingInProcess = {};
+        delete state.userListings[payload];
+        state.count -= 1;
+        return state;
+      })
+
       .addCase(fetchUserListings.pending, (state, action) => {
         state.status = 'fetching';
         return state;
       })
       .addCase(fetchUserListings.fulfilled, (state, { payload }) => {
         const listings = payload.data;
-        const objectifiedListings = {};
+        let objectifiedListings;
 
         // we need to add sorting.
-        if (listings) listings.forEach(listing => (objectifiedListings[listing._id] = listing));
+        // if (listings) listings.forEach(listing => (objectifiedListings[listing._id] = listing));
+        if (listings)
+          objectifiedListings = listings.reduce((prevVal, currVal) => {
+            prevVal[currVal._id] = currVal;
+            return prevVal;
+          }, {});
 
         state.userListings = objectifiedListings;
         state.count = payload.count;
@@ -71,10 +128,10 @@ const userListingSlice = createSlice({
         return state;
       })
       .addCase(createListing.fulfilled, (state, { payload }) => {
-        state.userListingUploading = payload.data;
-
+        state.listingInProcess = payload;
+        state.userListings[payload._id] = payload;
+        state.count++;
         state.status = 'success';
-
         return state;
       });
   },
@@ -82,12 +139,35 @@ const userListingSlice = createSlice({
 
 export default userListingSlice.reducer;
 
-export const { cleanState, signOutClearListingState } = userListingSlice.actions;
+export const { cleanState, signOutClearListingState, setListingInProcess } =
+  userListingSlice.actions;
 
-export const selectUserListings = state => state.userListing;
+export const selectUserListings = state => state.userListings;
+
 export const selectCurrentUserListings = createSelector(
   selectUserListings,
   state => state.userListings
+);
+
+export const selectCurrentUserListingsArr = createSelector(selectUserListings, ({ userListings }) =>
+  userListings ? Object.keys(userListings).map(key => userListings[key]) : []
+);
+
+export const selectListingCount = createSelector(selectUserListings, ({ count }) => count);
+
+export const selectListingInProcess = createSelector(
+  selectUserListings,
+  ({ listingInProcess }) => listingInProcess
+);
+
+export const selectListingInProcessId = createSelector(
+  selectListingInProcess,
+  listing => listing._id
+);
+
+export const selectListingRequestStatus = createSelector(
+  [selectUserListings],
+  ({ status }) => status
 );
 
 // santoDomingo: {

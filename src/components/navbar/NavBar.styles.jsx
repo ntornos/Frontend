@@ -1,8 +1,15 @@
 import styled from 'styled-components';
-import { Container } from '../UtilityComponents';
 import { Link } from 'react-router-dom';
 
-export const Header = styled(Container)``;
+export const Header = styled.nav`
+  flex-direction: row;
+  height: 70px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #cacaca;
+`;
 
 export const Option = styled(Link)`
   margin: 15px;
@@ -22,6 +29,7 @@ export const LogoContainer = styled(Link)`
 export const OptionsContainer = styled.div`
   height: 100%;
   width: 40%;
+  padding: 0 15px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

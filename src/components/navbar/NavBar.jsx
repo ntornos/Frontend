@@ -9,13 +9,14 @@ import AdminMenu from '../admin-menu/AdminMenu';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/user.slice';
 
-const NavBar = ({ themeToggler, theme }) => {
+const NavBar = ({ themeToggler, theme, className }) => {
   const currUser = useSelector(selectCurrentUser);
   const [showMenu, setShowMenu] = useState(false);
 
-  // const toggleDropdown = () => setShowMenu(!showMenu);
-  const dropDownShow = () => setShowMenu(true);
+  const dropDownShow = () => !showMenu && setShowMenu(true);
   const dropDownHide = () => setShowMenu(false);
+
+  const hideDD = showMenu ? dropDownHide : null;
 
   let Menu = <GuestMenu />;
 
@@ -23,23 +24,17 @@ const NavBar = ({ themeToggler, theme }) => {
   if (currUser && currUser.role === 'CUSTOMER') Menu = <CustomerMenu dropDownShow={dropDownShow} />;
 
   return (
-    <Header
-      direction='row'
-      height='70px'
-      width='100vw'
-      display='flex'
-      justify='space-between'
-      onMouseLeave={dropDownHide}>
-      <LogoContainer to='/' onClick={dropDownHide}>
+    <Header className={className} onMouseLeave={hideDD}>
+      <LogoContainer to='/' onClick={hideDD}>
         <h2>Ntornos</h2>
       </LogoContainer>
       <OptionsContainer>
-        <Option to='/' onClick={dropDownHide}>
+        <Option to='/' onClick={hideDD}>
           Home
         </Option>
 
         {Menu}
-        {showMenu && <Dropdown toggleDropdown={dropDownHide} />}
+        {showMenu && <Dropdown toggleDropdown={hideDD} />}
 
         <Option as='div' onClick={() => themeToggler()}>
           {theme === 'light' ? <Light size={22} /> : <Dark size={22} />}

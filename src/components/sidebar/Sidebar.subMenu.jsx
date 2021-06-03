@@ -2,7 +2,9 @@ import React from 'react';
 import { SidebarLabel, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
 
 const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
-  const pathname = window.location.pathname;
+  // const pathname = window.location.pathname;
+  const pathname = window.location.pathname.split('/')[3];
+  // console.log(pathn);
 
   const subNavToggler = () => {
     openDropDown(index);
@@ -28,10 +30,12 @@ const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
 
       {isOpen &&
         menuItem.subNav.map((subMenuItem, idx) => {
+          // changing active option to '/' after '/listing-manager'
+          const menuItemPath = subMenuItem.path.split('/')[3];
           return (
             <SubMenuLink
               to={subMenuItem.path}
-              className={pathname === subMenuItem.path && 'active'}
+              className={pathname === menuItemPath && 'active'}
               key={idx}>
               {subMenuItem.icon}
               <SidebarLabel>{subMenuItem.title}</SidebarLabel>

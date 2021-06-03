@@ -7,7 +7,7 @@ export const DropdownCard = styled(Card)`
   min-width: 230px;
   max-width: 240px;
   inset: 7px auto auto 0px;
-  transform: translate3d(calc(${({ width }) => `${width}px`} - 250px), 61px, 0px);
+  transform: translate3d(calc(${({ width }) => `${width}px`} - 265px), 61px, 0px);
   position: absolute;
   background: white;
 `;

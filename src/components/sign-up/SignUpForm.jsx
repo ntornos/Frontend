@@ -68,9 +68,6 @@ const SignUpForm = () => {
             )}
             <Container justify='space-between' align='center' margin='20px 0'>
               <FormButton width='30%'>Continue</FormButton>
-              <p>
-                Have an account? <Link to='/login'>Log in</Link>{' '}
-              </p>
             </Container>
           </Form>
         )}
