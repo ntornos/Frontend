@@ -1,12 +1,17 @@
 import React from 'react';
-import NavBar from '../../components/navbar/NavBar';
+
 import { GlobalWrapper } from '../../components/UtilityComponents';
+import {} from './Home.styles';
+
+import NavBar from '../../components/navbar/NavBar';
+import HomepageHero from '../../components/homepage-hero/HomepageHero';
 
 const Home = () => {
   return (
     <GlobalWrapper>
       <NavBar />
-      <div>Welcome to the homepage!</div>
+
+      <HomepageHero />
     </GlobalWrapper>
   );
 };

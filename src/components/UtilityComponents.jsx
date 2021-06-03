@@ -13,6 +13,7 @@ export const Container = styled.div`
   height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  position: ${({ position }) => position};
 `;
 
 export const Text = styled.span`
