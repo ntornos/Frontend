@@ -22,7 +22,6 @@ const ListingEdit = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const listing = location.state;
-  console.log(`listing`, listing);
 
   const listingInProcessId = useSelector(selectListingInProcessId);
   const [listingStatus, setListingStatus] = useState(listing.status);

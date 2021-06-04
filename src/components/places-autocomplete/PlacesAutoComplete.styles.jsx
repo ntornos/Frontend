@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
 export const PlacesAutoCompleteContainer = styled.div`
-  width: 45%;
-  margin: 2rem 0;
+  width: 100%;
+  /* margin: 2rem 0; */
+
+  &.homepage {
+    height: 2rem;
+  }
 `;
 
 export const PlacesAutoCompleteInput = styled.input`
-  width: calc(100% - 8.5rem);
+  /* width: calc(100% - 8.5rem); */
   padding: 0px 0.75rem;
-  height: 2.8rem;
+  /* height: 2.8rem; */
+  /* height: 100%; */
   border: 1px solid #b1b1b1;
   border-radius: 0.25rem;
   opacity: 0.96;
@@ -16,10 +21,20 @@ export const PlacesAutoCompleteInput = styled.input`
   font-size: 1rem;
 
   position: relative;
+
+  &.homepage {
+    /* padding: 0.75rem; */
+    /* background: red; */
+  }
+
+  &.create-listing {
+    padding: 0.65rem;
+    width: calc(100% - 1.3rem);
+  }
 `;
 
 export const PlacesAutoCompleteUL = styled.ul`
-  width: calc(100% - 6.9rem);
+  /* width: calc(100% - 6.9rem); */
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -27,6 +42,13 @@ export const PlacesAutoCompleteUL = styled.ul`
   border: none;
   opacity: 0.95;
   overflow: hidden;
+
+  &.create-listing {
+    /* padding: 0.65rem; */
+    width: 100%;
+    border: 1px solid #b1b1b1;
+    border-top: none;
+  }
 `;
 
 export const PlacesAutoCompleteLI = styled.li`
@@ -36,6 +58,10 @@ export const PlacesAutoCompleteLI = styled.li`
 
   &:hover {
     background-color: #d28b1098;
+  }
+
+  &.create-listing {
+    border-bottom: 0.025rem solid #e6e4e4;
   }
 `;
 

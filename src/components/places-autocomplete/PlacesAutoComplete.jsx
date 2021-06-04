@@ -1,15 +1,21 @@
-import usePlacesAutocomplete from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import {
   PlacesAutoCompleteLI,
   PlacesAutoCompleteContainer,
   PlacesAutoCompleteInput,
   PlacesAutoCompleteUL,
-  PlacesAutoCompleteButton,
 } from './PlacesAutoComplete.styles';
 import { Container, Text } from '../UtilityComponents';
 
-const PlacesAutocomplete = () => {
+const PlacesAutocomplete = ({
+  children,
+  className,
+  name,
+  handleChange,
+  setFieldValue,
+  handleLatLng,
+}) => {
   const {
     ready,
     value,
@@ -17,11 +23,11 @@ const PlacesAutocomplete = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
-    cache: false,
     requestOptions: {
       componentRestrictions: { country: 'do' },
     },
   });
+
   const ref = useOnclickOutside(() => {
     // When user clicks outside of the component, we can dismiss
     // the searched suggestions by calling this method
@@ -31,73 +37,69 @@ const PlacesAutocomplete = () => {
   const handleInput = e => {
     // Update the keyword of the input element
     setValue(e.target.value);
+    name && handleChange && handleChange(e);
   };
 
-  const handleSelect =
-    ({ description }) =>
-    () => {
-      // When user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
-      console.log(description);
-      setValue(description, false);
-      clearSuggestions();
+  const handleSelect = async ({ description }, e) => {
+    // When user selects a place, we can replace the keyword without request data from API
+    // by setting the second parameter to "false"
+    setValue(description, false);
 
-      // send the user to /search where we will have the map and listed listings for the sector passed in.
-    };
+    // set the field value onSelect
+    setFieldValue(name, description);
+
+    // this case was necessary for create-listing form where we render a map with latLng
+    if (typeof handleLatLng === 'function') handleLatLng(description, setFieldValue);
+
+    clearSuggestions();
+
+    // send the user to /search where we will have the map and listed listings for the sector passed in.
+  };
 
   const renderSuggestions = () => {
-    const actualData = data.filter(suggestionn => {
-      let shouldBeAdded;
-      const secondaryText = suggestionn.structured_formatting.secondary_text;
+    return data
+      .filter(suggestion => suggestion.types.includes('political'))
+      .map(suggestion => {
+        const {
+          place_id,
+          structured_formatting: { main_text, secondary_text },
+        } = suggestion;
 
-      if (secondaryText && secondaryText.includes('Dominican Republic')) {
-        shouldBeAdded = suggestionn;
-      }
-
-      if (shouldBeAdded && shouldBeAdded.types.includes('political')) return shouldBeAdded;
-
-      return null;
-    });
-
-    return actualData.map(suggestion => {
-      console.log(suggestion);
-      const {
-        place_id,
-        structured_formatting: { main_text, secondary_text },
-      } = suggestion;
-
-      return (
-        <PlacesAutoCompleteLI key={place_id} onClick={handleSelect(suggestion)}>
-          <Text fontColor='black' fontSize='1rem'>
-            {main_text},
-          </Text>{' '}
-          <Text fontColor='black' fontSize='0.8rem'>
-            {secondary_text}
-          </Text>
-        </PlacesAutoCompleteLI>
-      );
-    });
+        return (
+          <PlacesAutoCompleteLI
+            className={className}
+            key={place_id}
+            onClick={e => handleSelect(suggestion, e)}>
+            <Text fontColor='black' fontSize='1rem'>
+              {main_text},
+            </Text>{' '}
+            <Text fontColor='black' fontSize='0.8rem'>
+              {secondary_text}
+            </Text>
+          </PlacesAutoCompleteLI>
+        );
+      });
   };
 
   return (
-    <PlacesAutoCompleteContainer ref={ref}>
-      {/* <Container width='80%' position='relative'> */}
+    <PlacesAutoCompleteContainer className={className} ref={ref}>
       <PlacesAutoCompleteInput
+        className={className}
         value={value}
         onChange={handleInput}
         disabled={!ready}
         placeholder='Ensanche Naco, Santo Domingo'
+        name={name}
       />
-      {/* We can use the "status" to decide whether we should display the dropdown or not */}
-      <PlacesAutoCompleteButton>Search</PlacesAutoCompleteButton>
+      {/* if we need a button pass it as children */}
+      {children}
 
+      {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && (
         <Container>
-          <PlacesAutoCompleteUL>{renderSuggestions()}</PlacesAutoCompleteUL>
+          <PlacesAutoCompleteUL className={className}>{renderSuggestions()}</PlacesAutoCompleteUL>
         </Container>
       )}
-
-      {/* </Container> */}
     </PlacesAutoCompleteContainer>
   );
 };

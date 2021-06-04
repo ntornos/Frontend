@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import SantoDomingobg from '../../assets/santo-domingo.jpg';
 import PlacesAutocomplete from '../places-autocomplete/PlacesAutoComplete';
+import { PlacesAutoCompleteButton } from '../places-autocomplete/PlacesAutoComplete.styles';
 
 import { Text } from '../UtilityComponents';
 import {
@@ -26,7 +27,9 @@ const HomepageHero = () => {
           Helping the Dominican community find the perfect fit.
         </Text>
 
-        <PlacesAutocomplete />
+        <PlacesAutocomplete className='homepage'>
+          <PlacesAutoCompleteButton>Search</PlacesAutoCompleteButton>
+        </PlacesAutocomplete>
       </MainSearchContainer>
 
       <HeroBackground>
