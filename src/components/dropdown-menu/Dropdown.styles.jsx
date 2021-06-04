@@ -10,6 +10,8 @@ export const DropdownCard = styled(Card)`
   transform: translate3d(calc(${({ width }) => `${width}px`} - 265px), 61px, 0px);
   position: absolute;
   background: white;
+  // menu interaction z-index level.
+  z-index: 5;
 `;
 
 export const DropdownContainer = styled.div`
@@ -23,7 +25,7 @@ export const MenuItem = styled(Option)`
   margin: 0;
   padding: 5% 10%;
   cursor: pointer;
-  z-index: 20;
+  /* z-index: 20; */
 
   &:hover {
     color: black;

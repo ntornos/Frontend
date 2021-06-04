@@ -11,7 +11,7 @@ import { selectCurrentUser } from '../../redux/user/user.slice';
 
 const NavBar = ({ themeToggler, theme, className }) => {
   const currUser = useSelector(selectCurrentUser);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   const dropDownShow = () => !showMenu && setShowMenu(true);
   const dropDownHide = () => setShowMenu(false);

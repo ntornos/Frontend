@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
-import PlacesAutoComplete from 'react-places-autocomplete';
 
 import SantoDomingobg from '../../assets/santo-domingo.jpg';
 import PlacesAutocomplete from '../places-autocomplete/PlacesAutoComplete';
@@ -13,15 +11,6 @@ import {
   HeroBackground,
   MainSearchContainer,
 } from './HomepageHero.styles';
-
-const googlePlacesAutoCompleteStyles = {
-  dropdownIndicator: false,
-  container: provided => ({
-    ...provided,
-    width: '35%',
-    marginTop: '1rem',
-  }),
-};
 
 const HomepageHero = () => {
   const [searchValue, setSearchValue] = useState('');

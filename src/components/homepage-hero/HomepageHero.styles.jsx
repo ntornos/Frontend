@@ -26,8 +26,10 @@ export const BackgroundImage = styled.img`
 
 export const MainSearchContainer = styled.div`
   display: flex;
+
   flex-direction: column;
   align-items: center;
+  // we add z-index one for styling purposes, we want the image to be dark. But, the text to remain white.
   z-index: 1;
   position: absolute;
   margin: 0 auto;
