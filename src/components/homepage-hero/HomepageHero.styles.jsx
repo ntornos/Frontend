@@ -2,13 +2,9 @@ import styled from 'styled-components';
 import { Container } from '../../components/UtilityComponents';
 
 export const Hero = styled(Container)`
-  /* margin-top: 3rem; */
-  /* padding: 0.25rem 0.5rem; */
   background-color: #f4f4f4;
   height: 27.125rem;
   position: relative;
-
-  /* overflow: hidden; */
 `;
 
 export const HeroBackground = styled.div`
@@ -26,10 +22,11 @@ export const BackgroundImage = styled.img`
 
 export const MainSearchContainer = styled.div`
   display: flex;
-
+  width: 50%;
   flex-direction: column;
   align-items: center;
-  // we add z-index one for styling purposes, we want the image to be dark. But, the text to remain white.
+
+  // we add z-index 1 for styling purposes, we want the image to be dark. But, the text to remain white.
   z-index: 1;
   position: absolute;
   margin: 0 auto;

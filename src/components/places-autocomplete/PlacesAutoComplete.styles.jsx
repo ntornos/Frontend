@@ -2,29 +2,23 @@ import styled from 'styled-components';
 
 export const PlacesAutoCompleteContainer = styled.div`
   width: 100%;
-  /* margin: 2rem 0; */
 
   &.homepage {
-    height: 2rem;
+    margin: 2rem 0;
   }
 `;
 
 export const PlacesAutoCompleteInput = styled.input`
-  /* width: calc(100% - 8.5rem); */
-  padding: 0px 0.75rem;
-  /* height: 2.8rem; */
-  /* height: 100%; */
   border: 1px solid #b1b1b1;
   border-radius: 0.25rem;
   opacity: 0.96;
   color: #4c4c4c;
   font-size: 1rem;
-
   position: relative;
 
   &.homepage {
-    /* padding: 0.75rem; */
-    /* background: red; */
+    padding: 0.65rem;
+    width: calc(75% - 1.3rem);
   }
 
   &.create-listing {
@@ -34,17 +28,19 @@ export const PlacesAutoCompleteInput = styled.input`
 `;
 
 export const PlacesAutoCompleteUL = styled.ul`
-  /* width: calc(100% - 6.9rem); */
   padding: 0;
   margin: 0;
   list-style-type: none;
   background: white;
-  border: none;
   opacity: 0.95;
-  overflow: hidden;
+
+  &.homepage {
+    width: 75%;
+    border: 1px solid #b1b1b1;
+    border-top: none;
+  }
 
   &.create-listing {
-    /* padding: 0.65rem; */
     width: 100%;
     border: 1px solid #b1b1b1;
     border-top: none;
@@ -58,6 +54,10 @@ export const PlacesAutoCompleteLI = styled.li`
 
   &:hover {
     background-color: #d28b1098;
+  }
+
+  &.homepage {
+    border-bottom: 0.025rem solid #e6e4e4;
   }
 
   &.create-listing {

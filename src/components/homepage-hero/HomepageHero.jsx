@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import SantoDomingobg from '../../assets/santo-domingo.jpg';
 import PlacesAutocomplete from '../places-autocomplete/PlacesAutoComplete';
 import { PlacesAutoCompleteButton } from '../places-autocomplete/PlacesAutoComplete.styles';
+import { useHistory } from 'react-router-dom';
 
 import { Text } from '../UtilityComponents';
 import {
@@ -14,8 +15,12 @@ import {
 } from './HomepageHero.styles';
 
 const HomepageHero = () => {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
-  console.log(searchValue);
+
+  useEffect(() => {
+    if (searchValue) return history.push({ pathname: '/search', state: searchValue });
+  }, [history, searchValue]);
 
   return (
     <Hero>
@@ -27,7 +32,7 @@ const HomepageHero = () => {
           Helping the Dominican community find the perfect fit.
         </Text>
 
-        <PlacesAutocomplete className='homepage'>
+        <PlacesAutocomplete setSearchValue={setSearchValue} className='homepage'>
           <PlacesAutoCompleteButton>Search</PlacesAutoCompleteButton>
         </PlacesAutocomplete>
       </MainSearchContainer>

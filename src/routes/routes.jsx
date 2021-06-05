@@ -10,8 +10,9 @@ import ListingsManager from '../pages/listings-manager/ListingsManager';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/user/user.slice';
 import ListingEdit from '../pages/listing-edit/ListingEdit';
+import SearchPage from '../pages/search/SearchPage';
 
-const Routes = props => {
+const Routes = () => {
   const currUser = useSelector(selectCurrentUser);
 
   return (
@@ -19,6 +20,8 @@ const Routes = props => {
       <Route exact path='/' component={Home} />
       <Route path='/login' component={SignInSignUpPage} />
       <Route path='/register' component={SignInSignUpPage} />
+      <Route path='/search' component={SearchPage} />
+
       {/* login routes below, we have a current user! */}
       {currUser && (
         <>

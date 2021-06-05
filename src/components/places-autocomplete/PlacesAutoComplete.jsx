@@ -1,4 +1,4 @@
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import usePlacesAutocomplete from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import {
   PlacesAutoCompleteLI,
@@ -15,6 +15,7 @@ const PlacesAutocomplete = ({
   handleChange,
   setFieldValue,
   handleLatLng,
+  setSearchValue,
 }) => {
   const {
     ready,
@@ -40,20 +41,23 @@ const PlacesAutocomplete = ({
     name && handleChange && handleChange(e);
   };
 
-  const handleSelect = async ({ description }, e) => {
+  const handleSelect = async ({ description }) => {
     // When user selects a place, we can replace the keyword without request data from API
     // by setting the second parameter to "false"
     setValue(description, false);
 
+    // FORM CASES
     // set the field value onSelect
-    setFieldValue(name, description);
-
+    setFieldValue && setFieldValue(name, description);
     // this case was necessary for create-listing form where we render a map with latLng
-    if (typeof handleLatLng === 'function') handleLatLng(description, setFieldValue);
+    handleLatLng && handleLatLng(description, setFieldValue);
+
+    // send the user to /search where we will have the map and listed listings for the sector passed in.
+    setSearchValue && setSearchValue(description);
 
     clearSuggestions();
 
-    // send the user to /search where we will have the map and listed listings for the sector passed in.
+    // dispatch an action that loads all the listing in the selected addresses.
   };
 
   const renderSuggestions = () => {
@@ -69,7 +73,7 @@ const PlacesAutocomplete = ({
           <PlacesAutoCompleteLI
             className={className}
             key={place_id}
-            onClick={e => handleSelect(suggestion, e)}>
+            onClick={e => handleSelect(suggestion)}>
             <Text fontColor='black' fontSize='1rem'>
               {main_text},
             </Text>{' '}
