@@ -42,7 +42,7 @@ const ListingsManager = () => {
   }, [memoizedFetchUserListings, totalUserListings]);
 
   return (
-    <GlobalWrapper>
+    <GlobalWrapper overflowX='hidden'>
       <ListingsManagerHeader />
       <Sidebar />
 

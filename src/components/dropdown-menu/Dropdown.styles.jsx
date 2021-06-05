@@ -11,7 +11,7 @@ export const DropdownCard = styled(Card)`
   position: absolute;
   background: white;
   // menu interaction z-index level.
-  z-index: 5;
+  z-index: 10;
 `;
 
 export const DropdownContainer = styled.div`

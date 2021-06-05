@@ -24,6 +24,13 @@ import PlacesAutocomplete from '../../components/places-autocomplete/PlacesAutoC
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const CreateListing = props => {
+  const mapStyles = {
+    // map styles on create listing
+    position: 'sticky',
+    minHeight: '150px',
+    margin: '5px 0',
+  };
+
   const dispatch = useDispatch();
 
   const [showMap, setShowMap] = useState(false);
@@ -144,7 +151,7 @@ const CreateListing = props => {
 
                 {/* {values.latLng && showMap && } */}
                 {values.latLng && showMap && (
-                  <Map latLng={values.latLng} />
+                  <Map mapStyles={mapStyles} latLng={values.latLng} />
                   // <StaticMap latLng={values.latLng} setMapImage={setMapImgUrl} />
                 )}
               </Container>

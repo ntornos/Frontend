@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
-export const SidebarContainer = styled.nav`
-  background: #f4f4f4;
-  width: 300px;
-  height: calc(100vh - 70px);
-  display: flex;
-  justify-content: center;
-  position: fixed;
+export const SidebarContainer = styled.div`
+  width: 375px;
+  flex: 0 0 375px;
+  /* background: #f4f4f4; */
 
-  right: 0;
+  display: flex;
+
+  overflow-y: auto;
+  position: relative;
+
   transition: all 1s ease;
+  box-shadow: -2px 2px 5px 0 rgb(0 0 0 / 40%);
+  z-index: 5;
 `;
 
 export const SidebarWrap = styled.div`
