@@ -47,7 +47,7 @@ const ListingEdit = ({ location }) => {
   const listingInProcess = useSelector(selectListingInProcess);
 
   return (
-    <GlobalWrapper>
+    <GlobalWrapper overflow='hidden'>
       <ListingsManagerHeader />
       <Sidebar />
 

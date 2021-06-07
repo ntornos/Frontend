@@ -2,8 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserListingsArr } from '../../redux/listing/userListing.slice';
 import MapListingPreview from '../map-listing-preview/MapListingPreview';
-import { Container, Text } from '../UtilityComponents';
-import { SidebarContainer, SidebarWrap, SidebarItemsContainer } from './TogglableSidebar.styles';
+import { SidebarContainer, SidebarWrap, SidebarItemsContainer } from './MapSidebar.styles';
 
 const TogglableSidebar = ({ children }) => {
   const listings = useSelector(selectCurrentUserListingsArr);

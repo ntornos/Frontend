@@ -150,10 +150,11 @@ const CreateListing = props => {
                 )}
 
                 {/* {values.latLng && showMap && } */}
-                {values.latLng && showMap && (
+                {/* {values.latLng && showMap && (
+                  // Using the static map here is necessary if we want to use this feature. Else Map will complain because we're using multiple instances of a map.
                   <Map mapStyles={mapStyles} latLng={values.latLng} />
                   // <StaticMap latLng={values.latLng} setMapImage={setMapImgUrl} />
-                )}
+                )} */}
               </Container>
 
               <Container display='flex' justify='space-between' margin='1.5rem 0px'>

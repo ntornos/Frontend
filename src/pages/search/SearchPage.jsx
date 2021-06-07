@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Map from '../../components/map/Map';
 import NavBar from '../../components/navbar/NavBar';
-import TogglableSidebar from '../../components/togglable-sidebar/TogglableSidebar';
+import TogglableSidebar from '../../components/map-sidebar/MapSidebar';
 
 import { Container, GlobalWrapper, Text } from '../../components/UtilityComponents';
 import {
@@ -13,6 +13,7 @@ import {
 
 const SearchPage = ({ location }) => {
   const [showSidebar, setShowSidebar] = useState(true);
+  const { searchValue, latLng } = location.state;
   return (
     <GlobalWrapper overflow='hidden'>
       <NavBar />
@@ -29,7 +30,7 @@ const SearchPage = ({ location }) => {
             <TogglableSidebar>
               <Container padding='1rem'>
                 <Text fontSize='1.25rem' fontWeight='bold'>
-                  {location.state}
+                  {searchValue}
                 </Text>
               </Container>
             </TogglableSidebar>
@@ -37,7 +38,7 @@ const SearchPage = ({ location }) => {
 
           {/* MAP */}
           <MapContainer>
-            <Map />
+            <Map latLng={latLng} zoom={14} />
           </MapContainer>
         </PageContentContainer>
       </MainContainer>

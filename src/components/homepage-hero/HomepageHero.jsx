@@ -17,10 +17,12 @@ import {
 const HomepageHero = () => {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
+  const [latLng, setLatLng] = useState(null);
 
   useEffect(() => {
-    if (searchValue) return history.push({ pathname: '/search', state: searchValue });
-  }, [history, searchValue]);
+    if (searchValue && latLng)
+      return history.push({ pathname: '/search', state: { searchValue, latLng } });
+  }, [history, searchValue, latLng]);
 
   return (
     <Hero>
@@ -32,7 +34,10 @@ const HomepageHero = () => {
           Helping the Dominican community find the perfect fit.
         </Text>
 
-        <PlacesAutocomplete setSearchValue={setSearchValue} className='homepage'>
+        <PlacesAutocomplete
+          setLatLng={setLatLng}
+          setSearchValue={setSearchValue}
+          className='homepage'>
           <PlacesAutoCompleteButton>Search</PlacesAutoCompleteButton>
         </PlacesAutocomplete>
       </MainSearchContainer>

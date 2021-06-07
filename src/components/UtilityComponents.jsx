@@ -23,6 +23,12 @@ export const Text = styled.span`
   margin: ${({ margin }) => margin};
   line-height: ${({ lineHeight }) => lineHeight};
   font-weight: ${({ fontWeight }) => fontWeight};
+  text-overflow: ${({ textOverflow }) => textOverflow};
+  white-space: ${({ whiteSpace }) => whiteSpace};
+
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
 
   &:hover {
     color: ${({ fontHoverColor }) => fontHoverColor};
