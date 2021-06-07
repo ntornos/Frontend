@@ -1,5 +1,5 @@
 import React from 'react';
-import { SidebarLabel, SubMenuWrap, SubMenuLink } from './Sidebar.styles';
+import { SidebarLabel, SubMenuWrap, SubMenuLink } from './SideBar.styles';
 
 const SidebarSubMenu = ({ menuItem, isOpen, openDropDown, index, onClose }) => {
   // const pathname = window.location.pathname;

@@ -12,7 +12,7 @@ import ListingEditRentForm from '../../components/listing-edit-forms/ListingEdit
 import ListingEditSaleForm from '../../components/listing-edit-forms/ListingEditSaleForm';
 import FormInputIcons from '../../components/form-input-icons/FormInputIcons';
 import Spinner from '../../components/spinner/Spinner';
-import Sidebar from '../../components/sidebar/Sidebar';
+import Sidebar from '../../components/sidebar/SideBar';
 import { Container, GlobalWrapper, Text } from '../../components/UtilityComponents';
 
 import { ListingEditDivider, ListingEditContainer } from './ListingEdit.styles';

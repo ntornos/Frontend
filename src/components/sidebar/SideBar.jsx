@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SideBarData } from './Sidebar.data';
-import { SidebarNav, SidebarWrap } from './Sidebar.styles';
+import { SidebarNav, SidebarWrap } from './SideBar.styles';
 import SidebarSubMenu from './Sidebar.subMenu';
 
 const Sidebar = () => {

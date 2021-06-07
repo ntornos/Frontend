@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Sidebar from '../../components/sidebar/Sidebar';
+import Sidebar from '../../components/sidebar/SideBar';
 import {
   cleanState,
   fetchUserListings,
