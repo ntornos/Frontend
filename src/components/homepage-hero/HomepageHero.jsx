@@ -21,6 +21,7 @@ const HomepageHero = () => {
 
   useEffect(() => {
     if (searchValue && latLng)
+      // dispatch action to load listings with the searchValue
       return history.push({ pathname: '/search', state: { searchValue, latLng } });
   }, [history, searchValue, latLng]);
 
