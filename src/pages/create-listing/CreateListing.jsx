@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import GooglePlacesAutoComplete, {
-  getLatLng,
-  geocodeByAddress,
-} from 'react-google-places-autocomplete';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,17 +18,24 @@ import { Text, Container } from '../../components/UtilityComponents';
 import FormInputIcons from '../../components/form-input-icons-formik/FormInputIconsFormik';
 import SelectOption from '../../components/select-formik/SelectOption';
 import Checkbox from '../../components/checkbox-formik/Checkbox';
-import StaticMap from '../../components/map/StaticMap';
 import Map from '../../components/map/Map';
 import AlertModal from '../../components/alert-modal/AlertModal';
+import PlacesAutocomplete from '../../components/places-autocomplete/PlacesAutoComplete';
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const CreateListing = props => {
-  const [showMap, setShowMap] = useState(false);
+  const mapStyles = {
+    // map styles on create listing
+    position: 'sticky',
+    minHeight: '150px',
+    margin: '5px 0',
+  };
 
-  const [mapImgUrl, setMapImgUrl] = useState(null);
+  const dispatch = useDispatch();
+
+  const [showMap, setShowMap] = useState(false);
   const listingInProcessId = useSelector(selectListingInProcessId);
   const listingInProcess = useSelector(selectListingInProcess);
-  console.log(`listingInProcess`, listingInProcess);
 
   // write an modal that pops up alerting the user he's been redirected to that listing edit page, so he can fill up the rest of the listing requirements.
   const [toggleRedirectAlert, setToggleRedirectAlert] = useState(false);
@@ -45,34 +48,23 @@ const CreateListing = props => {
     latLng: null,
   };
 
-  const dispatch = useDispatch();
+  const handleLatLng = async (description, setFieldValue) => {
+    setShowMap(true);
+
+    const results = await getGeocode({ address: description });
+    const latLng = await getLatLng(results[0]);
+
+    setFieldValue('latLng', latLng);
+  };
 
   const onSubmit = async (values, helpers) => {
-    // await dispatch(createListing({ ...values,  mapImg: mapImgUrl }));
-    await dispatch(createListing({ ...values }));
+    const { meta } = await dispatch(createListing({ ...values }));
 
-    // toggle modal;
-    setToggleRedirectAlert(true);
-    // set Submitting to false to finish the cycle.
-    // tried redirecting directly if submitting: true, it unmounts create-listing component. So, we get an error because where setting submit to false when the component is already unmounted.
+    // setSubmitting to false to finish the submitting cycle cycle.
     helpers.setSubmitting(false);
 
-    // instead of having local state locate if the form is submitted, maybe formik provides that value.
-    // setFormSubmitted(true);
-  };
-
-  const handleAddress = async address => {
-    const location = await geocodeByAddress(address);
-    const latLng = await getLatLng(location[0]);
-    return latLng;
-  };
-
-  const handleChange = async (e, action, setFieldValue) => {
-    setShowMap(true);
-    const latLng = await handleAddress(e.label);
-    // Since we need latLng to marker the map, we're setting the field latLng to current selected address coordinates.
-    setFieldValue('address', e.label);
-    setFieldValue('latLng', latLng);
+    // toggle modal if create listing was successful
+    if (meta.requestStatus === 'fulfilled') setToggleRedirectAlert(true);
   };
 
   return toggleRedirectAlert ? (
@@ -120,8 +112,9 @@ const CreateListing = props => {
               .required('Required'),
           })}
           onSubmit={onSubmit}>
-          {({ values, errors, touched, setFieldValue }) => (
+          {({ values, errors, touched, setFieldValue, handleChange }) => (
             <CreateListingForm>
+              {/* {console.log(values)} */}
               <Container display='flex' justify='space-between'>
                 <FormInputIcons
                   value='RENT'
@@ -143,35 +136,25 @@ const CreateListing = props => {
               )}
 
               <Container margin='1.7rem 0px'>
-                <Text lineHeight='1.8em'>Neightborhood</Text>
-                <GooglePlacesAutoComplete
+                <Text lineHeight='1.8em'>Neighborhood</Text>
+                <PlacesAutocomplete
                   key='address'
-                  selectProps={{
-                    name: 'address',
-                    onChange: (e, action) => handleChange(e, action, setFieldValue),
-                    onFocus: () => setShowMap(false),
-                    placeholder: 'Search your neighborhood...',
-                  }}
-                  apiKey={process.env.REACT_APP_GOOGLE_PLACES_AUTOCOMPLETE_KEY}
-                  apiOptions={{
-                    language: 'en',
-                  }}
-                  autocompletionRequest={{
-                    types: ['geocode'],
-                    componentRestrictions: {
-                      country: ['do'],
-                    },
-                  }}
+                  setFieldValue={setFieldValue}
+                  handleLatLng={handleLatLng}
+                  handleChange={handleChange}
+                  className='create-listing'
+                  name='address'
                 />
                 {touched.address && errors.address && (
                   <StyledErrorMessage>Please input a correct address or address</StyledErrorMessage>
                 )}
 
                 {/* {values.latLng && showMap && } */}
-                {values.latLng && showMap && (
-                  <Map latLng={values.latLng} />
+                {/* {values.latLng && showMap && (
+                  // Using the static map here is necessary if we want to use this feature. Else Map will complain because we're using multiple instances of a map.
+                  <Map mapStyles={mapStyles} latLng={values.latLng} />
                   // <StaticMap latLng={values.latLng} setMapImage={setMapImgUrl} />
-                )}
+                )} */}
               </Container>
 
               <Container display='flex' justify='space-between' margin='1.5rem 0px'>

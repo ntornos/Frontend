@@ -16,7 +16,7 @@ const SignInSignUpPage = ({ location }) => {
   };
 
   return (
-    <GlobalWrapper>
+    <GlobalWrapper overflow='hidden'>
       <NavBar />
       <Container display='flex'>
         {location.pathname === '/login' && (
@@ -50,7 +50,7 @@ const SignInSignUpPage = ({ location }) => {
               height='calc(100vh - 70px)'
               direction='column'>
               <h2>Create your account</h2>
-              <FormButton imageUrl={googleLogo} name='Google' onClick={() => {}}>
+              <FormButton imageUrl={googleLogo} name='Google' onClick={googleLogin}>
                 Sign up with Google
               </FormButton>
               <Divider children='or' />

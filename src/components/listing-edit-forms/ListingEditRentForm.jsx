@@ -27,6 +27,7 @@ const ListingEditRentForm = ({ listing, listingStatus }) => {
     // floatValue: 1
     // value: '1'
     const { formattedValue, value, floatValue } = values;
+    console.log(values);
     setFieldValue(field, value);
   };
 

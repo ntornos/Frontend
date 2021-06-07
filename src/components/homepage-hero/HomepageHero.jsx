@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
-import PlacesAutoComplete from 'react-places-autocomplete';
+import React, { useEffect, useState } from 'react';
 
 import SantoDomingobg from '../../assets/santo-domingo.jpg';
 import PlacesAutocomplete from '../places-autocomplete/PlacesAutoComplete';
+import { PlacesAutoCompleteButton } from '../places-autocomplete/PlacesAutoComplete.styles';
+import { useHistory } from 'react-router-dom';
 
 import { Text } from '../UtilityComponents';
 import {
@@ -14,18 +14,16 @@ import {
   MainSearchContainer,
 } from './HomepageHero.styles';
 
-const googlePlacesAutoCompleteStyles = {
-  dropdownIndicator: false,
-  container: provided => ({
-    ...provided,
-    width: '35%',
-    marginTop: '1rem',
-  }),
-};
-
 const HomepageHero = () => {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
-  console.log(searchValue);
+  const [latLng, setLatLng] = useState(null);
+
+  useEffect(() => {
+    if (searchValue && latLng)
+      // dispatch action to load listings with the searchValue
+      return history.push({ pathname: '/search', state: { searchValue, latLng } });
+  }, [history, searchValue, latLng]);
 
   return (
     <Hero>
@@ -37,7 +35,12 @@ const HomepageHero = () => {
           Helping the Dominican community find the perfect fit.
         </Text>
 
-        <PlacesAutocomplete />
+        <PlacesAutocomplete
+          setLatLng={setLatLng}
+          setSearchValue={setSearchValue}
+          className='homepage'>
+          <PlacesAutoCompleteButton>Search</PlacesAutoCompleteButton>
+        </PlacesAutocomplete>
       </MainSearchContainer>
 
       <HeroBackground>
